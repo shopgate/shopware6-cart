@@ -1,0 +1,8 @@
+{
+  "version": "1.0.0",
+  "id": "@apite/shopware6-cart",
+  "components": [
+  ],
+  "configuration": {
+  }
+}
