@@ -6,7 +6,13 @@
     "input": [],
     "output": [],
     "steps": [
-
+      {
+        "id": "@apite/shopware6-cart",
+        "path": "@apite/shopware6-cart/src/FirstStep.js",
+        "type": "extension",
+        "input": [],
+        "output": []
+      }
     ]
   }
 }
