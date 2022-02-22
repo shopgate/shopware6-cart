@@ -13,7 +13,13 @@
         "*:before"
       ],
       "input": [],
-      "output": []
+      "output": [
+        {
+          "key": "contextToken",
+          "optional": true,
+          "addPipelineOutput": false
+        }
+      ]
     }
   ]
 }

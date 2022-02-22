@@ -1,0 +1,30 @@
+{
+  "version": "1",
+  "pipeline": {
+    "id": "apite.cart.getCart.v1",
+    "public": true,
+    "input": [
+      {
+        "key": "contextToken",
+        "id": "100",
+        "optional": true
+      }
+    ],
+    "output": [],
+    "steps": [
+      {
+        "id": "@apite/shopware6-cart",
+        "path": "@apite/shopware6-cart/src/steps/getCart.js",
+        "type": "extension",
+        "input": [
+          {
+            "key": "contextToken",
+            "id": "100",
+            "optional": true
+          }
+        ],
+        "output": []
+      }
+    ]
+  }
+}
