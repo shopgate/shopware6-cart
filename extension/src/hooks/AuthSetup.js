@@ -13,6 +13,7 @@ module.exports = async (context) => {
   setup({
     endpoint: 'http://localhost',
     accessToken: 'SWSCEKRYVJM1UMO3Y1D5MXRJVA',
+    languageId: '2fbb5fe2e29a4d70aa5854ce7ce3e20b',
     contextToken
   })
 

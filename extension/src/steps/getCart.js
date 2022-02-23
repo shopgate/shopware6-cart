@@ -1,49 +1,49 @@
 'use strict'
 
-const { UnknownError } = require('../errorManager')
+const { saveContextToken } = require('../services/contextManager')
+const { UnknownError } = require('../services/errorManager')
 const { getCart } = require('@shopware-pwa/shopware-6-client')
 
 /**
  * @param {SDKContext} context
  * @param {ContextTokenInput} input
- * @returns Promise<Cart>
  */
 module.exports = async (context, input) => {
   context.log.info('inc token: ' + input.contextToken)
-  let checkout
+  let swCart
   try {
-    checkout = await fetchCheckout(context)
+    swCart = await fetchCheckout(context)
   } catch (err) {
     context.log.error('Failed to create / load a new checkout (cart) at Shopify. Error: ' + JSON.stringify(err))
 
     throw new UnknownError()
   }
 
-  if (checkout.token !== input.contextToken) {
-    context.log.info('not reusing cart, checkout token: ' + checkout.token)
+  if (swCart.token !== input.contextToken) {
+    context.log.info('not reusing cart, checkout token: ' + swCart.token)
     try {
-      await saveCheckoutToken(checkout.token, context)
+      await saveContextToken(swCart.token, context)
     } catch (err) {
-      context.log.error('Failed to save Shopify checkout token. Error: ' + JSON.stringify(err))
+      context.log.error('Failed to save Shopify checkout token. Error: ' + err.message)
+      context.log.debug(JSON.stringify(err.stack))
 
       throw new UnknownError()
     }
   }
 
-  return checkout
+  return { swCart }
 }
 
 /**
  * Creates a new checkout on request or creates/loads a checkout, based on a checkout token being available, or not
  *
  * @param {SDKContext} context
- * @returns Promise<Cart>
  * @throws ClientApiError
  */
 async function fetchCheckout (context) {
-  let checkout
+  let cart
   try {
-    checkout = getCart()
+    cart = getCart()
     // context.log.info(`Cart loaded with token ${checkoutToken}`)
   } catch (err) {
     if (err.statusCode !== 404) {
@@ -52,22 +52,8 @@ async function fetchCheckout (context) {
 
     // todo: create new checkout if old checkout is expired
     // context.log.warn({ checkoutToken }, `Checkout is expired or was not found --> generating new one. Error: ${JSON.stringify(err)}`)
-    // checkout = await shopifyApiRequest.createCheckout()
+    // cart = await shopifyApiRequest.createCheckout()
   }
 
-  return checkout
-}
-
-/**
- * Saves the current checkout token into internal storage (user or device)
- *
- * @param {string} checkoutToken
- * @param {Object} context
- * @returns Promise<void>
- */
-async function saveCheckoutToken (checkoutToken, context) {
-  // select storage to use: device or user, if logged in
-  const storage = context.meta.userId ? context.storage.user : context.storage.device
-
-  storage.set('contextToken', checkoutToken)
+  return cart
 }

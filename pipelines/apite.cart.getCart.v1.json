@@ -6,11 +6,16 @@
     "input": [
       {
         "key": "contextToken",
-        "id": "100",
+        "id": "1000",
         "optional": true
       }
     ],
-    "output": [],
+    "output": [
+      {
+        "key": "flags",
+        "id": "1100"
+      }
+    ],
     "steps": [
       {
         "id": "@apite/shopware6-cart",
@@ -19,11 +24,34 @@
         "input": [
           {
             "key": "contextToken",
+            "id": "1000",
+            "optional": true
+          }
+        ],
+        "output": [
+          {
+            "key": "swCart",
+            "id": "100"
+          }
+        ]
+      },
+      {
+        "id": "@apite/shopware6-cart",
+        "path": "@apite/shopware6-cart/src/mappers/cartFlags.js",
+        "type": "extension",
+        "input": [
+          {
+            "key": "swCart",
             "id": "100",
             "optional": true
           }
         ],
-        "output": []
+        "output": [
+          {
+            "key": "flags",
+            "id": "1100"
+          }
+        ]
       }
     ]
   }

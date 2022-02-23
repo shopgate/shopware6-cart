@@ -49,44 +49,6 @@
  */
 
 /**
- * @typedef {CartItem[]} Cart
- */
-
-/**
- * @typedef {Object} CartItem
- * @property {string} id
- * @property {number} quantity
- * @property {string} type
- * @property {?CartItemProduct} product
- * @property {?CartItemCoupon} coupon
- * @property {Array} messages
- */
-
-/**
- * @typedef {Object} CartItemProduct
- * @property {string} id
- * @property {string} name
- * @property {string} featuredImageUrl
- * @property {Object} price
- * @property {number} price.unit
- * @property {number} price.default full amount with quantity or striked price
- * @property {number} price.special full amount with quantity when strike is given
- * @property {Array} properties
- * @property {Array} appliedDiscounts
- * @property {Array} additionalInfo
- */
-
-/**
- * @typedef {Object} CartItemCoupon
- * @property {string} code
- * @property {string} description
- * @property {string} label
- * @property {Object} savedPrice
- * @property {number} savedPrice.value
- * @property {string} savedPrice.type
- */
-
-/**
  * @typedef {Object} ShopwareError
  * @property {string} status
  * @property {string} code
@@ -104,4 +66,11 @@
 /**
  * @typedef {Object} ContextTokenInput
  * @property {string|undefined} contextToken
+ */
+
+/**
+ * @typedef {Object} CartFlags
+ * @property {boolean} taxIncluded
+ * @property {boolean} orderable
+ * @property {boolean} coupons
  */
