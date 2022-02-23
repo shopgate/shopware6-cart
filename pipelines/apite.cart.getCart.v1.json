@@ -12,6 +12,10 @@
     ],
     "output": [
       {
+        "key": "currency",
+        "id": "1200"
+      },
+      {
         "key": "flags",
         "id": "1100"
       }
@@ -50,6 +54,18 @@
           {
             "key": "flags",
             "id": "1100"
+          }
+        ]
+      },
+      {
+        "id": "@apite/shopware6-cart",
+        "path": "@apite/shopware6-cart/src/mappers/contextCurrency.js",
+        "type": "extension",
+        "input": [],
+        "output": [
+          {
+            "key": "currency",
+            "id": "1200"
           }
         ]
       }

@@ -59,7 +59,7 @@
 
 /**
  * @typedef ClientApiError
- * @property {array<ShopwareError>} messages
+ * @property {Array<ShopwareError>} messages
  * @property {number} statusCode
  */
 
