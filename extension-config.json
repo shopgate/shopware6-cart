@@ -17,7 +17,7 @@
         {
           "key": "contextToken",
           "optional": true,
-          "addPipelineOutput": false
+          "addPipelineOutput": true
         }
       ]
     }
