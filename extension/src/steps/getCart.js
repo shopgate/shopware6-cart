@@ -9,7 +9,7 @@ const { getCart } = require('@shopware-pwa/shopware-6-client')
  * @param {ContextTokenInput} input
  */
 module.exports = async (context, input) => {
-  context.log.info('inc token: ' + input.contextToken)
+  context.log.debug(`inc token: '${input.contextToken}'`)
   let swCart
   try {
     swCart = await fetchCheckout(context)
@@ -20,11 +20,11 @@ module.exports = async (context, input) => {
   }
 
   if (swCart.token !== input.contextToken) {
-    context.log.info('not reusing cart, checkout token: ' + swCart.token)
+    context.log.debug(`not reusing cart, checkout token: '${swCart.token}'`)
     try {
       await saveContextToken(swCart.token, context)
     } catch (err) {
-      context.log.error('Failed to save Shopify checkout token. Error: ' + err.message)
+      context.log.error(`Failed to save Shopify checkout token. Error: '${err.message}'`)
       context.log.debug(JSON.stringify(err.stack))
 
       throw new UnknownError()
@@ -44,7 +44,6 @@ async function fetchCheckout (context) {
   let cart
   try {
     cart = getCart()
-    // context.log.info(`Cart loaded with token ${checkoutToken}`)
   } catch (err) {
     if (err.statusCode !== 404) {
       throw err

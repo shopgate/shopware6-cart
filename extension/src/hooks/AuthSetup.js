@@ -10,11 +10,11 @@ const { UnknownError } = require('../services/errorManager')
 module.exports = async (context) => {
   const storage = context.meta.userId ? context.storage.user : context.storage.device
   const contextToken = await storage.get('contextToken')
-  const { endpoint, accessToken, languageId } = context.config.shopware
-  if (!endpoint || !accessToken) {
-    context.log.fatal('Please specify URL or AccessToken in the config')
+  if (!context.config.shopware?.endpoint || !context.config.shopware?.accessToken) {
+    context.log.fatal('Please specify endpoint or accessToken in the config')
     throw new UnknownError()
   }
+  const { endpoint, accessToken, languageId } = context.config.shopware
   setup({
     endpoint,
     accessToken,
