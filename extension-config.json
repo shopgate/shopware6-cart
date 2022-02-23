@@ -14,6 +14,15 @@
           "languageId": "2fbb5fe2e29a4d70aa5854ce7ce3e20b"
         }
       }
+    },
+    "settings": {
+      "type": "static",
+      "destination": "backend",
+      "params": {
+        "value": {
+          "enableCoupons": true
+        }
+      }
     }
   },
   "steps": [

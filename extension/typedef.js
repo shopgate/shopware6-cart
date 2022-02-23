@@ -10,6 +10,7 @@
 /**
  * @typedef {Object} ExtensionConfig
  * @property {ExtensionConfigShopware} shopware
+ * @property {ExtensionConfigSettings} settings
  */
 
 /**
@@ -17,6 +18,11 @@
  * @property {string} endpoint
  * @property {string} accessToken
  * @property {string} languageId
+ */
+
+/**
+ * @typedef ExtensionConfigSettings
+ * @property {boolean} enableCoupons
  */
 
 /**
