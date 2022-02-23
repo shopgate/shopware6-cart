@@ -1,19 +1,24 @@
 'use strict'
 
 const { setup } = require('@shopware-pwa/shopware-6-client')
+const { UnknownError } = require('../services/errorManager')
 
 /**
  * @param {SDKContext} context
- * @returns {Promise<Object>}
+ * @returns {Promise<{contextToken:string}|undefined>}
  */
 module.exports = async (context) => {
   const storage = context.meta.userId ? context.storage.user : context.storage.device
   const contextToken = await storage.get('contextToken')
-  // todo: change to use config
+  const { endpoint, accessToken, languageId } = context.config.shopware
+  if (!endpoint || !accessToken) {
+    context.log.fatal('Please specify URL or AccessToken in the config')
+    throw new UnknownError()
+  }
   setup({
-    endpoint: 'http://localhost',
-    accessToken: 'SWSCEKRYVJM1UMO3Y1D5MXRJVA',
-    languageId: '2fbb5fe2e29a4d70aa5854ce7ce3e20b',
+    endpoint,
+    accessToken,
+    languageId,
     contextToken
   })
 

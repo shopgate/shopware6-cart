@@ -9,11 +9,14 @@
 
 /**
  * @typedef {Object} ExtensionConfig
- * @property {boolean} hasCoupons
- * @property {boolean} allowMultipleCoupons
- * @property {string} currency
- * @property {string} legalText
- * @property {string} legalInfo
+ * @property {ExtensionConfigShopware} shopware
+ */
+
+/**
+ * @typedef ExtensionConfigShopware
+ * @property {string} endpoint
+ * @property {string} accessToken
+ * @property {string} languageId
  */
 
 /**
