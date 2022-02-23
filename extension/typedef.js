@@ -23,6 +23,8 @@
 /**
  * @typedef ExtensionConfigSettings
  * @property {boolean} enableCoupons
+ * @property {string} legalText
+ * @property {string} legalInfo
  */
 
 /**

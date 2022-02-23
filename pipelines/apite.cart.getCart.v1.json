@@ -16,6 +16,10 @@
         "id": "1200"
       },
       {
+        "key": "text",
+        "id": "1300"
+      },
+      {
         "key": "flags",
         "id": "1100"
       }
@@ -66,6 +70,18 @@
           {
             "key": "currency",
             "id": "1200"
+          }
+        ]
+      },
+      {
+        "id": "@apite/shopware6-cart",
+        "path": "@apite/shopware6-cart/src/mappers/cartText.js",
+        "type": "extension",
+        "input": [],
+        "output": [
+          {
+            "key": "text",
+            "id": "1300"
           }
         ]
       }
