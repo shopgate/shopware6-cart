@@ -12,16 +12,20 @@
     ],
     "output": [
       {
-        "key": "currency",
-        "id": "1200"
+        "key": "messages",
+        "id": "1100"
       },
       {
-        "key": "text",
+        "key": "currency",
         "id": "1300"
       },
       {
+        "key": "text",
+        "id": "1500"
+      },
+      {
         "key": "flags",
-        "id": "1100"
+        "id": "1600"
       }
     ],
     "steps": [
@@ -45,7 +49,7 @@
       },
       {
         "id": "@apite/shopware6-cart",
-        "path": "@apite/shopware6-cart/src/mappers/cartFlags.js",
+        "path": "@apite/shopware6-cart/src/mappers/cartMessages.js",
         "type": "extension",
         "input": [
           {
@@ -56,7 +60,7 @@
         ],
         "output": [
           {
-            "key": "flags",
+            "key": "messages",
             "id": "1100"
           }
         ]
@@ -69,7 +73,7 @@
         "output": [
           {
             "key": "currency",
-            "id": "1200"
+            "id": "1300"
           }
         ]
       },
@@ -81,7 +85,25 @@
         "output": [
           {
             "key": "text",
-            "id": "1300"
+            "id": "1500"
+          }
+        ]
+      },
+      {
+        "id": "@apite/shopware6-cart",
+        "path": "@apite/shopware6-cart/src/mappers/cartFlags.js",
+        "type": "extension",
+        "input": [
+          {
+            "key": "swCart",
+            "id": "100",
+            "optional": true
+          }
+        ],
+        "output": [
+          {
+            "key": "flags",
+            "id": "1600"
           }
         ]
       }

@@ -9,4 +9,19 @@ class UnknownError extends Error {
   }
 }
 
-module.exports = { UnknownError }
+/**
+ * @param {SWErrorLevel} shopwareType
+ */
+const toShopgateType = function (shopwareType) {
+  switch (shopwareType) {
+    case 20:
+      return 'error'
+    case 10:
+      return 'warning'
+    case 0:
+    default:
+      return 'info'
+  }
+}
+
+module.exports = { UnknownError, toShopgateType }
