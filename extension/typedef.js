@@ -1,6 +1,6 @@
 /* eslint-disable */
 // noinspection ES6ShorthandObjectProperty
-const { ErrorLevel } = require('@shopware-pwa/commons')
+const { ErrorLevel, ShopwareError } = require('@shopware-pwa/commons')
 const { Cart } = require('@shopware-pwa/shopware-6-client')
 /**
  * @typedef {Object} SDKContext
@@ -61,15 +61,6 @@ const { Cart } = require('@shopware-pwa/shopware-6-client')
  * @property {function} log.warn
  * @property {function} log.error
  * @property {function} log.fatal
- */
-
-/**
- * @typedef {Object} ShopwareError
- * @property {string} status
- * @property {string} code
- * @property {string} title
- * @property {any} source
- * @property {any} meta
  */
 
 /**
