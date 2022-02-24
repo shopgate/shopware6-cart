@@ -1,6 +1,6 @@
 /* eslint-disable */
 // noinspection ES6ShorthandObjectProperty
-const { ErrorLevel, ShopwareError } = require('@shopware-pwa/commons')
+const { ErrorLevel, ShopwareError, CartErrors } = require('@shopware-pwa/commons')
 const { Cart } = require('@shopware-pwa/shopware-6-client')
 /**
  * @typedef {Object} SDKContext
@@ -80,8 +80,20 @@ const { Cart } = require('@shopware-pwa/shopware-6-client')
  */
 
 /**
- * @typedef {ErrorLevel} SWErrorLevel
+ * @typedef {Object} SGAddProductInput
+ * @property {Array<SGAadProduct>} products
  */
+
+/**
+ * @typedef {Object} SGAadProduct
+ * @property {string} productId
+ * @property {number} quantity
+ * @property {Array<Object>} options
+ * @property {Object} metadata
+ */
+
+/** @typedef {CartErrors} SWCartErrors */
+/** @typedef {ErrorLevel} SWErrorLevel */
 /**
  * @typedef {Object} CartFlags
  * @property {boolean} taxIncluded

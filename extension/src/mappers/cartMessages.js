@@ -1,6 +1,7 @@
 'use strict'
 
 const { toShopgateType } = require('../services/errorManager')
+const { popCartMessages } = require('../services/contextManager')
 
 /**
  * @param {SDKContext} context
@@ -9,7 +10,7 @@ const { toShopgateType } = require('../services/errorManager')
  */
 module.exports = async (context, input) => {
   const messages = []
-  const errors = input.swCart.errors
+  const errors = { ...input.swCart.errors, ...await popCartMessages(context) }
   Object.keys(errors).forEach((key) => {
     const error = errors[key]
     messages.push({
