@@ -16,6 +16,10 @@
         "id": "1100"
       },
       {
+        "key": "cartItems",
+        "id": "1200"
+      },
+      {
         "key": "currency",
         "id": "1300"
       },
@@ -65,6 +69,23 @@
           {
             "key": "messages",
             "id": "1100"
+          }
+        ]
+      },
+      {
+        "id": "@apite/shopware6-cart",
+        "path": "@apite/shopware6-cart/src/mappers/cartItems.js",
+        "type": "extension",
+        "input": [
+          {
+            "key": "swCart",
+            "id": "100"
+          }
+        ],
+        "output": [
+          {
+            "key": "cartItems",
+            "id": "1200"
           }
         ]
       },
