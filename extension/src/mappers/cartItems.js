@@ -1,19 +1,31 @@
 'use strict'
 
+const TYPE_PRODUCT = 'product'
+
 /**
  * @param {SDKContext} context
  * @param {SWCartInput} input
  * @returns {Promise<{cartItems: []}>}
  */
 module.exports = async (context, input) => {
-  const cartItems = []
-  if (input.swCart.lineItems) {
-    input.swCart.lineItems.forEach(({ id, quantity }) => {
-      cartItems.push({
-        id,
-        quantity
-      })
+  const coupons = []
+  const products = input.swCart.lineItems
+    .filter(({ type }) => type === TYPE_PRODUCT)
+    .map((lineItem) => {
+      return {
+        id: lineItem.id,
+        quantity: lineItem.quantity,
+        type: lineItem.type,
+        product: {
+          id: lineItem.payload?.productNumber ?? lineItem.referencedId,
+          name: lineItem.label,
+          featuredImageUrl: lineItem.cover.url,
+          price: {
+            unit: lineItem.price.unitPrice,
+            default: lineItem.price.totalPrice
+          }
+        }
+      }
     })
-  }
-  return { cartItems }
+  return { cartItems: [...products, ...coupons] }
 }

@@ -2,6 +2,7 @@
 
 const { addCartItems } = require('@shopware-pwa/shopware-6-client')
 const { pushCartMessages } = require('../services/contextManager')
+const { UnknownError } = require('../services/errorManager')
 
 /**
  * @param {SDKContext} context
@@ -17,7 +18,10 @@ module.exports = async (context, input) => {
     }
   })
   const newCart = await addCartItems(swItems)
-    .catch(e => context.log.error(e.message))
+    .catch(e => {
+      context.log.error(e.message)
+      throw new UnknownError()
+    })
 
   if (newCart.errors) {
     // todo: on non-existing products the text lacks product names
