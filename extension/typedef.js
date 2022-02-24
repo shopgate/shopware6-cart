@@ -1,3 +1,7 @@
+/* eslint-disable */
+// noinspection ES6ShorthandObjectProperty
+const { ErrorLevel } = require('@shopware-pwa/commons')
+const { Cart } = require('@shopware-pwa/shopware-6-client')
 /**
  * @typedef {Object} SDKContext
  * @property {ExtensionConfig} config
@@ -79,6 +83,14 @@
  * @property {string|undefined} contextToken
  */
 
+/**
+ * @typedef {Object} SWCartInput
+ * @property {Cart} swCart
+ */
+
+/**
+ * @typedef {ErrorLevel} SWErrorLevel
+ */
 /**
  * @typedef {Object} CartFlags
  * @property {boolean} taxIncluded

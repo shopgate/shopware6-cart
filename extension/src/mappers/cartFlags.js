@@ -2,7 +2,7 @@
 
 /**
  * @param {SDKContext} context
- * @param {{swCart: object}} input
+ * @param {SWCartInput} input
  * @returns {Promise<{flags: CartFlags}>}
  */
 module.exports = async (context, input) => {
