@@ -9,6 +9,13 @@ class UnknownError extends Error {
   }
 }
 
+class ProductNotFoundError extends Error {
+  constructor () {
+    // todo: translate
+    super('Unfortunately the product you are trying to ass is no longer available')
+  }
+}
+
 /**
  * @param {SWErrorLevel} shopwareType
  */
@@ -26,26 +33,14 @@ const toShopgateType = function (shopwareType) {
 
 /**
  * @param {SWEntityError} error
- * @return string
- */
-const toPrintableMessage = function (error) {
-  if (error.messageKey === 'product-not-found') {
-    // todo: DE translate
-    return 'The product added could not be found.'
-  }
-  return error.message
-}
-
-/**
- * @param {SWEntityError} error
  * @return SGCartMessage
  */
 const toShopgateMessage = function (error) {
   return {
     code: error.messageKey,
     type: toShopgateType(error.level),
-    message: toPrintableMessage(error)
+    message: error.message
   }
 }
 
-module.exports = { UnknownError, toPrintableMessage, toShopgateType, toShopgateMessage }
+module.exports = { UnknownError, toShopgateType, toShopgateMessage, ProductNotFoundError }

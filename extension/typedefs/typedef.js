@@ -55,3 +55,4 @@ const { Cart } = require('@shopware-pwa/shopware-6-client')
 /** @typedef {CartErrors} SWCartErrors */
 /** @typedef {ErrorLevel} SWErrorLevel */
 /** @typedef {ClientApiError} SWClientApiError */
+/** @typedef {Cart} SWCart */
