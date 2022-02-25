@@ -4,7 +4,7 @@ const { toShopgateType } = require('../services/errorManager')
 const { popCartMessages } = require('../services/contextManager')
 
 /**
- * @param {SDKContext} context
+ * @param {PipelineContext} context
  * @param {SWCartInput} input
  * @returns {Promise<{messages: Array}>}
  */
@@ -16,9 +16,21 @@ module.exports = async (context, input) => {
     messages.push({
       type: toShopgateType(error.level),
       code: error.messageKey,
-      message: error.message
+      message: getPrintableMessage(error)
     })
   })
 
   return { messages }
+}
+
+/**
+ * @param {SWEntityError} error
+ * @return string
+ */
+function getPrintableMessage (error) {
+  if (error.messageKey === 'product-not-found') {
+    // todo: DE translate
+    return 'The product added could not be found.'
+  }
+  return error.message
 }
