@@ -1,7 +1,7 @@
 'use strict'
 
 /**
- * @param {SDKContext} context
+ * @param {PipelineContext} context
  * @param {SWCartInput} input
  * @returns {Promise<{totals: []}>}
  */

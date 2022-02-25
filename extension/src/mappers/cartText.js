@@ -6,7 +6,7 @@
  * @property {string} legalInfo
  */
 /**
- * @param {SDKContext} context
+ * @param {PipelineContext} context
  * @returns {Promise<{text: CartText}>}
  */
 module.exports = async (context) => {

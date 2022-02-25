@@ -4,7 +4,7 @@ const { UnknownError } = require('../services/errorManager')
 const { getSessionContext } = require('@shopware-pwa/shopware-6-client')
 
 /**
- * @param {SDKContext} context
+ * @param {PipelineContext} context
  * @returns {Promise<{currency: string}>}
  */
 module.exports = async (context) => {

@@ -3,7 +3,7 @@
 const { getCategories } = require('@shopware-pwa/shopware-6-client')
 
 /**
- * @param {SDKContext} context
+ * @param {PipelineContext} context
  * @returns {Promise<void>}
  */
 module.exports = async (context) => {

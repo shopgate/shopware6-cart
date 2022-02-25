@@ -4,7 +4,7 @@ const { setup } = require('@shopware-pwa/shopware-6-client')
 const { UnknownError } = require('../services/errorManager')
 
 /**
- * @param {SDKContext} context
+ * @param {PipelineContext} context
  * @returns {Promise<{contextToken:string}|undefined>}
  */
 module.exports = async (context) => {

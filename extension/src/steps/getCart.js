@@ -5,7 +5,7 @@ const { UnknownError } = require('../services/errorManager')
 const { getCart } = require('@shopware-pwa/shopware-6-client')
 
 /**
- * @param {SDKContext} context
+ * @param {PipelineContext} context
  * @param {ContextTokenInput} input
  */
 module.exports = async (context, input) => {
@@ -24,6 +24,7 @@ module.exports = async (context, input) => {
     try {
       await saveContextToken(swCart.token, context)
     } catch (err) {
+      /** @param {string} err */
       context.log.error(`Failed to save Shopify checkout token. Error: '${err.message}'`)
       context.log.debug(JSON.stringify(err.stack))
 
@@ -37,8 +38,8 @@ module.exports = async (context, input) => {
 /**
  * Creates a new checkout on request or creates/loads a checkout, based on a checkout token being available, or not
  *
- * @param {SDKContext} context
- * @throws ClientApiError
+ * @param {PipelineContext} context
+ * @throws SWClientApiError
  */
 async function fetchCheckout (context) {
   let cart

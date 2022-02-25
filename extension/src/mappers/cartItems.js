@@ -3,7 +3,7 @@
 const TYPE_PRODUCT = 'product'
 
 /**
- * @param {SDKContext} context
+ * @param {PipelineContext} context
  * @param {SWCartInput} input
  * @returns {Promise<{cartItems: []}>}
  */

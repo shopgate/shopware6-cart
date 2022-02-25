@@ -5,7 +5,7 @@ const { pushCartMessages } = require('../services/contextManager')
 const { UnknownError } = require('../services/errorManager')
 
 /**
- * @param {SDKContext} context
+ * @param {PipelineContext} context
  * @param {SGAddProductInput} input
  * @returns {Promise<{messages: any}>}
  */
