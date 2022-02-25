@@ -24,7 +24,6 @@ module.exports = async (context, input) => {
     try {
       await saveContextToken(swCart.token, context)
     } catch (err) {
-      /** @param {string} err */
       context.log.error(`Failed to save Shopify checkout token. Error: '${err.message}'`)
       context.log.debug(JSON.stringify(err.stack))
 

@@ -10,6 +10,13 @@ const { Cart } = require('@shopware-pwa/shopware-6-client')
  * @property {boolean} coupons
  */
 
+/**
+ * @typedef {Object} SGCartMessage
+ * @property {EntityError.messageKey | string} code
+ * @property {'warning', 'error', 'info'} type
+ * @property {string} message
+ */
+
 ///
 /// Pipeline input
 ///
@@ -30,6 +37,15 @@ const { Cart } = require('@shopware-pwa/shopware-6-client')
  * @property {number} quantity
  * @property {Array<Object>} options
  * @property {Object} metadata
+ */
+/**
+ * @typedef {Object} SGUpdateProductInput
+ * @property {Cart} swCart
+ * @property {Array<SGUpdateProduct>} cartItems
+ * @typedef SGUpdateProduct
+ * @property {string} cartItemId - PWA6.x
+ * @property {string} CartItemId - PWA5.x
+ * @property {number} quantity
  */
 
 ///

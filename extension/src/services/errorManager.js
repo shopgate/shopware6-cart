@@ -24,4 +24,28 @@ const toShopgateType = function (shopwareType) {
   }
 }
 
-module.exports = { UnknownError, toShopgateType }
+/**
+ * @param {SWEntityError} error
+ * @return string
+ */
+const toPrintableMessage = function (error) {
+  if (error.messageKey === 'product-not-found') {
+    // todo: DE translate
+    return 'The product added could not be found.'
+  }
+  return error.message
+}
+
+/**
+ * @param {SWEntityError} error
+ * @return SGCartMessage
+ */
+const toShopgateMessage = function (error) {
+  return {
+    code: error.messageKey,
+    type: toShopgateType(error.level),
+    message: toPrintableMessage(error)
+  }
+}
+
+module.exports = { UnknownError, toPrintableMessage, toShopgateType, toShopgateMessage }

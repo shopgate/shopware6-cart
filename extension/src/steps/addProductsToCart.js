@@ -24,7 +24,6 @@ module.exports = async (context, input) => {
     })
 
   if (newCart.errors) {
-    // todo: on non-existing products the text lacks product names
     await pushCartMessages(newCart.errors, context)
   }
   return { messages: newCart }
