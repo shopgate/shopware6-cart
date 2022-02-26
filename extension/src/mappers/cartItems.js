@@ -22,9 +22,15 @@ module.exports = async (context, input) => {
           featuredImageUrl: lineItem.cover.url,
           price: {
             unit: lineItem.price.unitPrice,
-            default: lineItem.price.totalPrice
-          }
-        }
+            default: lineItem.price.totalPrice,
+            special: null
+          },
+          properties: [],
+          appliedDiscounts: [],
+          additionalInfo: null
+        },
+        coupon: null,
+        messages: []
       }
     })
   return { cartItems: [...products, ...coupons] }
