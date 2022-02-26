@@ -9,6 +9,7 @@ const { getSessionContext } = require('@shopware-pwa/shopware-6-client')
  */
 module.exports = async (context) => {
   try {
+    // todo: add fallback
     const swContext = await getSessionContext()
     return {
       currency: swContext.currency.isoCode

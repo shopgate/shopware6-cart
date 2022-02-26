@@ -12,7 +12,8 @@ class UnknownError extends Error {
 class ProductNotFoundError extends Error {
   constructor () {
     // todo: translate
-    super('Unfortunately the product you are trying to ass is no longer available')
+    super('Unfortunately, this product is no longer available')
+    this.code = 'ENOTFOUND'
   }
 }
 
@@ -37,9 +38,11 @@ const toShopgateType = function (shopwareType) {
  */
 const toShopgateMessage = function (error) {
   return {
-    code: error.messageKey,
     type: toShopgateType(error.level),
-    message: error.message
+    code: error.messageKey,
+    message: error.message,
+    messageParams: {},
+    translated: true
   }
 }
 

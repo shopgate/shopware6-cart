@@ -4,6 +4,8 @@ const { toShopgateMessage } = require('../services/errorManager')
 const { popCartMessages } = require('../services/contextManager')
 
 /**
+ * Despite out attempt, the messages are not printed in default theme
+ *
  * @param {PipelineContext} context
  * @param {SWCartInput} input
  * @returns {Promise<{messages: Array}>}
