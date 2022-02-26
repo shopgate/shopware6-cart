@@ -12,11 +12,7 @@ module.exports = async (context, input) => {
   let messages = {}
   input.cartItems.map(
     async (item) => {
-      const updateItem = input.swCart.lineItems.find(swItem => swItem.referencedId === (item.CartItemId ?? item.cartItemId))
-      if (!updateItem) {
-        return
-      }
-      await changeCartItemQuantity(updateItem.id, item.quantity)
+      await changeCartItemQuantity(item.CartItemId ?? item.cartItemId, item.quantity)
         .then(cart => {
           messages = { ...messages, ...cart.errors }
         })
