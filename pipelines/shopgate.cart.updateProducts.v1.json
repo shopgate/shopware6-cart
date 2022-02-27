@@ -5,11 +5,6 @@
     "public": true,
     "input": [
       {
-        "key": "contextToken",
-        "id": "1000",
-        "optional": true
-      },
-      {
         "key": "CartItem",
         "id": "1010",
         "optional": true
@@ -62,32 +57,10 @@
         }
       },
       {
-        "id": "@apite/shopware6-cart",
-        "path": "@apite/shopware6-cart/src/steps/getCart.js",
-        "type": "extension",
-        "input": [
-          {
-            "key": "contextToken",
-            "id": "1000",
-            "optional": true
-          }
-        ],
-        "output": [
-          {
-            "key": "swCart",
-            "id": "100"
-          }
-        ]
-      },
-      {
         "type": "extension",
         "id": "@apite/shopware6-cart",
         "path": "@apite/shopware6-cart/src/steps/updateProductsInCart.js",
         "input": [
-          {
-            "key": "swCart",
-            "id": "100"
-          },
           {
             "key": "cartItems",
             "id": "1011"
