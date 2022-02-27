@@ -17,6 +17,14 @@ class ProductNotFoundError extends Error {
   }
 }
 
+class ProductStockReachedError extends Error {
+  constructor () {
+    // todo: translate
+    super('Maximum stock reached for this product')
+    this.code = 'ESTOCKREACHED'
+  }
+}
+
 /**
  * @param {SWErrorLevel} shopwareType
  */
@@ -57,4 +65,30 @@ const wrapErrorForPrint = function (error) {
   return error.message
 }
 
-module.exports = { UnknownError, toShopgateType, toShopgateMessage, ProductNotFoundError, wrapErrorForPrint }
+/**
+ * @param {SWCartErrors} errorList
+ * @param {PipelineContext} context
+ */
+const throwOnCartErrors = function (errorList, context) {
+  Object.keys(errorList).forEach((key) => {
+    switch (errorList[key].messageKey) {
+      case 'product-not-found':
+        throw new ProductNotFoundError()
+      case 'product-stock-reached':
+        throw new ProductStockReachedError()
+      default:
+        context.log.debug('Cannot map error: ' + wrapErrorForPrint(errorList[key]))
+        throw new UnknownError()
+    }
+  })
+}
+
+module.exports = {
+  UnknownError,
+  ProductNotFoundError,
+  ProductStockReachedError,
+  throwOnCartErrors,
+  toShopgateType,
+  toShopgateMessage,
+  wrapErrorForPrint
+}

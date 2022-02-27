@@ -35,7 +35,8 @@
         "shopgate.cart.getCart.v1:before",
         "shopgate.cart.addProducts.v1:before",
         "shopgate.cart.updateProducts.v1:before",
-        "shopgate.cart.deleteProducts.v1:before"
+        "shopgate.cart.deleteProducts.v1:before",
+        "apite.cart.newCart.v1:before"
       ],
       "input": [],
       "output": []
