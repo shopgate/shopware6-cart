@@ -23,9 +23,6 @@ module.exports = async (context, input) => {
       throw new UnknownError()
     })
     .then(async cart => {
-      if (cart.errors.length === 0) {
-        return
-      }
       Object.keys(cart.errors).forEach((key) => {
         switch (cart.errors[key].messageKey) {
           case 'product-not-found':
