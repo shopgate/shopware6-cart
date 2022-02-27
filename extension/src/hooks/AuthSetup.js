@@ -5,7 +5,7 @@ const { UnknownError } = require('../services/errorManager')
 
 /**
  * @param {PipelineContext} context
- * @returns {Promise<{contextToken:string}|undefined>}
+ * @returns {Promise<void>}
  */
 module.exports = async (context) => {
   if (!context.config.shopware?.endpoint || !context.config.shopware?.accessToken) {
@@ -15,15 +15,16 @@ module.exports = async (context) => {
   const storage = context.meta.userId ? context.storage.user : context.storage.device
   const contextToken = await storage.get('contextToken')
   const { endpoint, accessToken, languageId } = context.config.shopware
+  // initialize only once
+  if (!contextToken) {
+    onConfigChange(({ config }) => {
+      context.log.debug('contextToken possibly changed:' + config.contextToken)
+    })
+  }
   setup({
     endpoint,
     accessToken,
     languageId,
     contextToken
   })
-  onConfigChange(({ config }) => {
-    context.log.debug('contextToken possibly changed:' + config.contextToken)
-  })
-
-  return { contextToken }
 }

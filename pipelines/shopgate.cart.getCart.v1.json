@@ -3,13 +3,7 @@
   "pipeline": {
     "id": "shopgate.cart.getCart.v1",
     "public": true,
-    "input": [
-      {
-        "key": "contextToken",
-        "id": "1000",
-        "optional": true
-      }
-    ],
+    "input": [],
     "output": [
       {
         "key": "messages",
@@ -41,13 +35,7 @@
         "id": "@apite/shopware6-cart",
         "path": "@apite/shopware6-cart/src/steps/getCart.js",
         "type": "extension",
-        "input": [
-          {
-            "key": "contextToken",
-            "id": "1000",
-            "optional": true
-          }
-        ],
+        "input": [],
         "output": [
           {
             "key": "swCart",

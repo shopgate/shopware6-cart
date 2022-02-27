@@ -37,13 +37,7 @@
         "shopgate.cart.updateProducts.v1:before"
       ],
       "input": [],
-      "output": [
-        {
-          "key": "contextToken",
-          "optional": true,
-          "addPipelineOutput": true
-        }
-      ]
+      "output": []
     }
   ]
 }
