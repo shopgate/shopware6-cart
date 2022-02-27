@@ -20,13 +20,7 @@
         "optional": true
       }
     ],
-    "output": [
-      {
-        "key": "messages",
-        "id": "1030",
-        "optional": true
-      }
-    ],
+    "output": [],
     "steps": [
       {
         "type": "conditional",
@@ -99,18 +93,6 @@
             "id": "1011"
           }
         ],
-        "output": [
-          {
-            "key": "messages",
-            "id": "1030",
-            "optional": true
-          }
-        ]
-      },
-      {
-        "type": "pipeline",
-        "id": "shopgate.cart.trackCartChangedEvent.v1",
-        "input": [],
         "output": []
       }
     ]

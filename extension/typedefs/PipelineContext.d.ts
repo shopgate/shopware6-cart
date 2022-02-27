@@ -58,5 +58,8 @@ interface PipelineConfigSettings {
 
 interface PipelineContextMeta {
   userId?: string
-  appId: string
+  appId: string,
+  deviceId: string,
+  headers: Array<string> | undefined,
+  cookies: Array<string> | undefined,
 }

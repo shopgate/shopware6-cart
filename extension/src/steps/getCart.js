@@ -21,14 +21,7 @@ module.exports = async (context, input) => {
 
   if (swCart.token !== input.contextToken) {
     context.log.debug(`not reusing cart, checkout token: '${swCart.token}'`)
-    try {
-      await saveContextToken(swCart.token, context)
-    } catch (err) {
-      context.log.error(`Failed to save Shopify checkout token. Error: '${err.message}'`)
-      context.log.debug(JSON.stringify(err.stack))
-
-      throw new UnknownError()
-    }
+    await saveContextToken(swCart.token, context)
   }
 
   return { swCart }

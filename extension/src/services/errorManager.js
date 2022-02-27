@@ -46,4 +46,15 @@ const toShopgateMessage = function (error) {
   }
 }
 
-module.exports = { UnknownError, toShopgateType, toShopgateMessage, ProductNotFoundError }
+/**
+ * @param {SWClientApiError|Error} error
+ * @return string
+ */
+const wrapErrorForPrint = function (error) {
+  if (error?.statusCode) {
+    return JSON.stringify(error.messages)
+  }
+  return error.message
+}
+
+module.exports = { UnknownError, toShopgateType, toShopgateMessage, ProductNotFoundError, wrapErrorForPrint }

@@ -9,13 +9,7 @@
         "id": "100"
       }
     ],
-    "output": [
-      {
-        "key": "messages",
-        "id": "1100",
-        "optional": true
-      }
-    ],
+    "output": [],
     "steps": [
       {
         "type": "extension",
@@ -27,13 +21,7 @@
             "id": "100"
           }
         ],
-        "output": [
-          {
-            "key": "messages",
-            "id": "1100",
-            "optional": true
-          }
-        ]
+        "output": []
       }
     ]
   }

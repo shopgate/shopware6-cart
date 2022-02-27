@@ -1,8 +1,7 @@
 'use strict'
 
 const { addCartItems } = require('@shopware-pwa/shopware-6-client')
-const { pushCartMessages } = require('../services/contextManager')
-const { UnknownError, ProductNotFoundError } = require('../services/errorManager')
+const { UnknownError, ProductNotFoundError, wrapErrorForPrint } = require('../services/errorManager')
 
 /**
  * @param {PipelineContext} context
@@ -18,21 +17,23 @@ module.exports = async (context, input) => {
     }
   })
 
-  const notFound = await addCartItems(swItems)
+  await addCartItems(swItems)
+    .catch(e => {
+      context.log.error(e.message)
+      throw new UnknownError()
+    })
     .then(async cart => {
       if (cart.errors.length === 0) {
         return
       }
-      const notFound = Object.keys(cart.errors).filter(key => cart.errors[key].messageKey === 'product-not-found')
-      delete cart.errors[notFound]
-      await pushCartMessages(cart.errors, context)
-      return notFound
-    }).catch(e => {
-      context.log.error(e.message)
-      throw new UnknownError()
+      Object.keys(cart.errors).forEach((key) => {
+        switch (cart.errors[key].messageKey) {
+          case 'product-not-found':
+            throw new ProductNotFoundError()
+          default:
+            context.log.debug('Cannot map error: ' + wrapErrorForPrint(cart.errors[key]))
+            throw new UnknownError()
+        }
+      })
     })
-
-  if (notFound) {
-    throw new ProductNotFoundError()
-  }
 }
