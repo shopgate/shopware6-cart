@@ -22,10 +22,6 @@ const { Cart } = require('@shopware-pwa/shopware-6-client')
 ///
 
 /**
- * @typedef {Object} ContextTokenInput
- * @property {string|undefined} contextToken
- */
-/**
  * @typedef {Object} SWCartInput
  * @property {Cart} swCart
  */
@@ -40,12 +36,15 @@ const { Cart } = require('@shopware-pwa/shopware-6-client')
  */
 /**
  * @typedef {Object} SGUpdateProductInput
- * @property {Cart} swCart
  * @property {Array<SGUpdateProduct>} cartItems
  * @typedef SGUpdateProduct
  * @property {string} cartItemId - PWA6.x
  * @property {string} CartItemId - PWA5.x
  * @property {number} quantity
+ */
+/**
+ * @typedef {Object} SGDeleteProductInput
+ * @property {Array<string>} cartItemIds
  */
 
 ///
