@@ -1,6 +1,6 @@
 'use strict'
 
-const { setup } = require('@shopware-pwa/shopware-6-client')
+const { setup, onConfigChange } = require('@shopware-pwa/shopware-6-client')
 const { UnknownError } = require('../services/errorManager')
 
 /**
@@ -20,6 +20,9 @@ module.exports = async (context) => {
     accessToken,
     languageId,
     contextToken
+  })
+  onConfigChange(({ config }) => {
+    context.log.debug('contextToken possibly changed:' + config.contextToken)
   })
 
   return { contextToken }

@@ -32,7 +32,9 @@
       "path": "extension/src/hooks/AuthSetup.js",
       "description": "Sets up authentication before every pipeline call",
       "hooks": [
-        "*:before"
+        "shopgate.cart.getCart.v1:before",
+        "shopgate.cart.addProducts.v1:before",
+        "shopgate.cart.updateProducts.v1:before"
       ],
       "input": [],
       "output": [
