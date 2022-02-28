@@ -13,7 +13,7 @@ module.exports = async (context) => {
     swCart = await getCart()
     await saveContextToken(swCart.token, context)
   } catch (err) {
-    context.log.error('Failed to create / load a new checkout (cart) at Shopify. Error: ' + JSON.stringify(err))
+    context.log.error('Failed to create / load a cart. Error: ' + JSON.stringify(err))
     throw new UnknownError()
   }
 

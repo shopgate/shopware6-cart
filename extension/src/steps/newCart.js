@@ -5,6 +5,8 @@ const { UnknownError } = require('../services/errorManager')
 const { getCart, update } = require('@shopware-pwa/shopware-6-client')
 
 /**
+ * This pipeline is created for testing purposes only
+ *
  * @param {PipelineContext} context
  */
 module.exports = async (context) => {
@@ -14,7 +16,7 @@ module.exports = async (context) => {
     swCart = await getCart()
     await saveContextToken(swCart.token, context)
   } catch (err) {
-    context.log.error('Failed to create / load a new checkout (cart) at Shopify. Error: ' + JSON.stringify(err))
+    context.log.error('Failed to create new cart. Error: ' + JSON.stringify(err))
     throw new UnknownError()
   }
 }

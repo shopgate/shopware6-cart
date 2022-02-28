@@ -12,7 +12,7 @@ const saveContextToken = async function (contextToken, context) {
   const storage = context.meta.userId ? context.storage.user : context.storage.device
 
   await storage.set('contextToken', contextToken).catch(err => {
-    context.log.error(`Failed to save Shopify checkout token. Error: '${err.message}'`)
+    context.log.error(`Failed to save context token. Error: '${err.message}'`)
   })
 }
 
