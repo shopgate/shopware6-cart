@@ -1,7 +1,7 @@
 'use strict'
 
 const { addCartItems } = require('@shopware-pwa/shopware-6-client')
-const { UnknownError, throwOnCartErrors } = require('../services/errorManager')
+const { throwOnCartErrors, throwOnApiError } = require('../services/errorManager')
 
 /**
  * @param {PipelineContext} context
@@ -18,11 +18,6 @@ module.exports = async (context, input) => {
   })
 
   await addCartItems(swItems)
-    .catch(e => {
-      context.log.error(e.message)
-      throw new UnknownError()
-    })
-    .then(swCart => {
-      throwOnCartErrors(swCart.errors, context)
-    })
+    .catch(e => throwOnApiError(e, context))
+    .then(swCart => throwOnCartErrors(swCart.errors, context))
 }

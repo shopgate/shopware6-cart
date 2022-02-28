@@ -1,6 +1,6 @@
 /* eslint-disable */
 // noinspection ES6ShorthandObjectProperty
-const { ErrorLevel, CartErrors, EntityError, ClientApiError } = require('@shopware-pwa/commons')
+const { ErrorLevel, CartErrors, EntityError, ClientApiError, ShopwareError } = require('@shopware-pwa/commons')
 const { Cart } = require('@shopware-pwa/shopware-6-client')
 
 /**
@@ -54,4 +54,5 @@ const { Cart } = require('@shopware-pwa/shopware-6-client')
 /** @typedef {CartErrors} SWCartErrors */
 /** @typedef {ErrorLevel} SWErrorLevel */
 /** @typedef {ClientApiError} SWClientApiError */
+/** @typedef {ShopwareError} SWShopwareError */
 /** @typedef {Cart} SWCart */

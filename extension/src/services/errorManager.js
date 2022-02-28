@@ -1,29 +1,11 @@
 'use strict'
 
-class UnknownError extends Error {
-  constructor () {
-    super('An internal error occurred.')
-
-    this.code = 'EUNKNOWN'
-    this.displayMessage = null
-  }
-}
-
-class ProductNotFoundError extends Error {
-  constructor () {
-    // todo: translate
-    super('Unfortunately, this product is no longer available')
-    this.code = 'ENOTFOUND'
-  }
-}
-
-class ProductStockReachedError extends Error {
-  constructor () {
-    // todo: translate
-    super('Maximum stock reached for this product')
-    this.code = 'ESTOCKREACHED'
-  }
-}
+const {
+  ProductNotFoundError,
+  ProductStockReachedError,
+  UnknownError,
+  ShippingMethodBlockedError, ForbiddenError
+} = require('./errorList')
 
 /**
  * @param {SWErrorLevel} shopwareType
@@ -76,6 +58,8 @@ const throwOnCartErrors = function (errorList, context) {
         throw new ProductNotFoundError()
       case 'product-stock-reached':
         throw new ProductStockReachedError()
+      case 'shipping-method-blocked':
+        throw new ShippingMethodBlockedError()
       default:
         context.log.debug('Cannot map error: ' + wrapErrorForPrint(errorList[key]))
         throw new UnknownError()
@@ -83,10 +67,60 @@ const throwOnCartErrors = function (errorList, context) {
   })
 }
 
+/**
+ * @param {SWShopwareError[]} messages
+ * @param {PipelineContext} context
+ * @throws Error
+ */
+const throwOnMessage = function (messages, context) {
+  messages.forEach(message => {
+    switch (message.code) {
+      case 'CHECKOUT__CART_LINEITEM_NOT_FOUND':
+        context.log.fatal('Could not locate line item in cart: ' + message.detail)
+        throw new ProductNotFoundError()
+      default:
+        context.log.fatal('Could not map message: ' + JSON.stringify(message))
+        throw new UnknownError()
+    }
+  })
+  // hard fallback
+  context.log.error('The error did not have messages provided')
+  throw new UnknownError()
+}
+
+/**
+ * @param {SWClientApiError|Error} error
+ * @param {PipelineContext} context
+ * @see https://shopware.stoplight.io/docs/store-api/ZG9jOjExMTYzMDU0-error-handling
+ */
+const throwOnApiError = function (error, context) {
+  if (!error.statusCode) {
+    context.log.error(error.message)
+    throw new UnknownError()
+  }
+  const printableErrors = JSON.stringify(error.messages)
+  switch (error.statusCode) {
+    case 400:
+      throwOnMessage(error.messages, context)
+      break
+    case 401:
+      context.log.fatal('Unauthorized request, is your SalesChannel access token missing? ' + printableErrors)
+      throw UnknownError()
+    case 403:
+      context.log.fatal('Cannot call this endpoint with authentication: ' + printableErrors)
+      throw new ForbiddenError()
+    case 412:
+      context.log.fatal('Possibly SalesChannel access key is invalid. ' + printableErrors)
+      throw new UnknownError()
+    case 500:
+    default:
+      context.log.fatal('Unmapped error: ' + printableErrors)
+      throw new UnknownError()
+  }
+}
+
 module.exports = {
-  UnknownError,
-  ProductNotFoundError,
-  ProductStockReachedError,
+  throwOnApiError,
   throwOnCartErrors,
   toShopgateType,
   toShopgateMessage,

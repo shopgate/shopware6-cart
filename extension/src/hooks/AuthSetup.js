@@ -1,7 +1,7 @@
 'use strict'
 
 const { setup, onConfigChange } = require('@shopware-pwa/shopware-6-client')
-const { UnknownError } = require('../services/errorManager')
+const { UnknownError } = require('../services/errorList')
 
 /**
  * @param {PipelineContext} context

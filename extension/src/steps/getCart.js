@@ -1,21 +1,15 @@
 'use strict'
 
 const { saveContextToken } = require('../services/contextManager')
-const { UnknownError } = require('../services/errorManager')
 const { getCart } = require('@shopware-pwa/shopware-6-client')
+const { throwOnApiError } = require('../services/errorManager')
 
 /**
  * @param {PipelineContext} context
  */
 module.exports = async (context) => {
-  let swCart
-  try {
-    swCart = await getCart()
-    await saveContextToken(swCart.token, context)
-  } catch (err) {
-    context.log.error('Failed to create / load a cart. Error: ' + JSON.stringify(err))
-    throw new UnknownError()
-  }
+  const swCart = await getCart().catch(e => throwOnApiError(e, context))
+  await saveContextToken(swCart.token, context)
 
   return { swCart }
 }

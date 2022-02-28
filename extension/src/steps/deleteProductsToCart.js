@@ -1,7 +1,7 @@
 'use strict'
 
 const { removeCartItem } = require('@shopware-pwa/shopware-6-client')
-const { wrapErrorForPrint, UnknownError } = require('../services/errorManager')
+const { throwOnApiError } = require('../services/errorManager')
 
 /**
  * @param {PipelineContext} context
@@ -11,10 +11,7 @@ const { wrapErrorForPrint, UnknownError } = require('../services/errorManager')
 module.exports = async (context, input) => {
   await Promise.all(
     input.cartItemIds.map(
-      lineItemId => removeCartItem(lineItemId).catch(e => {
-        context.log.error('Could not remove item from cart: ' + wrapErrorForPrint(e))
-        throw new UnknownError()
-      })
+      lineItemId => removeCartItem(lineItemId).catch(e => throwOnApiError(e, context))
     )
   )
 }

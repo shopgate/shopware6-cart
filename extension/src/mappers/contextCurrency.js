@@ -1,21 +1,16 @@
 'use strict'
 
-const { UnknownError } = require('../services/errorManager')
 const { getSessionContext } = require('@shopware-pwa/shopware-6-client')
+const { throwOnApiError } = require('../services/errorManager')
 
 /**
  * @param {PipelineContext} context
  * @returns {Promise<{currency: string}>}
  */
 module.exports = async (context) => {
-  try {
-    // todo: add fallback
-    const swContext = await getSessionContext()
-    return {
-      currency: swContext.currency.isoCode
-    }
-  } catch (e) {
-    context.log.error(e.statusCode ? JSON.stringify(e.messages) : 'Could not retrieve context for currency. ' + e.message)
-    throw new UnknownError()
+  // todo: add fallback
+  const swContext = await getSessionContext().catch(e => throwOnApiError(e, context))
+  return {
+    currency: swContext.currency.isoCode
   }
 }
