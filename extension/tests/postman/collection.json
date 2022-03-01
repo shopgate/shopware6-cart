@@ -170,42 +170,6 @@
           "response": []
         },
         {
-          "name": "updateProduct 2",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"cartItems\": [\r\n        {\r\n            \"CartItemId\": \"{{gen_lineItem_advPrices_1}}\",\r\n            \"quantity\": 3\r\n        }\r\n    ]\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{domain}}{{endpoint_cart_products_update}}",
-              "host": [
-                "{{domain}}{{endpoint_cart_products_update}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
           "name": "getCart",
           "event": [
             {
