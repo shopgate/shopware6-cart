@@ -8,7 +8,6 @@ const { throwOnApiError } = require('../services/errorManager')
  * @returns {Promise<{currency: string}>}
  */
 module.exports = async (context) => {
-  // todo: add fallback
   const swContext = await getSessionContext().catch(e => throwOnApiError(e, context))
   return {
     currency: swContext.currency.isoCode

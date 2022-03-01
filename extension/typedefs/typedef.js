@@ -24,6 +24,7 @@ const { Cart } = require('@shopware-pwa/shopware-6-client')
 /**
  * @typedef {Object} SWCartInput
  * @property {Cart} swCart
+ * @property {string} currency
  */
 /**
  * @typedef {Object} SGAddProductInput

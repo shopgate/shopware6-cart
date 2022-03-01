@@ -45,6 +45,18 @@
       },
       {
         "id": "@apite/shopware6-cart",
+        "path": "@apite/shopware6-cart/src/mappers/contextCurrency.js",
+        "type": "extension",
+        "input": [],
+        "output": [
+          {
+            "key": "currency",
+            "id": "1300"
+          }
+        ]
+      },
+      {
+        "id": "@apite/shopware6-cart",
         "path": "@apite/shopware6-cart/src/mappers/cartMessages.js",
         "type": "extension",
         "input": [
@@ -68,24 +80,16 @@
           {
             "key": "swCart",
             "id": "100"
+          },
+          {
+            "key": "currency",
+            "id": "1300"
           }
         ],
         "output": [
           {
             "key": "cartItems",
             "id": "1200"
-          }
-        ]
-      },
-      {
-        "id": "@apite/shopware6-cart",
-        "path": "@apite/shopware6-cart/src/mappers/contextCurrency.js",
-        "type": "extension",
-        "input": [],
-        "output": [
-          {
-            "key": "currency",
-            "id": "1300"
           }
         ]
       },

@@ -18,13 +18,15 @@ module.exports = async (context, input) => {
         type: 'coupon',
         coupon: {
           code: lineItem.referencedId,
-          description: '',
           label: lineItem.label,
           savedPrice: {
             type: 'fixed',
             value: -(lineItem.price.totalPrice)
           }
-        }
+        },
+        currency: input.currency,
+        product: null,
+        messages: []
       }
     })
   const products = input.swCart.lineItems
@@ -47,6 +49,7 @@ module.exports = async (context, input) => {
           appliedDiscounts: [],
           additionalInfo: null
         },
+        currency: input.currency,
         coupon: null,
         messages: []
       }

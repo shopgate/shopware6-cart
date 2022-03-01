@@ -6,11 +6,12 @@
  * @returns {Promise<{flags: CartFlags}>}
  */
 module.exports = async (context, input) => {
-  // todo: finish up
+  // todo: need to find errors worth blocking the checkout?
+  // const hardErrors = Object.keys(input.swCart.errors).filter(key => input.swCart.errors[key].level > 10)
   return {
     flags: {
-      taxIncluded: input.swCart?.price?.taxStatus === 'gross',
-      orderable: false,
+      taxIncluded: input.swCart.price?.taxStatus === 'gross',
+      orderable: true,
       coupons: context.config.settings.enableCoupons
     }
   }

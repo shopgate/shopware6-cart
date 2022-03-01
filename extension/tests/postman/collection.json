@@ -1460,7 +1460,7 @@
           "response": []
         },
         {
-          "name": "addProducts Copy",
+          "name": "addProducts",
           "request": {
             "method": "POST",
             "header": [],
