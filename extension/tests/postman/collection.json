@@ -153,7 +153,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"CartItem\": [\r\n        {\r\n            \"cartItemId\": \"{{gen_lineItem_main_1}}\",\r\n            \"quantity\": 2\r\n        }\r\n    ]\r\n}",
+              "raw": "{\r\n    \"CartItem\": [\r\n        {\r\n            \"cartItemId\": \"{{gen_lineItem_main_1}}\",\r\n            \"quantity\": 2\r\n        },\r\n        {\r\n            \"CartItemId\": \"{{gen_lineItem_advPrices_1}}\",\r\n            \"quantity\": 3\r\n        }\r\n    ]\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -276,7 +276,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"CartItem\": [\r\n        {\r\n            \"cartItemId\": \"{{gen_lineItem_main_1}}\",\r\n            \"quantity\": 9999\r\n        }\r\n    ]\r\n}",
+              "raw": "{\r\n    \"cartItems\": [\r\n        {\r\n            \"cartItemId\": \"{{gen_lineItem_main_1}}\",\r\n            \"quantity\": 9999\r\n        }\r\n    ]\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -332,42 +332,6 @@
               "raw": "{{domain}}{{endpoint_cart_get}}",
               "host": [
                 "{{domain}}{{endpoint_cart_get}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "update (no exist)",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code is 500\", function () {\r",
-                  "    pm.response.to.have.status(500);\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"CartItem\": [\r\n        {\r\n            \"cartItemId\": \"7013a4d06c194e6c8117192f137dc24a\",\r\n            \"quantity\": 2\r\n        }\r\n    ]\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{domain}}{{endpoint_cart_products_update}}",
-              "host": [
-                "{{domain}}{{endpoint_cart_products_update}}"
               ]
             }
           },
@@ -547,43 +511,6 @@
           "response": []
         },
         {
-          "name": "Delete 1",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test('that the request succeeded', () => {",
-                  "    pm.response.to.have.status(200)",
-                  "    pm.expect(pm.response.json()).to.be.an('object').and.empty",
-                  "})"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\n    \"CartItemIds\": [\n        \"{{gen_lineItem_main_2}}\"\n    ]\n}"
-            },
-            "url": {
-              "raw": "{{domain}}{{endpoint_cart_products_delete}}",
-              "host": [
-                "{{domain}}{{endpoint_cart_products_delete}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
           "name": "Delete 2",
           "event": [
             {
@@ -609,7 +536,7 @@
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\n    \"cartItemIds\": [\n        \"{{gen_lineItem_freeShip_2}}\"\n    ]\n}"
+              "raw": "{\n    \"CartItemIds\": [\n        \"{{gen_lineItem_main_2}}\",\n        \"{{gen_lineItem_freeShip_2}}\"\n    ]\n}"
             },
             "url": {
               "raw": "{{domain}}{{endpoint_cart_products_delete}}",
@@ -640,6 +567,83 @@
                   "    pm.expect(lineItem.quantity).to.eq(1)\r",
                   "    pm.environment.unset('gen_lineItem_main_2')\r",
                   "    pm.environment.unset('gen_lineItem_freeShip_2')\r",
+                  "})"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_cart_get}}",
+              "host": [
+                "{{domain}}{{endpoint_cart_get}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete 1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('that the request succeeded', () => {",
+                  "    pm.response.to.have.status(200)",
+                  "    pm.expect(pm.response.json()).to.be.an('object').and.empty",
+                  "})"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"cartItemIds\": [\n        \"{{gen_lineItem_advPrices_2}}\"\n    ]\n}"
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_cart_products_delete}}",
+              "host": [
+                "{{domain}}{{endpoint_cart_products_delete}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getCart",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json()\r",
+                  "pm.test('that the cart is not empty', () => {\r",
+                  "    pm.expect(response).to.be.an('object').and.not.empty\r",
+                  "    pm.expect(response.cartItems).to.be.an('array')\r",
+                  "    pm.expect(response.cartItems.length).to.equal(0)\r",
+                  "    pm.environment.unset('gen_lineItem_advPrices_2')\r",
                   "})"
                 ],
                 "type": "text/javascript"

@@ -9,10 +9,16 @@ const { throwOnCartErrors, throwOnApiError } = require('../services/errorManager
  * @returns {Promise<void>}
  */
 module.exports = async (context, input) => {
+  // Cart API cannot handle Async calls, so we sync them
+  let sync = Promise.resolve()
   await Promise.all(
-    input.cartItems.slice(-1)
-      .map(item => changeCartItemQuantity(item.CartItemId ?? item.cartItemId, item.quantity)
-        .catch(e => throwOnApiError(e, context))
-        .then(swCart => throwOnCartErrors(swCart.errors, context)))
+    input.cartItems.map(item => {
+      sync = sync.then(
+        () => changeCartItemQuantity(item.CartItemId ?? item.cartItemId, item.quantity)
+          .catch(e => throwOnApiError(e, context))
+          .then(swCart => throwOnCartErrors(swCart.errors, context))
+      )
+      return sync
+    })
   )
 }
