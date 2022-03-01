@@ -9,271 +9,446 @@
       "name": "setup",
       "item": [
         {
-          "name": "SW: get sales channel",
-          "event": [
+          "name": "init",
+          "item": [
             {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Get Main Sales Channel data\", function () {\r",
-                  "    var jsonData = pm.response.json();\r",
-                  "    pm.expect(jsonData.data[0].name).to.be.eq('Storefront');\r",
-                  "    pm.environment.set(\"gen_salesChannel_id\", jsonData.data[0].id);\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "protocolProfileBehavior": {
-            "disabledSystemHeaders": {}
-          },
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
+              "name": "SW: get sales channel",
+              "event": [
                 {
-                  "key": "token",
-                  "value": "{{gen_access_token}}",
-                  "type": "string"
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Get Main Sales Channel data\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData.data[0].name).to.be.eq('Storefront');\r",
+                      "    pm.environment.set(\"gen_salesChannel_id\", jsonData.data[0].id);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
                 }
-              ]
-            },
-            "method": "POST",
-            "header": [
-              {
-                "key": "Accept",
-                "value": "application/json",
-                "type": "text"
-              }
-            ],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"filter\": [\r\n    {\r\n          \"type\": \"equals\",\r\n          \"field\": \"name\",\r\n          \"value\": \"Storefront\"\r\n        }\r\n    ]\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{sw_endpoint_api}}/search/sales-channel",
-              "host": [
-                "{{sw_endpoint_api}}"
               ],
-              "path": [
-                "search",
-                "sales-channel"
-              ]
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {}
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{gen_access_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"filter\": [\r\n    {\r\n          \"type\": \"equals\",\r\n          \"field\": \"name\",\r\n          \"value\": \"Storefront\"\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{sw_endpoint_api}}/search/sales-channel",
+                  "host": [
+                    "{{sw_endpoint_api}}"
+                  ],
+                  "path": [
+                    "search",
+                    "sales-channel"
+                  ]
+                }
+              },
+              "response": []
             }
-          },
-          "response": []
+          ]
         },
         {
-          "name": "SW: get variant child",
-          "event": [
+          "name": "prod",
+          "item": [
             {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});\r",
-                  "\r",
-                  "pm.test(\"Get child ID\", function () {\r",
-                  "    const jsonData = pm.response.json();\r",
-                  "    const child = jsonData.data.filter(product => product.attributes.productNumber === 'SWDEMO10005.3');\r",
-                  "    pm.expect(child).length(1, 'Should have found a child product');\r",
-                  "    pm.environment.set('gen_product_variant_child_id', child[0].id);\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
+              "name": "SW: get variant child",
+              "event": [
                 {
-                  "key": "token",
-                  "value": "{{gen_access_token}}",
-                  "type": "string"
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"Get child ID\", function () {\r",
+                      "    const jsonData = pm.response.json();\r",
+                      "    const child = jsonData.data.filter(product => product.attributes.productNumber === 'SWDEMO10005.3');\r",
+                      "    pm.expect(child).length(1, 'Should have found a child product');\r",
+                      "    pm.environment.set('gen_product_variant_child_id', child[0].id);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
                 }
-              ]
-            },
-            "method": "GET",
-            "header": [],
-            "url": {
-              "raw": "{{sw_endpoint_api}}/product/{{catalog_product_variant}}/children",
-              "host": [
-                "{{sw_endpoint_api}}"
               ],
-              "path": [
-                "product",
-                "{{catalog_product_variant}}",
-                "children"
-              ]
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{gen_access_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{sw_endpoint_api}}/product/{{catalog_product_variant}}/children",
+                  "host": [
+                    "{{sw_endpoint_api}}"
+                  ],
+                  "path": [
+                    "product",
+                    "{{catalog_product_variant}}",
+                    "children"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "SW: create no stock prod",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Product created\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{gen_access_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"overwrites\": {\r\n        \"id\": \"{{created_product_noStock_id}}\",\r\n        \"name\" : \"API: out of stock product\",\r\n        \"productNumber\" : \"SGDEMOCHECKCART01\",\r\n        \"stock\": 0,\r\n        \"isCloseout\": true,\r\n        \"releaseDate\": \"2022-01-29T11:00:04.389+00:00\"\r\n    },\r\n    \"cloneChildren\": false\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{sw_endpoint_api}}/_action/clone/product/{{catalog_product_advPrices_id}}",
+                  "host": [
+                    "{{sw_endpoint_api}}"
+                  ],
+                  "path": [
+                    "_action",
+                    "clone",
+                    "product",
+                    "{{catalog_product_advPrices_id}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "SW: create no stock backorder prod",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Product created\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{gen_access_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"overwrites\": {\r\n        \"id\": \"{{created_product_noStock_backorder_id}}\",\r\n        \"name\" : \"API: out of stock backorder product\",\r\n        \"productNumber\" : \"SGDEMOCHECKCART03\",\r\n        \"stock\": 0,\r\n        \"isCloseout\": false,\r\n        \"releaseDate\": \"2022-01-29T11:00:04.389+00:00\"\r\n    },\r\n    \"cloneChildren\": false\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{sw_endpoint_api}}/_action/clone/product/{{created_product_noStock_id}}",
+                  "host": [
+                    "{{sw_endpoint_api}}"
+                  ],
+                  "path": [
+                    "_action",
+                    "clone",
+                    "product",
+                    "{{created_product_noStock_id}}"
+                  ]
+                }
+              },
+              "response": []
             }
-          },
-          "response": []
+          ]
         },
         {
-          "name": "SW: create no stock prod",
-          "event": [
+          "name": "promo",
+          "item": [
             {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Product created\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
+              "name": "SW: create coupon code",
+              "event": [
                 {
-                  "key": "token",
-                  "value": "{{gen_access_token}}",
-                  "type": "string"
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Created entity successfully\", function () {\r",
+                      "    pm.response.to.have.status(204);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
                 }
-              ]
-            },
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"overwrites\": {\r\n        \"id\": \"{{created_product_noStock_id}}\",\r\n        \"name\" : \"API: out of stock product\",\r\n        \"productNumber\" : \"SGDEMOCHECKCART01\",\r\n        \"stock\": 0,\r\n        \"isCloseout\": true,\r\n        \"releaseDate\": \"2022-01-29T11:00:04.389+00:00\"\r\n    },\r\n    \"cloneChildren\": false\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{sw_endpoint_api}}/_action/clone/product/{{catalog_product_advPrices_id}}",
-              "host": [
-                "{{sw_endpoint_api}}"
               ],
-              "path": [
-                "_action",
-                "clone",
-                "product",
-                "{{catalog_product_advPrices_id}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "SW: create no stock backorder prod",
-          "event": [
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{gen_access_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"id\": \"{{created_promotion_byCode_id}}\",\r\n    \"active\": true,\r\n    \"name\": \"API: promo by code\",\r\n    \"code\": \"{{created_promotion_byCode_code}}\",\r\n    \"exclusive\": false,\r\n    \"useCodes\": true,\r\n    \"useIndividualCodes\": false,\r\n    \"useSetGroups\": false,\r\n    \"discounts\": [\r\n        {\r\n            \"considerAdvancedRules\": false,\r\n            \"scope\": \"cart\",\r\n            \"type\": \"absolute\",\r\n            \"value\": 2.25\r\n        }\r\n    ],\r\n    \"salesChannels\":[\r\n        {\r\n            \"salesChannelId\": \"{{gen_salesChannel_id}}\",\r\n            \"priority\": 1\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{sw_endpoint_api}}/promotion",
+                  "host": [
+                    "{{sw_endpoint_api}}"
+                  ],
+                  "path": [
+                    "promotion"
+                  ]
+                }
+              },
+              "response": []
+            },
             {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Product created\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
+              "name": "SW: create 5 item rule",
+              "event": [
                 {
-                  "key": "token",
-                  "value": "{{gen_access_token}}",
-                  "type": "string"
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "// marked as temp because of ticket SGSW6-88\r",
+                      "pm.test(\"Successfully updated all entities with proper Rules\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
                 }
-              ]
-            },
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"overwrites\": {\r\n        \"id\": \"{{created_product_noStock_backorder_id}}\",\r\n        \"name\" : \"API: out of stock backorder product\",\r\n        \"productNumber\" : \"SGDEMOCHECKCART03\",\r\n        \"stock\": 0,\r\n        \"isCloseout\": false,\r\n        \"releaseDate\": \"2022-01-29T11:00:04.389+00:00\"\r\n    },\r\n    \"cloneChildren\": false\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{sw_endpoint_api}}/_action/clone/product/{{created_product_noStock_id}}",
-              "host": [
-                "{{sw_endpoint_api}}"
               ],
-              "path": [
-                "_action",
-                "clone",
-                "product",
-                "{{created_product_noStock_id}}"
-              ]
-            }
-          },
-          "response": []
-        },
-        {
-          "name": "SW: create coupon code",
-          "event": [
+              "protocolProfileBehavior": {
+                "disabledSystemHeaders": {
+                  "accept": true
+                }
+              },
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{gen_access_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Accept",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"create-rules\": {\r\n        \"entity\": \"rule\",\r\n        \"action\": \"upsert\",\r\n        \"payload\": [\r\n            {\r\n                \"id\": \"{{created_rule_5item_id}}\",\r\n                \"name\": \"API: Main Product 5 qty\",\r\n                \"conditions\": [\r\n                    {\r\n                        \"type\": \"cartLineItemWithQuantity\",\r\n                        \"value\": {\r\n                            \"id\": \"{{catalog_product_main_id}}\",\r\n                            \"operator\": \"=\",\r\n                            \"quantity\": 5\r\n                        }\r\n                    }\r\n                ],\r\n                \"priority\": 11\r\n            }\r\n        ]\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{sw_endpoint_api}}/_action/sync",
+                  "host": [
+                    "{{sw_endpoint_api}}"
+                  ],
+                  "path": [
+                    "_action",
+                    "sync"
+                  ]
+                }
+              },
+              "response": []
+            },
             {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "pm.test(\"Created entity successfully\", function () {\r",
-                  "    pm.response.to.have.status(204);\r",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "auth": {
-              "type": "bearer",
-              "bearer": [
+              "name": "SW: create 5 item promo",
+              "event": [
                 {
-                  "key": "token",
-                  "value": "{{gen_access_token}}",
-                  "type": "string"
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Created entity successfully\", function () {\r",
+                      "    pm.response.to.have.status(204);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
                 }
-              ]
-            },
-            "method": "POST",
-            "header": [],
-            "body": {
-              "mode": "raw",
-              "raw": "{\r\n    \"id\": \"{{created_promotion_byCode_id}}\",\r\n    \"active\": true,\r\n    \"name\": \"API: promo by code\",\r\n    \"code\": \"{{created_promotion_byCode_code}}\",\r\n    \"exclusive\": false,\r\n    \"useCodes\": true,\r\n    \"useIndividualCodes\": false,\r\n    \"useSetGroups\": false,\r\n    \"discounts\": [\r\n        {\r\n            \"considerAdvancedRules\": false,\r\n            \"scope\": \"cart\",\r\n            \"type\": \"absolute\",\r\n            \"value\": 2.25\r\n        }\r\n    ],\r\n    \"salesChannels\":[\r\n        {\r\n            \"salesChannelId\": \"{{gen_salesChannel_id}}\",\r\n            \"priority\": 1\r\n        }\r\n    ]\r\n}",
-              "options": {
-                "raw": {
-                  "language": "json"
-                }
-              }
-            },
-            "url": {
-              "raw": "{{sw_endpoint_api}}/promotion",
-              "host": [
-                "{{sw_endpoint_api}}"
               ],
-              "path": [
-                "promotion"
-              ]
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{gen_access_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"id\": \"{{created_promotion_5item_id}}\",\r\n    \"active\": true,\r\n    \"name\": \"API: promo main prod 5 qty\",\r\n    \"code\": null,\r\n    \"exclusive\": false,\r\n    \"useCodes\": false,\r\n    \"useIndividualCodes\": false,\r\n    \"useSetGroups\": false,\r\n    \"discounts\": [\r\n        {\r\n            \"id\": \"3fb096f6ede1720f178523a2d5cb4915\",\r\n            \"considerAdvancedRules\": false,\r\n            \"scope\": \"cart\",\r\n            \"type\": \"percentage\",\r\n            \"value\": 10\r\n        }\r\n    ],\r\n    \"salesChannels\": [\r\n        {\r\n            \"salesChannelId\": \"{{gen_salesChannel_id}}\",\r\n            \"priority\": 1\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{sw_endpoint_api}}/promotion",
+                  "host": [
+                    "{{sw_endpoint_api}}"
+                  ],
+                  "path": [
+                    "promotion"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "SW: cart condition to 5 item promo",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Created entity successfully\", function () {\r",
+                      "    pm.response.to.have.status(204);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "{{gen_access_token}}",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"promotionId\": \"{{created_promotion_5item_id}}\",\r\n    \"ruleId\": \"{{created_rule_5item_id}}\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{sw_endpoint_api}}/promotion-cart-rule",
+                  "host": [
+                    "{{sw_endpoint_api}}"
+                  ],
+                  "path": [
+                    "promotion-cart-rule"
+                  ]
+                }
+              },
+              "response": []
             }
-          },
-          "response": []
+          ]
         }
       ],
       "event": [
@@ -1244,6 +1419,11 @@
                   "    pm.response.to.have.status(200);\r",
                   "});\r",
                   "const response = pm.response.json()\r",
+                  "\r",
+                  "pm.test('check coupon count', () => {\r",
+                  "    const coupons = response.cartItems.filter(item => item.type === 'coupon')\r",
+                  "    pm.expect(coupons).to.have.length(1);\r",
+                  "})\r",
                   "pm.test('the first coupon is in the cart', () => {\r",
                   "    const lineItem = response.cartItems.find(item => item.coupon?.code === pm.environment.get('created_promotion_byCode_code'))\r",
                   "    pm.expect(lineItem).to.be.an('object')\r",
@@ -1252,6 +1432,80 @@
                   "    pm.expect(lineItem.coupon.label).to.eq('API: promo by code')\r",
                   "    pm.expect(lineItem.coupon.savedPrice.type).to.eq('fixed')\r",
                   "    pm.expect(lineItem.coupon.savedPrice.value).to.eq(2.25)\r",
+                  "})"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_cart_get}}",
+              "host": [
+                "{{domain}}{{endpoint_cart_get}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "addProducts Copy",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"products\": [\r\n        {\r\n            \"productId\": \"{{catalog_product_main_id}}\",\r\n            \"quantity\": 5\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_cart_products_add}}",
+              "host": [
+                "{{domain}}{{endpoint_cart_products_add}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getCart (check promo)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "const response = pm.response.json()\r",
+                  "\r",
+                  "pm.test('check coupon count', () => {\r",
+                  "    const coupons = response.cartItems.filter(item => item.type === 'coupon')\r",
+                  "    pm.expect(coupons).to.have.length(2);\r",
+                  "})\r",
+                  "pm.test('the first coupon is in the cart', () => {\r",
+                  "    const lineItem = response.cartItems.find(item => item.coupon?.code === '')\r",
+                  "    pm.expect(lineItem).to.be.an('object')\r",
+                  "    pm.expect(lineItem.quantity).to.eq(1)\r",
+                  "    pm.expect(lineItem.type).to.eq('coupon')\r",
+                  "    pm.expect(lineItem.coupon.label).to.eq('API: promo main prod 5 qty')\r",
+                  "    pm.expect(lineItem.coupon.savedPrice.type).to.eq('fixed')\r",
+                  "    pm.expect(lineItem.coupon.savedPrice.value).to.eq(247.98)\r",
                   "})"
                 ],
                 "type": "text/javascript"

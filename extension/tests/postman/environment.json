@@ -111,19 +111,31 @@
       "enabled": true
     },
     {
-      "key": "created_promotion_byCode_code",
-      "value": "API-PROMO-BY_CODE",
-      "type": "default",
-      "enabled": true
-    },
-    {
-      "key": "created_promotion_byCode_id",
-      "value": "a10923e207367d25ee81511ae40b473c",
-      "type": "default",
-      "enabled": true
-    }
+		"key": "created_promotion_byCode_code",
+		"value": "PROMO1",
+		"type": "default",
+		"enabled": true
+	},
+	  {
+		  "key": "created_promotion_byCode_id",
+		  "value": "a10923e207367d25ee81511ae40b473c",
+		  "type": "default",
+		  "enabled": true
+	  },
+	  {
+		  "key": "created_promotion_5item_id",
+		  "value": "f134d2b7a310dec9ac141861cd57689f",
+		  "type": "default",
+		  "enabled": true
+	  },
+	  {
+		  "key": "created_rule_5item_id",
+		  "value": "5305062cfe0a3ab265d863d2edadd2eb",
+		  "type": "default",
+		  "enabled": true
+	  }
   ],
-  "_postman_variable_scope": "environment",
-  "_postman_exported_at": "2022-03-01T11:59:22.040Z",
-  "_postman_exported_using": "Postman/9.14.6"
+	"_postman_variable_scope": "environment",
+	"_postman_exported_at": "2022-03-01T16:06:57.056Z",
+	"_postman_exported_using": "Postman/9.14.7"
 }

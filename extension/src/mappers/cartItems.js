@@ -18,6 +18,7 @@ module.exports = async (context, input) => {
         type: 'coupon',
         coupon: {
           code: lineItem.referencedId,
+          description: '',
           label: lineItem.label,
           savedPrice: {
             type: 'fixed',
