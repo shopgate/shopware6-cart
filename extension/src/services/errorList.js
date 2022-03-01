@@ -33,8 +33,16 @@ class ForbiddenError extends Error {
   }
 }
 
+class NotFoundError extends Error {
+  constructor (message = '') {
+    super(message)
+    this.code = 'ENOTFOUND'
+  }
+}
+
 module.exports = {
   ForbiddenError,
+  NotFoundError,
   ProductNotFoundError,
   ProductStockReachedError,
   UnknownError

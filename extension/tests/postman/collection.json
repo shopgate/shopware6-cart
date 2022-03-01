@@ -6,6 +6,352 @@
   },
   "item": [
     {
+      "name": "setup",
+      "item": [
+        {
+          "name": "SW: get sales channel",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Get Main Sales Channel data\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.data[0].name).to.be.eq('Storefront');\r",
+                  "    pm.environment.set(\"gen_salesChannel_id\", jsonData.data[0].id);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "protocolProfileBehavior": {
+            "disabledSystemHeaders": {}
+          },
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{gen_access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"filter\": [\r\n    {\r\n          \"type\": \"equals\",\r\n          \"field\": \"name\",\r\n          \"value\": \"Storefront\"\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{sw_endpoint_api}}/search/sales-channel",
+              "host": [
+                "{{sw_endpoint_api}}"
+              ],
+              "path": [
+                "search",
+                "sales-channel"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "SW: get variant child",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "\r",
+                  "pm.test(\"Get child ID\", function () {\r",
+                  "    const jsonData = pm.response.json();\r",
+                  "    const child = jsonData.data.filter(product => product.attributes.productNumber === 'SWDEMO10005.3');\r",
+                  "    pm.expect(child).length(1, 'Should have found a child product');\r",
+                  "    pm.environment.set('gen_product_variant_child_id', child[0].id);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{gen_access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{sw_endpoint_api}}/product/{{catalog_product_variant}}/children",
+              "host": [
+                "{{sw_endpoint_api}}"
+              ],
+              "path": [
+                "product",
+                "{{catalog_product_variant}}",
+                "children"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "SW: create no stock prod",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Product created\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{gen_access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"overwrites\": {\r\n        \"id\": \"{{created_product_noStock_id}}\",\r\n        \"name\" : \"API: out of stock product\",\r\n        \"productNumber\" : \"SGDEMOCHECKCART01\",\r\n        \"stock\": 0,\r\n        \"isCloseout\": true,\r\n        \"releaseDate\": \"2022-01-29T11:00:04.389+00:00\"\r\n    },\r\n    \"cloneChildren\": false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{sw_endpoint_api}}/_action/clone/product/{{catalog_product_advPrices_id}}",
+              "host": [
+                "{{sw_endpoint_api}}"
+              ],
+              "path": [
+                "_action",
+                "clone",
+                "product",
+                "{{catalog_product_advPrices_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "SW: create no stock backorder prod",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Product created\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{gen_access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"overwrites\": {\r\n        \"id\": \"{{created_product_noStock_backorder_id}}\",\r\n        \"name\" : \"API: out of stock backorder product\",\r\n        \"productNumber\" : \"SGDEMOCHECKCART03\",\r\n        \"stock\": 0,\r\n        \"isCloseout\": false,\r\n        \"releaseDate\": \"2022-01-29T11:00:04.389+00:00\"\r\n    },\r\n    \"cloneChildren\": false\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{sw_endpoint_api}}/_action/clone/product/{{created_product_noStock_id}}",
+              "host": [
+                "{{sw_endpoint_api}}"
+              ],
+              "path": [
+                "_action",
+                "clone",
+                "product",
+                "{{created_product_noStock_id}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "SW: create coupon code",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Created entity successfully\", function () {\r",
+                  "    pm.response.to.have.status(204);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{gen_access_token}}",
+                  "type": "string"
+                }
+              ]
+            },
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"id\": \"{{created_promotion_byCode_id}}\",\r\n    \"active\": true,\r\n    \"name\": \"API: promo by code\",\r\n    \"code\": \"{{created_promotion_byCode_code}}\",\r\n    \"exclusive\": false,\r\n    \"useCodes\": true,\r\n    \"useIndividualCodes\": false,\r\n    \"useSetGroups\": false,\r\n    \"discounts\": [\r\n        {\r\n            \"considerAdvancedRules\": false,\r\n            \"scope\": \"cart\",\r\n            \"type\": \"absolute\",\r\n            \"value\": 2.25\r\n        }\r\n    ],\r\n    \"salesChannels\":[\r\n        {\r\n            \"salesChannelId\": \"{{gen_salesChannel_id}}\",\r\n            \"priority\": 1\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{sw_endpoint_api}}/promotion",
+              "host": [
+                "{{sw_endpoint_api}}"
+              ],
+              "path": [
+                "promotion"
+              ]
+            }
+          },
+          "response": []
+        }
+      ],
+      "event": [
+        {
+          "listen": "prerequest",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              "/**",
+              " * SW Token generation",
+              " */",
+              "var getToken = true;",
+              "if (!pm.environment.get('gen_token_expires') || !pm.environment.get('gen_access_token')) {",
+              "    console.log('Token or expiry date are missing');",
+              "} else if (pm.environment.get('gen_token_expires') <= (new Date()).getTime()) {",
+              "    console.log('Token is expired');",
+              "} else {",
+              "    getToken = false;",
+              "}",
+              "",
+              "if (getToken === true) {",
+              "    const createRequest = {",
+              "        \"client_id\": pm.environment.get(\"sw_client_id\"),",
+              "        \"grant_type\": \"password\",",
+              "        \"scopes\": \"write\",",
+              "        \"username\": pm.environment.get(\"sw_admin\"),",
+              "        \"password\": pm.environment.get(\"sw_pass\")",
+              "    };",
+              "    const refreshRequest = {",
+              "        \"grant_type\": \"refresh_token\",",
+              "        \"client_id\": pm.environment.get(\"sw_client_id\"),",
+              "        \"refresh_token\": pm.environment.get(\"gen_refresh_token\")",
+              "    };",
+              "    // SW Auth",
+              "    const authRequest = {",
+              "        url: pm.globals.replaceIn(pm.environment.replaceIn(pm.environment.get(\"sw_endpoint_auth\"))),",
+              "        method: 'POST',",
+              "        header: 'Accept: application/json\\nContent-Type: application/json; charset=utf-8',",
+              "        body: {",
+              "            mode: 'application/json'",
+              "        }",
+              "    };",
+              "    // set body depending on type of request needed",
+              "    authRequest.body.raw = JSON.stringify(pm.environment.get(\"gen_refresh_token\") ? refreshRequest : createRequest);",
+              "    pm.sendRequest(authRequest, function (err, res) {",
+              "        if (res.code !== 200) {",
+              "            pm.environment.unset('gen_access_token');",
+              "            pm.environment.unset('gen_token_expires');",
+              "            pm.environment.unset('gen_refresh_token');",
+              "            console.log('Invalidated refresh token');",
+              "            return;",
+              "        }",
+              "        ",
+              "        var responseJson = res.json();",
+              "        pm.environment.set('gen_access_token', responseJson.access_token)",
+              "",
+              "        var expiryDate = new Date();",
+              "        expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);",
+              "        pm.environment.set('gen_token_expires', expiryDate.getTime());",
+              "        pm.environment.set('gen_refresh_token', responseJson.refresh_token);",
+              "        console.log('Saved the token and expiry date');",
+              "    });",
+              "}"
+            ]
+          }
+        },
+        {
+          "listen": "test",
+          "script": {
+            "type": "text/javascript",
+            "exec": [
+              ""
+            ]
+          }
+        }
+      ]
+    },
+    {
       "name": "update",
       "item": [
         {
@@ -746,6 +1092,188 @@
               "raw": "{{domain}}{{endpoint_cart_products_update}}",
               "host": [
                 "{{domain}}{{endpoint_cart_products_update}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "addCoupons no exist",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"couponCodes\": [\r\n        \"LALA\"\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_cart_coupons_add}}",
+              "host": [
+                "{{domain}}{{endpoint_cart_coupons_add}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "coupons",
+      "item": [
+        {
+          "name": "new cart",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_cart_new}}",
+              "host": [
+                "{{domain}}{{endpoint_cart_new}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "addProducts",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"products\": [\r\n        {\r\n            \"productId\": \"{{catalog_product_main_id}}\",\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_cart_products_add}}",
+              "host": [
+                "{{domain}}{{endpoint_cart_products_add}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "addCoupons",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"couponCodes\": [\r\n        \"{{created_promotion_byCode_code}}\"\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_cart_coupons_add}}",
+              "host": [
+                "{{domain}}{{endpoint_cart_coupons_add}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getCart (check coupon)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});\r",
+                  "const response = pm.response.json()\r",
+                  "pm.test('the first coupon is in the cart', () => {\r",
+                  "    const lineItem = response.cartItems.find(item => item.coupon?.code === pm.environment.get('created_promotion_byCode_code'))\r",
+                  "    pm.expect(lineItem).to.be.an('object')\r",
+                  "    pm.expect(lineItem.quantity).to.eq(1)\r",
+                  "    pm.expect(lineItem.type).to.eq('coupon')\r",
+                  "    pm.expect(lineItem.coupon.label).to.eq('API: promo by code')\r",
+                  "    pm.expect(lineItem.coupon.savedPrice.type).to.eq('fixed')\r",
+                  "    pm.expect(lineItem.coupon.savedPrice.value).to.eq(2.25)\r",
+                  "})"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_cart_get}}",
+              "host": [
+                "{{domain}}{{endpoint_cart_get}}"
               ]
             }
           },

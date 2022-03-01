@@ -4,7 +4,7 @@ const {
   ProductNotFoundError,
   ProductStockReachedError,
   UnknownError,
-  ForbiddenError
+  ForbiddenError, NotFoundError
 } = require('./errorList')
 
 /**
@@ -37,12 +37,14 @@ const toShopgateMessage = function (error) {
 }
 
 /**
- * @param {SWClientApiError|Error} error
+ * @param {SWClientApiError|SWEntityError|Error} error
  * @return string
  */
 const wrapErrorForPrint = function (error) {
-  if (error?.statusCode) {
+  if (error.statusCode) {
     return JSON.stringify(error.messages)
+  } else if (error.messageKey) {
+    return JSON.stringify(error)
   }
   return error.message
 }
@@ -52,24 +54,26 @@ const wrapErrorForPrint = function (error) {
  * @param {PipelineContext} context
  */
 const throwOnCartErrors = function (errorList, context) {
-  Object.keys(errorList).forEach((key) => {
-    const details = errorList[key].message
-    switch (errorList[key].messageKey) {
-      case 'product-not-found':
-        context.log.error(details)
-        throw new ProductNotFoundError()
-      case 'product-stock-reached':
-        context.log.error(details)
-        throw new ProductStockReachedError()
-      case 'shipping-method-blocked':
-        // this is not a hard error, products are still added/updated
-        context.log.warn(details)
-        break
-      default:
-        context.log.debug('Cannot map error: ' + wrapErrorForPrint(errorList[key]))
-        throw new UnknownError()
-    }
-  })
+  Object.keys(errorList)
+    .filter(key => errorList[key].level > 0)
+    .forEach((key) => {
+      const details = errorList[key].message
+      context.log.info(details)
+      switch (errorList[key].messageKey) {
+        case 'product-not-found':
+          throw new ProductNotFoundError()
+        case 'promotion-not-found':
+          throw new NotFoundError(details)
+        case 'product-stock-reached':
+          throw new ProductStockReachedError()
+        case 'shipping-method-blocked':
+          // this is not a hard error, products are still added/updated
+          break
+        default:
+          context.log.debug('Cannot map error: ' + wrapErrorForPrint(errorList[key]))
+          throw new UnknownError()
+      }
+    })
 }
 
 /**
@@ -81,7 +85,7 @@ const throwOnMessage = function (messages, context) {
   messages.forEach(message => {
     switch (message.code) {
       case 'CHECKOUT__CART_LINEITEM_NOT_FOUND':
-        context.log.fatal('Could not locate line item in cart: ' + message.detail)
+        context.log.info('Could not locate line item in cart: ' + message.detail)
         throw new ProductNotFoundError()
       case 'FRAMEWORK__INVALID_UUID':
         context.log.fatal('Unexpected UID provided:' + message.detail)

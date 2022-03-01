@@ -11,7 +11,7 @@
         "value": {
           "endpoint": "http://localhost",
           "accessToken": "SWSCCHRKRGF4B2ZZOGVSS0LMRQ",
-          "languageId": "2fbb5fe2e29a4d70aa5854ce7ce3e20b"
+          "languageId": "c6fa184f14af492eb20b755bf8ce0a7a"
         }
       }
     },
@@ -33,6 +33,7 @@
       "description": "Sets up authentication before every pipeline call",
       "hooks": [
         "shopgate.cart.getCart.v1:before",
+        "shopgate.cart.addCoupons.v1:before",
         "shopgate.cart.addProducts.v1:before",
         "shopgate.cart.updateProducts.v1:before",
         "shopgate.cart.deleteProducts.v1:before",

@@ -1,6 +1,7 @@
 'use strict'
 
 const TYPE_PRODUCT = 'product'
+const TYPE_COUPON = 'promotion'
 
 /**
  * @param {PipelineContext} context
@@ -8,7 +9,23 @@ const TYPE_PRODUCT = 'product'
  * @returns {Promise<{cartItems: []}>}
  */
 module.exports = async (context, input) => {
-  const coupons = []
+  const coupons = input.swCart.lineItems
+    .filter(({ type }) => type === TYPE_COUPON)
+    .map((lineItem) => {
+      return {
+        id: lineItem.id,
+        quantity: lineItem.quantity,
+        type: 'coupon',
+        coupon: {
+          code: lineItem.referencedId,
+          label: lineItem.label,
+          savedPrice: {
+            type: 'fixed',
+            value: -(lineItem.price.totalPrice)
+          }
+        }
+      }
+    })
   const products = input.swCart.lineItems
     .filter(({ type }) => type === TYPE_PRODUCT)
     .map((lineItem) => {
