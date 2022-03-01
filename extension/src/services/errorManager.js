@@ -4,7 +4,7 @@ const {
   ProductNotFoundError,
   ProductStockReachedError,
   UnknownError,
-  ShippingMethodBlockedError, ForbiddenError
+  ForbiddenError
 } = require('./errorList')
 
 /**
@@ -53,13 +53,18 @@ const wrapErrorForPrint = function (error) {
  */
 const throwOnCartErrors = function (errorList, context) {
   Object.keys(errorList).forEach((key) => {
+    const details = errorList[key].message
     switch (errorList[key].messageKey) {
       case 'product-not-found':
+        context.log.error(details)
         throw new ProductNotFoundError()
       case 'product-stock-reached':
+        context.log.error(details)
         throw new ProductStockReachedError()
       case 'shipping-method-blocked':
-        throw new ShippingMethodBlockedError()
+        // this is not a hard error, products are still added/updated
+        context.log.warn(details)
+        break
       default:
         context.log.debug('Cannot map error: ' + wrapErrorForPrint(errorList[key]))
         throw new UnknownError()
@@ -78,6 +83,9 @@ const throwOnMessage = function (messages, context) {
       case 'CHECKOUT__CART_LINEITEM_NOT_FOUND':
         context.log.fatal('Could not locate line item in cart: ' + message.detail)
         throw new ProductNotFoundError()
+      case 'FRAMEWORK__INVALID_UUID':
+        context.log.fatal('Unexpected UID provided:' + message.detail)
+        throw new UnknownError()
       default:
         context.log.fatal('Could not map message: ' + JSON.stringify(message))
         throw new UnknownError()

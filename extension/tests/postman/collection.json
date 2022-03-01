@@ -1,0 +1,789 @@
+{
+  "info": {
+    "_postman_id": "50d491c4-7e96-4418-937f-eb6017ffddfa",
+    "name": "SW6 - Cart",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "update",
+      "item": [
+        {
+          "name": "new cart",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_cart_new}}",
+              "host": [
+                "{{domain}}{{endpoint_cart_new}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "addProducts",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"products\": [\r\n        {\r\n            \"productId\": \"{{catalog_product_main_id}}\",\r\n            \"quantity\": 1\r\n        },\r\n        {\r\n            \"productId\": \"{{catalog_product_advPrices_id}}\",\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_cart_products_add}}",
+              "host": [
+                "{{domain}}{{endpoint_cart_products_add}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getCart",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json()\r",
+                  "pm.test('that the cart is not empty', () => {\r",
+                  "    pm.expect(response).to.be.an('object').and.not.empty\r",
+                  "    pm.expect(response.cartItems).to.be.an('array').and.not.empty\r",
+                  "    pm.expect(response.cartItems.length).to.equal(2)\r",
+                  "})\r",
+                  "\r",
+                  "pm.test('the first product is in the cart', () => {\r",
+                  "    const lineItem = response.cartItems.find(item => item.product.id === pm.environment.get('catalog_product_main_id'))\r",
+                  "    pm.expect(lineItem).to.be.an('object')\r",
+                  "    pm.expect(lineItem.quantity).to.eq(1)\r",
+                  "    pm.environment.set('gen_lineItem_main_1', lineItem.id)\r",
+                  "})\r",
+                  "\r",
+                  "pm.test('the second product is in the cart', () => {\r",
+                  "    const lineItem = response.cartItems.find(item => item.product.id === pm.environment.get('catalog_product_advPrices_id'))\r",
+                  "    pm.expect(lineItem).to.be.an('object')\r",
+                  "    pm.expect(lineItem.quantity).to.eq(1)\r",
+                  "    pm.environment.set('gen_lineItem_advPrices_1', lineItem.id)\r",
+                  "})"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_cart_get}}",
+              "host": [
+                "{{domain}}{{endpoint_cart_get}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "updateProduct 1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"CartItem\": [\r\n        {\r\n            \"cartItemId\": \"{{gen_lineItem_main_1}}\",\r\n            \"quantity\": 2\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_cart_products_update}}",
+              "host": [
+                "{{domain}}{{endpoint_cart_products_update}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "updateProduct 2",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"cartItems\": [\r\n        {\r\n            \"CartItemId\": \"{{gen_lineItem_advPrices_1}}\",\r\n            \"quantity\": 3\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_cart_products_update}}",
+              "host": [
+                "{{domain}}{{endpoint_cart_products_update}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getCart",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json()\r",
+                  "pm.test('that the cart is not empty', () => {\r",
+                  "    pm.expect(response).to.be.an('object').and.not.empty\r",
+                  "    pm.expect(response.cartItems).to.be.an('array').and.not.empty\r",
+                  "    pm.expect(response.cartItems.length).to.equal(2)\r",
+                  "})\r",
+                  "\r",
+                  "pm.test('the first product is in the cart', () => {\r",
+                  "    const lineItem = response.cartItems.find(item => item.product.id === pm.environment.get('catalog_product_main_id'))\r",
+                  "    pm.expect(lineItem).to.be.an('object')\r",
+                  "    pm.expect(lineItem.quantity).to.eq(2)\r",
+                  "})\r",
+                  "\r",
+                  "pm.test('the second product is in the cart', () => {\r",
+                  "    const lineItem = response.cartItems.find(item => item.product.id === pm.environment.get('catalog_product_advPrices_id'))\r",
+                  "    pm.expect(lineItem).to.be.an('object')\r",
+                  "    pm.expect(lineItem.quantity).to.eq(3)\r",
+                  "})"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_cart_get}}",
+              "host": [
+                "{{domain}}{{endpoint_cart_get}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update (max stock)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 500\", function () {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"CartItem\": [\r\n        {\r\n            \"cartItemId\": \"{{gen_lineItem_main_1}}\",\r\n            \"quantity\": 9999\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_cart_products_update}}",
+              "host": [
+                "{{domain}}{{endpoint_cart_products_update}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getCart (max stock)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json()\r",
+                  "pm.test('that the cart is not empty', () => {\r",
+                  "    pm.expect(response).to.be.an('object').and.not.empty\r",
+                  "    pm.expect(response.cartItems).to.be.an('array').and.not.empty\r",
+                  "    pm.expect(response.cartItems.length).to.equal(2)\r",
+                  "})\r",
+                  "\r",
+                  "pm.test('the first product is in the cart', () => {\r",
+                  "    const lineItem = response.cartItems.find(item => item.product.id === pm.environment.get('catalog_product_main_id'))\r",
+                  "    pm.expect(lineItem).to.be.an('object')\r",
+                  "    pm.expect(lineItem.quantity).to.eq(100)\r",
+                  "})"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_cart_get}}",
+              "host": [
+                "{{domain}}{{endpoint_cart_get}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update (no exist)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 500\", function () {\r",
+                  "    pm.response.to.have.status(500);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"CartItem\": [\r\n        {\r\n            \"cartItemId\": \"7013a4d06c194e6c8117192f137dc24a\",\r\n            \"quantity\": 2\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_cart_products_update}}",
+              "host": [
+                "{{domain}}{{endpoint_cart_products_update}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "delete",
+      "item": [
+        {
+          "name": "new cart",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_cart_new}}",
+              "host": [
+                "{{domain}}{{endpoint_cart_new}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "addProducts 1 (2x)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"products\": [\r\n        {\r\n            \"productId\": \"{{catalog_product_main_id}}\",\r\n            \"quantity\": 1\r\n        },\r\n        {\r\n            \"productId\": \"{{catalog_product_advPrices_id}}\",\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_cart_products_add}}",
+              "host": [
+                "{{domain}}{{endpoint_cart_products_add}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "addProducts 2",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"Status code is 200\", function () {\r",
+                  "    pm.response.to.have.status(200);\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"products\": [\r\n        {\r\n            \"productId\": \"{{catalog_product_freeShip}}\",\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_cart_products_add}}",
+              "host": [
+                "{{domain}}{{endpoint_cart_products_add}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getCart",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json()\r",
+                  "pm.test('that the cart is not empty anymore', () => {\r",
+                  "    pm.expect(response).to.be.an('object').and.not.empty\r",
+                  "    pm.expect(response.cartItems).to.be.an('array').and.not.empty\r",
+                  "    pm.expect(response.cartItems.length).to.equal(3)\r",
+                  "})\r",
+                  "\r",
+                  "pm.test('the first product is in the cart', () => {\r",
+                  "    const lineItem = response.cartItems.find(item => item.product.id === pm.environment.get('catalog_product_main_id'))\r",
+                  "    pm.expect(lineItem).to.be.an('object')\r",
+                  "    pm.expect(lineItem.quantity).to.eq(1)\r",
+                  "    pm.environment.set('gen_lineItem_main_2', lineItem.id)\r",
+                  "})\r",
+                  "\r",
+                  "pm.test('the second product is in the cart', () => {\r",
+                  "    const lineItem = response.cartItems.find(item => item.product.id === pm.environment.get('catalog_product_advPrices_id'))\r",
+                  "    pm.expect(lineItem).to.be.an('object')\r",
+                  "    pm.expect(lineItem.quantity).to.eq(1)\r",
+                  "    pm.environment.set('gen_lineItem_advPrices_2', lineItem.id)\r",
+                  "})\r",
+                  "\r",
+                  "pm.test('the third product is in the cart', () => {\r",
+                  "    const lineItem = response.cartItems.find(item => item.product.id === pm.environment.get('catalog_product_freeShip'))\r",
+                  "    pm.expect(lineItem).to.be.an('object')\r",
+                  "    pm.expect(lineItem.quantity).to.eq(1)\r",
+                  "    pm.environment.set('gen_lineItem_freeShip_2', lineItem.id)\r",
+                  "})"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_cart_get}}",
+              "host": [
+                "{{domain}}{{endpoint_cart_get}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete 1",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('that the request succeeded', () => {",
+                  "    pm.response.to.have.status(200)",
+                  "    pm.expect(pm.response.json()).to.be.an('object').and.empty",
+                  "})"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"CartItemIds\": [\n        \"{{gen_lineItem_main_2}}\"\n    ]\n}"
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_cart_products_delete}}",
+              "host": [
+                "{{domain}}{{endpoint_cart_products_delete}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete 2",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test('that the request succeeded', () => {",
+                  "    pm.response.to.have.status(200)",
+                  "    pm.expect(pm.response.json()).to.be.an('object').and.empty",
+                  "})"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"cartItemIds\": [\n        \"{{gen_lineItem_freeShip_2}}\"\n    ]\n}"
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_cart_products_delete}}",
+              "host": [
+                "{{domain}}{{endpoint_cart_products_delete}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "getCart",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "const response = pm.response.json()\r",
+                  "pm.test('that the cart is not empty', () => {\r",
+                  "    pm.expect(response).to.be.an('object').and.not.empty\r",
+                  "    pm.expect(response.cartItems).to.be.an('array').and.not.empty\r",
+                  "    pm.expect(response.cartItems.length).to.equal(1)\r",
+                  "})\r",
+                  "\r",
+                  "pm.test('the second product is in the cart', () => {\r",
+                  "    const lineItem = response.cartItems.find(item => item.product.id === pm.environment.get('catalog_product_advPrices_id'))\r",
+                  "    pm.expect(lineItem).to.be.an('object')\r",
+                  "    pm.expect(lineItem.quantity).to.eq(1)\r",
+                  "    pm.environment.unset('gen_lineItem_main_2')\r",
+                  "    pm.environment.unset('gen_lineItem_freeShip_2')\r",
+                  "})"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_cart_get}}",
+              "host": [
+                "{{domain}}{{endpoint_cart_get}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Errors",
+      "item": [
+        {
+          "name": "addProducts (disabled)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"check error\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.error.code).to.eql('ENOTFOUND');\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"products\": [\r\n        {\r\n            \"productId\": \"{{catalog_product_disabled}}\",\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_cart_products_add}}",
+              "host": [
+                "{{domain}}{{endpoint_cart_products_add}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Delete no exist",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"check error\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.error.code).to.eql('ENOTFOUND');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"CartItemIds\": [\n        \"a389bd9d710c437a990565dd2e803f66\"\n    ]\n}"
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_cart_products_delete}}",
+              "host": [
+                "{{domain}}{{endpoint_cart_products_delete}}"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "update no exist",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"check error\", function () {\r",
+                  "    var jsonData = pm.response.json();\r",
+                  "    pm.expect(jsonData.error.code).to.eql('ENOTFOUND');\r",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"CartItem\": [\r\n        {\r\n            \"cartItemId\": \"7013a4d06c194e6c8117192f137dc24a\",\r\n            \"quantity\": 2\r\n        }\r\n    ]\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{domain}}{{endpoint_cart_products_update}}",
+              "host": [
+                "{{domain}}{{endpoint_cart_products_update}}"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}

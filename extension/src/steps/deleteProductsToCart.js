@@ -1,7 +1,7 @@
 'use strict'
 
 const { removeCartItem } = require('@shopware-pwa/shopware-6-client')
-const { throwOnApiError } = require('../services/errorManager')
+const { throwOnApiError, throwOnCartErrors } = require('../services/errorManager')
 
 /**
  * @param {PipelineContext} context
@@ -10,8 +10,10 @@ const { throwOnApiError } = require('../services/errorManager')
  */
 module.exports = async (context, input) => {
   await Promise.all(
-    input.cartItemIds.map(
-      lineItemId => removeCartItem(lineItemId).catch(e => throwOnApiError(e, context))
+    input.cartItemIds.slice(-1).map(
+      lineItemId => removeCartItem(lineItemId)
+        .catch(e => throwOnApiError(e, context))
+        .then(cart => throwOnCartErrors(cart.errors, context))
     )
   )
 }

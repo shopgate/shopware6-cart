@@ -17,7 +17,7 @@ module.exports = async (context, input) => {
         quantity: lineItem.quantity,
         type: lineItem.type,
         product: {
-          id: lineItem.payload?.productNumber ?? lineItem.referencedId,
+          id: lineItem.referencedId,
           name: lineItem.label,
           featuredImageUrl: lineItem.cover.url,
           price: {

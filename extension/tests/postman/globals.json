@@ -1,0 +1,44 @@
+{
+  "id": "c59d9487-64cc-42fc-84f0-6c88fa4406ff",
+  "values": [
+    {
+      "key": "domain",
+      "value": "http://localhost:{{port}}",
+      "enabled": true
+    },
+    {
+      "key": "port",
+      "value": "8090",
+      "enabled": true
+    },
+    {
+      "key": "endpoint_cart_products_add",
+      "value": "/pipelines/shopgate.cart.addProducts.v1",
+      "enabled": true
+    },
+    {
+      "key": "endpoint_cart_products_delete",
+      "value": "/pipelines/shopgate.cart.deleteProducts.v1",
+      "enabled": true
+    },
+    {
+      "key": "endpoint_cart_shopify_checkout_get",
+      "value": "/pipelines/shopgate.cart.fetchShopifyCheckout.v1",
+      "enabled": true
+    },
+    {
+      "key": "endpoint_cart_get",
+      "value": "/pipelines/shopgate.cart.getCart.v1",
+      "enabled": true
+    },
+    {
+      "key": "endpoint_cart_products_update",
+      "value": "/pipelines/shopgate.cart.updateProducts.v1",
+      "enabled": true
+    }
+  ],
+  "name": "Globals",
+  "_postman_variable_scope": "globals",
+  "_postman_exported_at": "2022-03-01T09:58:24.566Z",
+  "_postman_exported_using": "Postman/9.14.6"
+}

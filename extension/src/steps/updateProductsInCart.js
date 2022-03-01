@@ -9,9 +9,10 @@ const { throwOnCartErrors, throwOnApiError } = require('../services/errorManager
  * @returns {Promise<void>}
  */
 module.exports = async (context, input) => {
-  const item = input.cartItems.pop()
-  const swCart = await changeCartItemQuantity(item.CartItemId ?? item.cartItemId, item.quantity)
-    .catch(e => throwOnApiError(e, context))
-
-  throwOnCartErrors(swCart.errors, context)
+  await Promise.all(
+    input.cartItems.slice(-1)
+      .map(item => changeCartItemQuantity(item.CartItemId ?? item.cartItemId, item.quantity)
+        .catch(e => throwOnApiError(e, context))
+        .then(swCart => throwOnCartErrors(swCart.errors, context)))
+  )
 }

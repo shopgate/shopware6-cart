@@ -25,14 +25,6 @@ class ProductStockReachedError extends Error {
   }
 }
 
-class ShippingMethodBlockedError extends Error {
-  constructor () {
-    // todo: translate
-    super('Your selected shipping method is not available, please select another one')
-    this.code = 'ESHIPPINGBLOCKED'
-  }
-}
-
 class ForbiddenError extends Error {
   constructor () {
     // todo: translate
@@ -45,6 +37,5 @@ module.exports = {
   ForbiddenError,
   ProductNotFoundError,
   ProductStockReachedError,
-  ShippingMethodBlockedError,
   UnknownError
 }
