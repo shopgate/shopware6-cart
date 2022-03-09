@@ -4,7 +4,8 @@ const {
   ProductNotFoundError,
   ProductStockReachedError,
   UnknownError,
-  ForbiddenError, NotFoundError
+  ForbiddenError,
+  CouponNotFound
 } = require('./errorList')
 
 /**
@@ -63,7 +64,7 @@ const throwOnCartErrors = function (errorList, context) {
         case 'product-not-found':
           throw new ProductNotFoundError()
         case 'promotion-not-found':
-          throw new NotFoundError(details)
+          throw new CouponNotFound(details, errorList[key].promotionCode)
         case 'product-stock-reached':
           throw new ProductStockReachedError()
         case 'shipping-method-blocked':
