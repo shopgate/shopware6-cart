@@ -41,7 +41,6 @@ class NotFoundError extends Error {
 }
 
 class CouponNotFound extends NotFoundError {}
-
 class CouponNotEligible extends NotFoundError {}
 
 module.exports = {
