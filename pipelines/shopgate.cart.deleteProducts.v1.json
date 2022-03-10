@@ -58,7 +58,7 @@
       },
       {
         "id": "@apite/shopware6-cart",
-        "path": "@apite/shopware6-cart/src/steps/deleteProductsInCart.js",
+        "path": "@apite/shopware6-cart/src/steps/deleteCartItems.js",
         "type": "extension",
         "input": [
           {

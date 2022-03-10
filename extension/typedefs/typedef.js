@@ -51,7 +51,7 @@ const { Cart } = require('@shopware-pwa/shopware-6-client')
  * @property {number} quantity
  */
 /**
- * @typedef {Object} SGDeleteProductInput
+ * @typedef {Object} SGDeleteCartItemInput
  * @property {Array<string>} cartItemIds
  */
 

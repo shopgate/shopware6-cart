@@ -5,7 +5,7 @@ const { throwOnApiError, throwOnCartErrors } = require('../services/errorManager
 
 /**
  * @param {PipelineContext} context
- * @param {SGDeleteProductInput} input
+ * @param {SGDeleteCartItemInput} input
  * @returns {Promise<void>}
  */
 module.exports = async (context, input) => {

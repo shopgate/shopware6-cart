@@ -1,0 +1,44 @@
+{
+  "version": "1",
+  "pipeline": {
+    "id": "shopgate.cart.deleteCoupons.v1",
+    "input": [
+      {"id": "1000", "key": "couponCodes"}
+    ],
+    "output": [],
+    "public": true,
+    "steps": [
+      {
+        "id": "@apite/shopware6-cart",
+        "path": "@apite/shopware6-cart/src/steps/getCart.js",
+        "type": "extension",
+        "input": [
+        ],
+        "output": [
+          {"id": "100", "key": "swCart"}
+        ]
+      },
+      {
+        "id": "@apite/shopware6-cart",
+        "path": "@apite/shopware6-cart/src/mappers/couponToCartItem.js",
+        "type": "extension",
+        "input": [
+          {"id": "100", "key": "swCart"},
+          {"id": "1000", "key": "couponCodes"}
+        ],
+        "output": [
+          {"id": "200", "key": "cartItemIds"}
+        ]
+      },
+      {
+        "id": "@apite/shopware6-cart",
+        "path": "@apite/shopware6-cart/src/steps/deleteCartItems.js",
+        "type": "extension",
+        "input": [
+          {"id": "200", "key": "cartItemIds"}
+        ],
+        "output": []
+      }
+    ]
+  }
+}
