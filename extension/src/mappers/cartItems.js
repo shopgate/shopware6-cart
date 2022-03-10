@@ -1,8 +1,19 @@
 'use strict'
 
-const TYPE_PRODUCT = 'product'
-const TYPE_COUPON = 'promotion'
+const SW_TYPE_PRODUCT = 'product'
+const SW_TYPE_COUPON = 'promotion'
 
+/* jshint -W014 */
+/**
+ * @param {SWLineItem} lineItem
+ * @return {{type: string, value: number}}
+ */
+const getCouponPrice = function (lineItem) {
+  const swType = lineItem.priceDefinition?.type
+  return swType === 'percentage'
+    ? { type: swType, value: -(lineItem.priceDefinition[swType]) }
+    : { type: 'fixed', value: -(lineItem.price.totalPrice) }
+}
 /**
  * @param {PipelineContext} context
  * @param {SWCartInput} input
@@ -10,7 +21,7 @@ const TYPE_COUPON = 'promotion'
  */
 module.exports = async (context, input) => {
   const coupons = input.swCart.lineItems
-    .filter(({ type }) => type === TYPE_COUPON)
+    .filter(({ type }) => type === SW_TYPE_COUPON)
     .map((lineItem) => {
       return {
         id: lineItem.id,
@@ -19,10 +30,7 @@ module.exports = async (context, input) => {
         coupon: {
           code: lineItem.referencedId,
           label: lineItem.label,
-          savedPrice: {
-            type: 'fixed',
-            value: -(lineItem.price.totalPrice)
-          }
+          savedPrice: getCouponPrice(lineItem)
         },
         currency: input.currency,
         product: null,
@@ -30,12 +38,12 @@ module.exports = async (context, input) => {
       }
     })
   const products = input.swCart.lineItems
-    .filter(({ type }) => type === TYPE_PRODUCT)
+    .filter(({ type }) => type === SW_TYPE_PRODUCT)
     .map((lineItem) => {
       return {
         id: lineItem.id,
         quantity: lineItem.quantity,
-        type: lineItem.type,
+        type: 'product',
         product: {
           id: lineItem.referencedId,
           name: lineItem.label,

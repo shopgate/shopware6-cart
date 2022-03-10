@@ -5,7 +5,7 @@ const {
   ProductStockReachedError,
   UnknownError,
   ForbiddenError,
-  CouponNotFound
+  CouponNotFound, CouponNotEligible
 } = require('./errorList')
 
 /**
@@ -53,6 +53,7 @@ const wrapErrorForPrint = function (error) {
 /**
  * @param {SWCartErrors} errorList
  * @param {PipelineContext} context
+ * @throws {Error}
  */
 const throwOnCartErrors = function (errorList, context) {
   Object.keys(errorList)
@@ -64,7 +65,7 @@ const throwOnCartErrors = function (errorList, context) {
         case 'product-not-found':
           throw new ProductNotFoundError()
         case 'promotion-not-found':
-          throw new CouponNotFound(details, errorList[key].promotionCode)
+          throw new CouponNotFound(details)
         case 'product-stock-reached':
           throw new ProductStockReachedError()
         case 'shipping-method-blocked':
@@ -75,6 +76,28 @@ const throwOnCartErrors = function (errorList, context) {
           throw new UnknownError()
       }
     })
+}
+
+/**
+ * Sometimes we want to throw even on information messages
+ * to show customer information via Error modal
+ *
+ * @param {SWCartErrors} errorList
+ * @param {PipelineContext} context
+ * @throws {Error}
+ */
+const throwOnCartInfoErrors = function (errorList, context) {
+  Object.keys(errorList)
+    .filter(key => errorList[key].level === 0)
+    .forEach((key) => {
+      const details = errorList[key].message
+      context.log.info(details)
+      switch (errorList[key].messageKey) {
+        case 'promotion-not-eligible':
+          throw new CouponNotEligible(details)
+      }
+    })
+  throwOnCartErrors(errorList, context)
 }
 
 /**
@@ -105,6 +128,7 @@ const throwOnMessage = function (messages, context) {
  * @param {SWClientApiError|Error} error
  * @param {PipelineContext} context
  * @see https://shopware.stoplight.io/docs/store-api/ZG9jOjExMTYzMDU0-error-handling
+ * @throws {Error}
  */
 const throwOnApiError = function (error, context) {
   if (!error.statusCode) {
@@ -135,6 +159,7 @@ const throwOnApiError = function (error, context) {
 module.exports = {
   throwOnApiError,
   throwOnCartErrors,
+  throwOnCartInfoErrors,
   toShopgateType,
   toShopgateMessage,
   wrapErrorForPrint

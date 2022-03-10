@@ -22,12 +22,31 @@ const saveContextToken = async function (contextToken, context) {
   })
 }
 
+/**
+ * @param {string} couponCode
+ * @param {PipelineContext} context
+ * @return {Promise<void>}
+ */
 const saveCouponCode = async function (couponCode, context) {
   _getStorage(context).set('couponCode', couponCode).catch(err => {
-    context.log.error(`Failed to save context token. Error: '${err.message}'`)
+    context.log.error(`Failed to save coupon code. Error: '${err.message}'`)
   })
 }
 
+/**
+ * @param {PipelineContext} context
+ * @return {Promise<void>}
+ */
+const removeCouponCode = async function (context) {
+  _getStorage(context).del('couponCode').catch(err => {
+    context.log.error(`Failed to remove coupon code. Error: '${err.message}'`)
+  })
+}
+
+/**
+ * @param {PipelineContext} context
+ * @return {Promise<string>}
+ */
 const getCouponCode = async context => _getStorage(context).get('couponCode')
 
-module.exports = { saveContextToken, saveCouponCode, getCouponCode }
+module.exports = { getCouponCode, removeCouponCode, saveContextToken, saveCouponCode }

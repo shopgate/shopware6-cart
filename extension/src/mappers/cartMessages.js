@@ -12,9 +12,9 @@ const { toShopgateMessage } = require('../services/errorManager')
 module.exports = async (context, input) => {
   const messages = []
   const errors = { ...input.swCart.errors }
-  Object.keys(errors).forEach((key) => {
-    messages.push(toShopgateMessage(errors[key]))
-  })
+  Object.keys(errors)
+    .filter(key => errors[key].level > 0)
+    .forEach(key => messages.push(toShopgateMessage(errors[key])))
 
   return { messages }
 }

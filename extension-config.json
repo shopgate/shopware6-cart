@@ -29,7 +29,7 @@
   },
   "steps": [
     {
-      "path": "extension/src/hooks/AuthSetup.js",
+      "path": "extension/src/hooks/authSetup.js",
       "description": "Sets up authentication before every pipeline call",
       "hooks": [
         "shopgate.cart.getCart.v1:before",
@@ -38,6 +38,15 @@
         "shopgate.cart.updateProducts.v1:before",
         "shopgate.cart.deleteProducts.v1:before",
         "apite.cart.newCart.v1:before"
+      ],
+      "input": [],
+      "output": []
+    },
+    {
+      "path": "extension/src/hooks/addContextCouponToCart.js",
+      "description": "Attempts to add saved coupon to cart",
+      "hooks": [
+        "shopgate.cart.addProducts.v1:after"
       ],
       "input": [],
       "output": []

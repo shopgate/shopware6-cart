@@ -40,23 +40,12 @@ class NotFoundError extends Error {
   }
 }
 
-/**
- * @class
- * @constructor
- * @public
- */
-class CouponNotFound extends NotFoundError {
-  constructor (message, couponCode) {
-    super(message)
-    /**
-     * @type {string}
-     * @public
-     */
-    this.referencedId = couponCode
-  }
-}
+class CouponNotFound extends NotFoundError {}
+
+class CouponNotEligible extends NotFoundError {}
 
 module.exports = {
+  CouponNotEligible,
   CouponNotFound,
   ForbiddenError,
   NotFoundError,
