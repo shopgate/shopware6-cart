@@ -1,6 +1,6 @@
 'use strict'
 
-const { toShopgateMessage } = require('../services/errorManager')
+const { toShopgateMessage } = require('../../services/errorManager')
 
 /**
  * Despite out attempt, the messages are not printed in default theme

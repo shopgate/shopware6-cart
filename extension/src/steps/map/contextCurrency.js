@@ -1,7 +1,7 @@
 'use strict'
 
 const { getSessionContext } = require('@shopware-pwa/shopware-6-client')
-const { throwOnApiError } = require('../services/errorManager')
+const { throwOnApiError } = require('../../services/errorManager')
 
 /**
  * @param {PipelineContext} context

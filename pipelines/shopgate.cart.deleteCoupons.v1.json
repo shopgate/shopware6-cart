@@ -20,7 +20,7 @@
       },
       {
         "id": "@apite/shopware6-cart",
-        "path": "@apite/shopware6-cart/src/mappers/couponToCartItem.js",
+        "path": "@apite/shopware6-cart/src/steps/map/couponToCartItem.js",
         "type": "extension",
         "input": [
           {"id": "100", "key": "swCart"},

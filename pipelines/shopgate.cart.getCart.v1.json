@@ -45,7 +45,7 @@
       },
       {
         "id": "@apite/shopware6-cart",
-        "path": "@apite/shopware6-cart/src/mappers/contextCurrency.js",
+        "path": "@apite/shopware6-cart/src/steps/map/contextCurrency.js",
         "type": "extension",
         "input": [],
         "output": [
@@ -57,7 +57,7 @@
       },
       {
         "id": "@apite/shopware6-cart",
-        "path": "@apite/shopware6-cart/src/mappers/cartMessages.js",
+        "path": "@apite/shopware6-cart/src/steps/map/cartMessages.js",
         "type": "extension",
         "input": [
           {
@@ -74,7 +74,7 @@
       },
       {
         "id": "@apite/shopware6-cart",
-        "path": "@apite/shopware6-cart/src/mappers/cartItems.js",
+        "path": "@apite/shopware6-cart/src/steps/map/cartItems.js",
         "type": "extension",
         "input": [
           {
@@ -95,7 +95,7 @@
       },
       {
         "id": "@apite/shopware6-cart",
-        "path": "@apite/shopware6-cart/src/mappers/cartTotals.js",
+        "path": "@apite/shopware6-cart/src/steps/map/cartTotals.js",
         "type": "extension",
         "input": [
           {
@@ -112,7 +112,7 @@
       },
       {
         "id": "@apite/shopware6-cart",
-        "path": "@apite/shopware6-cart/src/mappers/cartText.js",
+        "path": "@apite/shopware6-cart/src/steps/map/cartText.js",
         "type": "extension",
         "input": [],
         "output": [
@@ -124,7 +124,7 @@
       },
       {
         "id": "@apite/shopware6-cart",
-        "path": "@apite/shopware6-cart/src/mappers/cartFlags.js",
+        "path": "@apite/shopware6-cart/src/steps/map/cartFlags.js",
         "type": "extension",
         "input": [
           {
