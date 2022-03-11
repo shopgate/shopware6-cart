@@ -7,6 +7,7 @@ const {
   ForbiddenError,
   CouponNotFound, CouponNotEligible
 } = require('./errorList')
+const { decorateError } = require('./logDecorator')
 
 /**
  * @param {SWErrorLevel} shopwareType
@@ -38,19 +39,6 @@ const toShopgateMessage = function (error) {
 }
 
 /**
- * @param {SWClientApiError|SWEntityError|Error} error
- * @return string
- */
-const wrapErrorForPrint = function (error) {
-  if (error.statusCode) {
-    return JSON.stringify(error.messages)
-  } else if (error.messageKey) {
-    return JSON.stringify(error)
-  }
-  return error.message
-}
-
-/**
  * @param {SWCartErrors} errorList
  * @param {PipelineContext} context
  * @throws {Error}
@@ -59,20 +47,19 @@ const throwOnCartErrors = function (errorList, context) {
   Object.keys(errorList)
     .filter(key => errorList[key].level > 0)
     .forEach((key) => {
-      const details = errorList[key].message
-      context.log.info(details)
+      context.log.info(decorateError(errorList[key]))
       switch (errorList[key].messageKey) {
         case 'product-not-found':
           throw new ProductNotFoundError()
         case 'promotion-not-found':
-          throw new CouponNotFound(details)
+          throw new CouponNotFound(errorList[key].message)
         case 'product-stock-reached':
           throw new ProductStockReachedError()
         case 'shipping-method-blocked':
           // this is not a hard error, products are still added/updated
           break
         default:
-          context.log.debug('Cannot map error: ' + wrapErrorForPrint(errorList[key]))
+          context.log.debug(decorateError(errorList[key]), 'Cannot map error')
           throw new UnknownError()
       }
     })
@@ -90,11 +77,10 @@ const throwOnCartInfoErrors = function (errorList, context) {
   Object.keys(errorList)
     .filter(key => errorList[key].level === 0)
     .forEach((key) => {
-      const details = errorList[key].message
-      context.log.info(details)
+      context.log.info(decorateError(errorList[key]))
       switch (errorList[key].messageKey) {
         case 'promotion-not-eligible':
-          throw new CouponNotEligible(details)
+          throw new CouponNotEligible(errorList[key].message)
       }
     })
   throwOnCartErrors(errorList, context)
@@ -109,13 +95,13 @@ const throwOnMessage = function (messages, context) {
   messages.forEach(message => {
     switch (message.code) {
       case 'CHECKOUT__CART_LINEITEM_NOT_FOUND':
-        context.log.info('Could not locate line item in cart: ' + message.detail)
+        context.log.info(decorateError(message), 'Could not locate line item in cart')
         throw new ProductNotFoundError()
       case 'FRAMEWORK__INVALID_UUID':
-        context.log.fatal('Unexpected UID provided:' + message.detail)
+        context.log.fatal(decorateError(message), 'Unexpected UID provided')
         throw new UnknownError()
       default:
-        context.log.fatal('Could not map message: ' + JSON.stringify(message))
+        context.log.fatal(decorateError(message), 'Could not map message')
         throw new UnknownError()
     }
   })
@@ -132,26 +118,25 @@ const throwOnMessage = function (messages, context) {
  */
 const throwOnApiError = function (error, context) {
   if (!error.statusCode) {
-    context.log.error(error.message)
+    context.log.error(decorateError(error))
     throw new UnknownError()
   }
-  const printableErrors = JSON.stringify(error.messages)
   switch (error.statusCode) {
     case 400:
       throwOnMessage(error.messages, context)
       break
     case 401:
-      context.log.fatal('Unauthorized request, is your SalesChannel access token missing? ' + printableErrors)
+      context.log.fatal(decorateError(error), 'Unauthorized request, is your SalesChannel access token missing?')
       throw UnknownError()
     case 403:
-      context.log.fatal('Cannot call this endpoint with authentication: ' + printableErrors)
+      context.log.fatal(decorateError(error), 'Cannot call this endpoint with authentication')
       throw new ForbiddenError()
     case 412:
-      context.log.fatal('Possibly SalesChannel access key is invalid. ' + printableErrors)
+      context.log.fatal(decorateError(error), 'Possibly SalesChannel access key is invalid.')
       throw new UnknownError()
     case 500:
     default:
-      context.log.fatal('Unmapped error: ' + printableErrors)
+      context.log.fatal(decorateError(error), 'Unmapped error')
       throw new UnknownError()
   }
 }
@@ -161,6 +146,5 @@ module.exports = {
   throwOnCartErrors,
   throwOnCartInfoErrors,
   toShopgateType,
-  toShopgateMessage,
-  wrapErrorForPrint
+  toShopgateMessage
 }

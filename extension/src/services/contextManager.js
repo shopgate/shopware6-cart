@@ -1,5 +1,6 @@
 'use strict'
 
+const { decorateError } = require('./logDecorator')
 /**
  * Select storage to use: device or user (if logged in)
  *
@@ -18,7 +19,7 @@ const _getStorage = context => context.meta.userId ? context.storage.user : cont
  */
 const saveContextToken = async function (contextToken, context) {
   _getStorage(context).set('contextToken', contextToken).catch(err => {
-    context.log.error(`Failed to save context token. Error: '${err.message}'`)
+    context.log.error(decorateError(err), 'Failed to save context token.')
   })
 }
 
@@ -29,7 +30,7 @@ const saveContextToken = async function (contextToken, context) {
  */
 const saveCouponCode = async function (couponCode, context) {
   _getStorage(context).set('couponCode', couponCode).catch(err => {
-    context.log.error(`Failed to save coupon code. Error: '${err.message}'`)
+    context.log.error(decorateError(err), 'Failed to save coupon code')
   })
 }
 
@@ -39,7 +40,7 @@ const saveCouponCode = async function (couponCode, context) {
  */
 const removeCouponCode = async function (context) {
   _getStorage(context).del('couponCode').catch(err => {
-    context.log.error(`Failed to remove coupon code. Error: '${err.message}'`)
+    context.log.error(decorateError(err), 'Failed to remove coupon code')
   })
 }
 
