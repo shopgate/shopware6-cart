@@ -2111,7 +2111,7 @@
                       "\r",
                       "pm.test('check product count', () => {\r",
                       "    const products = response.cartItems.filter(item => item.type === 'product')\r",
-                      "    pm.expect(products).to.have.length(1);\r",
+                      "    pm.expect(products).to.have.length(2);\r",
                       "})\r",
                       "\r",
                       "pm.test('check coupon count', () => {\r",
@@ -2148,7 +2148,203 @@
         },
         {
           "name": "Empty cart coupon",
-          "item": []
+          "item": [
+            {
+              "name": "new cart",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{domain}}{{endpoint_cart_new}}",
+                  "host": [
+                    "{{domain}}{{endpoint_cart_new}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "addCoupons",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"couponCodes\": [\r\n        \"{{created_promotion_3item_code}}\"\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{domain}}{{endpoint_cart_coupons_add}}",
+                  "host": [
+                    "{{domain}}{{endpoint_cart_coupons_add}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "addProducts (1)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"products\": [\r\n        {\r\n            \"productId\": \"{{catalog_product_main_id}}\",\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{domain}}{{endpoint_cart_products_add}}",
+                  "host": [
+                    "{{domain}}{{endpoint_cart_products_add}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "addProducts (3)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"products\": [\r\n        {\r\n            \"productId\": \"{{catalog_product_main_id}}\",\r\n            \"quantity\": 3\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{domain}}{{endpoint_cart_products_add}}",
+                  "host": [
+                    "{{domain}}{{endpoint_cart_products_add}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "getCart (check coupon)",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "const response = pm.response.json()\r",
+                      "\r",
+                      "pm.test('check coupon count', () => {\r",
+                      "    const coupons = response.cartItems.filter(item => item.type === 'coupon')\r",
+                      "    pm.expect(coupons).to.have.length(1);\r",
+                      "})\r",
+                      "pm.test('the first coupon is in the cart', () => {\r",
+                      "    const lineItem = response.cartItems.find(item => item.coupon?.code === pm.environment.get('created_promotion_3item_code'))\r",
+                      "    pm.expect(lineItem).to.be.an('object')\r",
+                      "    pm.expect(lineItem.quantity).to.eq(1)\r",
+                      "    pm.expect(lineItem.type).to.eq('coupon')\r",
+                      "    pm.expect(lineItem.coupon.label).to.eq('API EXT: promo 3item code')\r",
+                      "    pm.expect(lineItem.coupon.savedPrice.type).to.eq('fixed')\r",
+                      "    pm.expect(lineItem.coupon.savedPrice.value).to.eq(1.73)\r",
+                      "})"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{domain}}{{endpoint_cart_get}}",
+                  "host": [
+                    "{{domain}}{{endpoint_cart_get}}"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
         }
       ]
     }
