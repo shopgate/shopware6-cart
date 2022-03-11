@@ -39,6 +39,8 @@ const toShopgateMessage = function (error) {
 }
 
 /**
+ * Note that this only throws if errors are present
+ *
  * @param {SWCartErrors} errorList
  * @param {PipelineContext} context
  * @throws {Error}

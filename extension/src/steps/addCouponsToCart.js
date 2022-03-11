@@ -16,13 +16,20 @@ module.exports = async (context, input) => {
 
   await addPromotionCode(couponCode)
     .catch(e => throwOnApiError(e, context))
-    .then(swCart => throwOnCartInfoErrors(swCart.errors, context))
+    .then(swCart => {
+      throwOnCartInfoErrors(swCart.errors, context)
+      return swCart.lineItems
+    })
     .catch(async e => {
+      // when the cart is not empty, it will throw these
       if (e instanceof CouponNotFound || e instanceof CouponNotEligible) {
         await saveCouponCode(couponCode, context)
       }
       throw e
     })
     // if the cart is clean of errors & coupon was added successfully
-    .then(() => removeCouponCode(context))
+    .then(async lineItems =>
+      // if the cart is empty it will throw no errors
+      lineItems.length === 0 ? await saveCouponCode(couponCode, context) : await removeCouponCode(context)
+    )
 }
