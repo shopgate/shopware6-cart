@@ -42,7 +42,7 @@ const toShopgateMessage = function (error) {
  * Note that this only throws if errors are present
  *
  * @param {SWCartErrors} errorList
- * @param {PipelineContext} context
+ * @param {SW6Cart.PipelineContext} context
  * @throws {Error}
  */
 const throwOnCartErrors = function (errorList, context) {
@@ -72,7 +72,7 @@ const throwOnCartErrors = function (errorList, context) {
  * to show customer information via Error modal
  *
  * @param {SWCartErrors} errorList
- * @param {PipelineContext} context
+ * @param {SW6Cart.PipelineContext} context
  * @throws {Error}
  */
 const throwOnCartInfoErrors = function (errorList, context) {
@@ -90,7 +90,7 @@ const throwOnCartInfoErrors = function (errorList, context) {
 
 /**
  * @param {SWShopwareError[]} messages
- * @param {PipelineContext} context
+ * @param {SW6Cart.PipelineContext} context
  * @throws Error
  */
 const throwOnMessage = function (messages, context) {
@@ -114,7 +114,7 @@ const throwOnMessage = function (messages, context) {
 
 /**
  * @param {SWClientApiError|Error} error
- * @param {PipelineContext} context
+ * @param {SW6Cart.PipelineContext} context
  * @see https://shopware.stoplight.io/docs/store-api/ZG9jOjExMTYzMDU0-error-handling
  * @throws {Error}
  */

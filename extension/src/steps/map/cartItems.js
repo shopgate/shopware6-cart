@@ -15,7 +15,7 @@ const getCouponPrice = function (lineItem) {
     : { type: 'fixed', value: -(lineItem.price.totalPrice) }
 }
 /**
- * @param {PipelineContext} context
+ * @param {SW6Cart.PipelineContext} context
  * @param {SWCartInput} input
  * @returns {Promise<{cartItems: []}>}
  */

@@ -1,10 +1,11 @@
 'use strict'
 
 const { setup, onConfigChange } = require('@shopware-pwa/shopware-6-client')
+const { getContextToken } = require('../services/contextManager')
 const { UnknownError } = require('../services/errorList')
 
 /**
- * @param {PipelineContext} context
+ * @param {SW6Cart.PipelineContext} context
  * @returns {Promise<void>}
  */
 module.exports = async (context) => {
@@ -12,8 +13,7 @@ module.exports = async (context) => {
     context.log.fatal('Please specify endpoint or accessToken in the config')
     throw new UnknownError()
   }
-  const storage = context.meta.userId ? context.storage.user : context.storage.device
-  const contextToken = await storage.get('contextToken')
+  const contextToken = getContextToken(context)
   const { endpoint, accessToken, languageId } = context.config.shopware
   // initialize only once
   if (!contextToken) {

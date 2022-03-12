@@ -5,7 +5,7 @@ const { getCart } = require('@shopware-pwa/shopware-6-client')
 const { throwOnApiError } = require('../services/errorManager')
 
 /**
- * @param {PipelineContext} context
+ * @param {SW6Cart.PipelineContext} context
  */
 module.exports = async (context) => {
   const swCart = await getCart().catch(e => throwOnApiError(e, context))

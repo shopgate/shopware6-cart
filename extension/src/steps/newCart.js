@@ -7,7 +7,7 @@ const { throwOnApiError } = require('../services/errorManager')
 /**
  * This pipeline is created for testing purposes only
  *
- * @param {PipelineContext} context
+ * @param {SW6Cart.PipelineContext} context
  */
 module.exports = async (context) => {
   update({ contextToken: undefined })

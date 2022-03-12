@@ -6,7 +6,7 @@ const { CouponNotFound, CouponNotEligible } = require('../services/errorList')
 const { saveCouponCode, removeCouponCode } = require('../services/contextManager')
 
 /**
- * @param {PipelineContext} context
+ * @param {SW6Cart.PipelineContext} context
  * @param {Object} input
  * @param {string[]} input.couponCodes
  * @returns {Promise<void>}

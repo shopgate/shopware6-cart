@@ -4,7 +4,7 @@ const { getSessionContext } = require('@shopware-pwa/shopware-6-client')
 const { throwOnApiError } = require('../../services/errorManager')
 
 /**
- * @param {PipelineContext} context
+ * @param {SW6Cart.PipelineContext} context
  * @returns {Promise<{currency: string}>}
  */
 module.exports = async (context) => {

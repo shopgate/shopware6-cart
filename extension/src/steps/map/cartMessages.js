@@ -5,7 +5,7 @@ const { toShopgateMessage } = require('../../services/errorManager')
 /**
  * Despite out attempt, the messages are not printed in default theme
  *
- * @param {PipelineContext} context
+ * @param {SW6Cart.PipelineContext} context
  * @param {SWCartInput} input
  * @returns {Promise<{messages: Array}>}
  */

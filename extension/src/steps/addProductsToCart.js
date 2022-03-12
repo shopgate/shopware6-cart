@@ -4,7 +4,7 @@ const { addCartItems } = require('@shopware-pwa/shopware-6-client')
 const { throwOnCartErrors, throwOnApiError } = require('../services/errorManager')
 
 /**
- * @param {PipelineContext} context
+ * @param {SW6Cart.PipelineContext} context
  * @param {SGAddProductInput} input
  * @returns {Promise<void>}
  */

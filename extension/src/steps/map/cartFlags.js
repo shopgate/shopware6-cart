@@ -1,7 +1,7 @@
 'use strict'
 
 /**
- * @param {PipelineContext} context
+ * @param {SW6Cart.PipelineContext} context
  * @param {SWCartInput} input
  * @returns {Promise<{flags: CartFlags}>}
  */

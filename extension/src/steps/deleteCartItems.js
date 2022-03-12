@@ -4,7 +4,7 @@ const { removeCartItem } = require('@shopware-pwa/shopware-6-client')
 const { throwOnApiError, throwOnCartErrors } = require('../services/errorManager')
 
 /**
- * @param {PipelineContext} context
+ * @param {SW6Cart.PipelineContext} context
  * @param {SGDeleteCartItemInput} input
  * @returns {Promise<void>}
  */
