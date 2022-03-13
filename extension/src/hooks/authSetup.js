@@ -1,8 +1,9 @@
 'use strict'
 
-const { setup, onConfigChange } = require('@shopware-pwa/shopware-6-client')
-const { getContextToken } = require('../services/contextManager')
+const { setup, onConfigChange, getSessionContext } = require('@shopware-pwa/shopware-6-client')
+const { getContextToken, saveContextToken, isFirstRun, setFirstRun } = require('../services/contextManager')
 const { UnknownError } = require('../services/errorList')
+const { decorateMessage, decorateError } = require('../services/logDecorator')
 
 /**
  * @param {SW6Cart.PipelineContext} context
@@ -10,21 +11,35 @@ const { UnknownError } = require('../services/errorList')
  */
 module.exports = async (context) => {
   if (!context.config.shopware?.endpoint || !context.config.shopware?.accessToken) {
-    context.log.fatal('Please specify endpoint or accessToken in the config')
+    context.log.fatal(decorateMessage('Please specify endpoint or accessToken in the config'))
     throw new UnknownError()
   }
-  const contextToken = getContextToken(context)
+  const contextToken = await getContextToken(context).then(contextToken => {
+    if (typeof contextToken === 'string' && contextToken.length > 0) {
+      return contextToken
+    }
+    return getSessionContext()
+      .catch(e => {
+        context.log.fatal(decorateError(e), 'Could not get session context')
+        throw new UnknownError()
+      })
+      .then(swContext => {
+        saveContextToken(swContext.token, context)
+        return swContext.token
+      })
+  })
   const { endpoint, accessToken, languageId } = context.config.shopware
-  // initialize only once
-  if (!contextToken) {
-    onConfigChange(({ config }) => {
-      context.log.debug('contextToken possibly changed:' + config.contextToken)
-    })
-  }
   setup({
     endpoint,
     accessToken,
     languageId,
     contextToken
   })
+  // initialize only once
+  if (!await isFirstRun(context)) {
+    onConfigChange(({ config }) => {
+      context.log.debug(decorateMessage('contextToken possibly changed:' + config.contextToken))
+    })
+    await setFirstRun(context)
+  }
 }

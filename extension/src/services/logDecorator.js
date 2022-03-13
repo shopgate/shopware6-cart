@@ -33,6 +33,10 @@ const extractErrorCode = function (error) {
   return 500
 }
 
+/**
+ * @param {Error} error
+ * @return {{extension: string, code: (string|number), messages: (SWEntityError[]|SWShopwareError[]|string[])}}
+ */
 const decorateError = function (error) {
   return {
     extension,
@@ -41,4 +45,15 @@ const decorateError = function (error) {
   }
 }
 
-module.exports = { decorateError }
+/**
+ * @param {string} message
+ * @param {number} code - arbitrary code to search by
+ * @return {{extension: string, messages: string[]}}
+ */
+const decorateMessage = (message, code = 15) => ({
+  extension,
+  code,
+  messages: [message]
+})
+
+module.exports = { decorateError, decorateMessage }
