@@ -17,7 +17,7 @@ const getCouponPrice = function (lineItem) {
 /**
  * @param {SW6Cart.PipelineContext} context
  * @param {SWCartInput} input
- * @returns {Promise<{cartItems: []}>}
+ * @returns {Promise<{cartItems: SW6Cart.CartItem[]}>}
  */
 module.exports = async (context, input) => {
   const coupons = input.swCart.lineItems
@@ -53,9 +53,11 @@ module.exports = async (context, input) => {
             default: lineItem.price.totalPrice,
             special: null
           },
-          properties: [],
+          properties: lineItem.payload.options.map(
+            ({ group, option }) => ({ label: group, value: option })
+          ),
           appliedDiscounts: [],
-          additionalInfo: null
+          additionalInfo: []
         },
         currency: input.currency,
         coupon: null,
