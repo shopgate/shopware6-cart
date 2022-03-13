@@ -5,7 +5,7 @@ const SW_TYPE_COUPON = 'promotion'
 
 /* jshint -W014 */
 /**
- * @param {SWLineItem} lineItem
+ * @param {SW6Cart.SWLineItem} lineItem
  * @return {{type: string, value: number}}
  */
 const getCouponPrice = function (lineItem) {

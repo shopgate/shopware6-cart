@@ -3,15 +3,15 @@
 const extension = '@apite-shopware6-cart'
 
 /**
- * @param {SWClientApiError|SWEntityError|SWShopwareError|Error} error
- * @return {SWEntityError[]|SWShopwareError[]|string[]}
+ * @param {SW6Cart.SWClientApiError|SW6Cart.SWEntityError|SW6Cart.ShopwareError|Error} error
+ * @return {SW6Cart.SWEntityError[]|SW6Cart.ShopwareError[]|string[]}
  */
 const extractErrorMessages = function (error) {
   if (error.statusCode) {
-    // SWClientApiError
+    // SW6Cart.SWClientApiError
     return error.messages
   } else if (error.messageKey || error.status) {
-    // SWEntityError | SWShopwareError
+    // SW6Cart.SWEntityError | SW6Cart.ShopwareError
     return [error]
   }
   // Error
@@ -19,7 +19,7 @@ const extractErrorMessages = function (error) {
 }
 
 /**
- * @param {SWClientApiError|SWEntityError|SWShopwareError|Error} error
+ * @param {SW6Cart.SWClientApiError|SW6Cart.SWEntityError|SW6Cart.ShopwareError|Error} error
  * @return {string|number}
  */
 const extractErrorCode = function (error) {
@@ -34,8 +34,8 @@ const extractErrorCode = function (error) {
 }
 
 /**
- * @param {Error} error
- * @return {{extension: string, code: (string|number), messages: (SWEntityError[]|SWShopwareError[]|string[])}}
+ * @param {SW6Cart.SWClientApiError|SW6Cart.SWEntityError|SW6Cart.ShopwareError|Error} error
+ * @return {{extension: string, code: (string|number), messages: (SW6Cart.SWEntityError[]|SW6Cart.ShopwareError[]|string[])}}
  */
 const decorateError = function (error) {
   return {

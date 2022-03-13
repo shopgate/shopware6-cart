@@ -10,7 +10,7 @@ const {
 const { decorateError } = require('./logDecorator')
 
 /**
- * @param {SWErrorLevel} shopwareType
+ * @param {SW6Cart.SWErrorLevel} shopwareType
  */
 const toShopgateType = function (shopwareType) {
   switch (shopwareType) {
@@ -25,7 +25,7 @@ const toShopgateType = function (shopwareType) {
 }
 
 /**
- * @param {SWEntityError} error
+ * @param {SW6Cart.SWEntityError} error
  * @return SGCartMessage
  */
 const toShopgateMessage = function (error) {
@@ -41,7 +41,7 @@ const toShopgateMessage = function (error) {
 /**
  * Note that this only throws if errors are present
  *
- * @param {SWCartErrors} errorList
+ * @param {SW6Cart.SWCartErrors} errorList
  * @param {SW6Cart.PipelineContext} context
  * @throws {Error}
  */
@@ -71,7 +71,7 @@ const throwOnCartErrors = function (errorList, context) {
  * Sometimes we want to throw even on information messages
  * to show customer information via Error modal
  *
- * @param {SWCartErrors} errorList
+ * @param {SW6Cart.SWCartErrors} errorList
  * @param {SW6Cart.PipelineContext} context
  * @throws {Error}
  */
@@ -89,7 +89,7 @@ const throwOnCartInfoErrors = function (errorList, context) {
 }
 
 /**
- * @param {SWShopwareError[]} messages
+ * @param {SW6Cart.ShopwareError[]} messages
  * @param {SW6Cart.PipelineContext} context
  * @throws Error
  */
@@ -113,7 +113,7 @@ const throwOnMessage = function (messages, context) {
 }
 
 /**
- * @param {SWClientApiError|Error} error
+ * @param {SW6Cart.SWClientApiError|Error} error
  * @param {SW6Cart.PipelineContext} context
  * @see https://shopware.stoplight.io/docs/store-api/ZG9jOjExMTYzMDU0-error-handling
  * @throws {Error}

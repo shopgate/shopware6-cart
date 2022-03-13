@@ -103,10 +103,10 @@ const { Cart } = require('@shopware-pwa/shopware-6-client')
 ///
 /// SW hacky pass-through
 ///
-/** @typedef {EntityError} SWEntityError */
-/** @typedef {CartErrors} SWCartErrors */
-/** @typedef {ErrorLevel} SWErrorLevel */
-/** @typedef {ClientApiError} SWClientApiError */
-/** @typedef {ShopwareError} SWShopwareError */
-/** @typedef {Cart} SWCart */
-/** @typedef {LineItem} SWLineItem */
+/** @typedef {EntityError} SW6Cart.SWEntityError */
+/** @typedef {CartErrors} SW6Cart.SWCartErrors */
+/** @typedef {ErrorLevel} SW6Cart.SWErrorLevel */
+/** @typedef {ClientApiError} SW6Cart.SWClientApiError */
+/** @typedef {ShopwareError} SW6Cart.ShopwareError */
+/** @typedef {Cart} SW6Cart.SWCart */
+/** @typedef {LineItem} SW6Cart.SWLineItem */

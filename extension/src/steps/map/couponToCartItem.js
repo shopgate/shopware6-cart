@@ -3,8 +3,8 @@
 /**
  * @param {SW6Cart.PipelineContext} context
  * @param {Object} input
- * @property {SWCart} swCart
- * @property {string[]} couponCodes
+ * @property {SW6Cart.SWCart} input.swCart
+ * @property {string[]} input.couponCodes
  * @returns {Promise<{ cartItemIds: string[] }>}
  */
 module.exports = async (context, input) => {
