@@ -1614,10 +1614,12 @@
               "listen": "test",
               "script": {
                 "exec": [
-                  "pm.test(\"Status code is 200\", function () {\r",
-                  "    pm.response.to.have.status(200);\r",
-                  "});"
-                ],
+					"// if cart has no items, it will be 200\r",
+					"// if it does have items, it will be an error\r",
+					"pm.test(\"Status code is 500\", function () {\r",
+					"    pm.response.to.have.status(500);\r",
+					"});"
+				],
                 "type": "text/javascript"
               }
             }
@@ -1845,20 +1847,20 @@
                       "    pm.expect(lineItem.coupon.savedPrice.value).to.eq(10)\r",
                       "    pm.expect(lineItem.coupon.label).to.eq('API EXT: promo main prod 5 qty')\r",
                       "    pm.environment.set('gen_lineItem_rule5_id', lineItem.id);\r",
-                      "})\r",
-                      "\r",
-                      "const discountTotal = response.totals.find(total => total.type === 'discount');\r",
-                      "pm.test('check totals', () => {\r",
-                      "    pm.expect(discountTotal.amount).to.eq(575.52)\r",
-                      "    pm.expect(discountTotal.subTotals).to.to.have.length(3)\r",
-                      "})\r",
-                      "\r",
-                      "pm.test('check discount totals', () => {\r",
-                      "    const percentDiscount = discountTotal.subTotals.find(total => total.label === 'API EXT: promo main prod 5 qty')\r",
-                      "    pm.expect(percentDiscount).to.be.an('object', 'Shoud have found discount')\r",
-                      "    pm.expect(percentDiscount.amount).to.eq(297.57)\r",
-                      "})"
-                    ],
+						"})\r",
+						"\r",
+						"const discountTotal = response.totals.find(total => total.type === 'discount');\r",
+						"pm.test('check totals', () => {\r",
+						"    pm.expect(discountTotal.amount).to.eq(575.52)\r",
+						"    pm.expect(discountTotal.subTotals).to.to.have.length(3)\r",
+						"})\r",
+						"\r",
+						"pm.test('check discount totals', () => {\r",
+						"    const percentDiscount = discountTotal.subTotals.find(total => total.label === 'API EXT: promo main prod 5 qty')\r",
+						"    pm.expect(percentDiscount).to.be.an('object', 'Should have found discount')\r",
+						"    pm.expect(percentDiscount.amount).to.eq(297.57)\r",
+						"})"
+					],
                     "type": "text/javascript"
                   }
                 }
