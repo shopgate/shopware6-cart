@@ -60,16 +60,10 @@ const removeCouponCode = async function (context) {
  */
 const getCouponCode = async context => _getStorage(context).get('couponCode')
 
-const isFirstRun = async context => context.storage.device.get('firstRun')
-const setFirstRun = async context => context.storage.device.set('firstRun', true)
-  .catch(err => context.log.error(decorateError(err), 'Failed to set first run'))
-
 module.exports = {
   getCouponCode,
   getContextToken,
-  isFirstRun,
   removeCouponCode,
   saveContextToken,
-  saveCouponCode,
-  setFirstRun
+  saveCouponCode
 }

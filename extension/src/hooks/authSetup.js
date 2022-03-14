@@ -1,8 +1,8 @@
 'use strict'
 
-const { setup, onConfigChange, getSessionContext } = require('@shopware-pwa/shopware-6-client')
-const { getContextToken, saveContextToken, isFirstRun, setFirstRun } = require('../services/contextManager')
+const { setup, getSessionContext } = require('@shopware-pwa/shopware-6-client')
 const { UnknownError } = require('../services/errorList')
+const { getContextToken, saveContextToken } = require('../services/contextManager')
 const { decorateMessage, decorateError } = require('../services/logDecorator')
 
 /**
@@ -33,18 +33,10 @@ module.exports = async (context) => {
         return swContext.token
       })
   })
-
   setup({
     endpoint,
     accessToken,
     languageId,
     contextToken
   })
-  // initialize only once
-  if (!await isFirstRun(context)) {
-    onConfigChange(({ config }) => {
-      context.log.debug(decorateMessage('contextToken possibly changed:' + config.contextToken))
-    })
-    await setFirstRun(context)
-  }
 }
