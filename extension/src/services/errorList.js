@@ -8,14 +8,6 @@ class UnknownError extends Error {
   }
 }
 
-class ProductNotFoundError extends Error {
-  constructor () {
-    // todo: translate
-    super('Unfortunately, this product is no longer available')
-    this.code = 'ENOTFOUND'
-  }
-}
-
 class ProductStockReachedError extends Error {
   constructor () {
     // todo: translate
@@ -39,7 +31,15 @@ class NotFoundError extends Error {
   }
 }
 
+class ProductNotFoundError extends NotFoundError {
+  constructor () {
+    // todo: translate
+    super('Unfortunately, this product is no longer available')
+  }
+}
+
 class CouponNotFound extends NotFoundError {}
+
 class CouponNotEligible extends NotFoundError {}
 
 module.exports = {
