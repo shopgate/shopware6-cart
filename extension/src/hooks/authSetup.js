@@ -23,11 +23,10 @@ module.exports = async (context) => {
     if (typeof contextToken === 'string' && contextToken.length > 0) {
       return contextToken
     }
+    // If not in storage, ask SW to give us one
     return getSessionContext()
-      .catch(e => {
-        context.log.fatal(decorateError(e), 'Could not get session context')
-        throw new UnknownError()
-      })
+      // Failure here is not a problem. We will request in getCart again.
+      .catch(e => context.log.info(decorateError(e), 'Could not get session context'))
       .then(swContext => {
         saveContextToken(swContext.token, context)
         return swContext.token
