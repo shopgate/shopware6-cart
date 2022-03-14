@@ -4,26 +4,84 @@
   "components": [
   ],
   "configuration": {
-    "shopware": {
-      "type": "static",
+    "endpoint": {
+      "type": "admin",
       "destination": "backend",
+      "default": "http://localhost",
       "params": {
-        "value": {
-          "endpoint": "http://localhost",
-          "accessToken": "SWSCMMJTYLVIT1LBMJQWDLNSRG",
-          "languageId": "fa964a97a1e841a1bbf04471862ccc7f"
+        "type": "text",
+        "label": "Store URL",
+        "description": "This is the URL of your frontend store. We will be making calls via Shopware's Store API.",
+        "required": true,
+        "options": {
+          "placeholder": "http://example.com"
+        }
+      }
+    },
+    "accessToken": {
+      "type": "admin",
+      "destination": "backend",
+      "default": null,
+      "params": {
+        "type": "text",
+        "label": "SalesChannel AccessToken",
+        "description": "Navigate to your Shopware backend. Go to the desired Sales Channel. In the 'API access' section copy the 'API access key' here",
+        "required": true,
+        "options": {
+          "placeholder": "SWSCMMJTYLVIT..."
+        }
+      }
+    },
+    "languageId": {
+      "type": "admin",
+      "destination": "backend",
+      "default": null,
+      "params": {
+        "type": "text",
+        "label": "Language ID",
+        "description": "If not provided it will use the default language of the SalesChannel. Otherwise please go to admin backend, Settings > Languages > [Language you want]. Copy the ID in the website URL bar, e.g. http://example.com/.../detail/fa964a97a1e841a1bbf04471862ccc7f",
+        "required": false,
+        "options": {
+          "placeholder": "fa964a97a1e841a1bbf04471862ccc7f"
+        }
+      }
+    },
+    "showCoupon": {
+      "type": "admin",
+      "destination": "backend",
+      "default": false,
+      "params": {
+        "type": "checkbox",
+        "label": "Enable Coupon Entry",
+        "description": "Shows or hides the coupon filed from the cart. It does not prevent rules to be applied automatically to cart.",
+        "options": {
+          "label": "Allow coupon entry"
+        }
+      }
+    },
+    "cacheCoupon": {
+      "type": "admin",
+      "destination": "backend",
+      "default": false,
+      "params": {
+        "type": "checkbox",
+        "label": "Save coupon",
+        "description": "In the background, tries to apply the last set coupon to the cart until a new coupon is entered or the cart conditions are fulfilled.",
+        "options": {
+          "label": "Save coupon until cart satisfies coupon condition"
         }
       }
     },
     "settings": {
-      "type": "static",
+      "type": "admin",
       "destination": "backend",
+      "default": {
+        "legalInfo": "",
+        "legalText": ""
+      },
       "params": {
-        "value": {
-          "enableCoupons": true,
-          "legalText": "By placing your order you agree to our <b><u>Privacy Policy</u></b>, our <b><u>Terms and Conditions</u></b> and our <b><u>Cancellation policy</u></b>.",
-          "legalInfo": "Additional charges (duties, taxes) may be raised, when shipping to countries outside of the EU."
-        }
+        "type": "json",
+        "label": "Miscellaneous settings"
       }
     }
   },

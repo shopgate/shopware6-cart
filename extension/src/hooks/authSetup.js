@@ -10,10 +10,15 @@ const { decorateMessage, decorateError } = require('../services/logDecorator')
  * @returns {Promise<void>}
  */
 module.exports = async (context) => {
-  if (!context.config.shopware?.endpoint || !context.config.shopware?.accessToken) {
+  const endpoint = context.config.endpoint || process.env.ENDPOINT
+  const accessToken = context.config.accessToken || process.env.ACCESS_KEY
+  const languageId = context.config.languageId || process.env.LANG_ID
+
+  if (!endpoint || !accessToken) {
     context.log.fatal(decorateMessage('Please specify endpoint or accessToken in the config'))
     throw new UnknownError()
   }
+
   const contextToken = await getContextToken(context).then(contextToken => {
     if (typeof contextToken === 'string' && contextToken.length > 0) {
       return contextToken
@@ -28,7 +33,7 @@ module.exports = async (context) => {
         return swContext.token
       })
   })
-  const { endpoint, accessToken, languageId } = context.config.shopware
+
   setup({
     endpoint,
     accessToken,

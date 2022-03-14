@@ -12,7 +12,7 @@ module.exports = async (context, input) => {
     flags: {
       taxIncluded: input.swCart.price?.taxStatus === 'gross',
       orderable: true,
-      coupons: context.config.settings.enableCoupons
+      coupons: context.config.showCoupon
     }
   }
 }

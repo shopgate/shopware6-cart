@@ -41,18 +41,15 @@ declare namespace SW6Cart {
   }
 
   interface PipelineConfiguration {
-    shopware: PipelineConfigShopware,
+    endpoint: string
+    accessToken: string
+    languageId: string,
+    showCoupon: boolean,
+    cacheCoupon: boolean,
     settings: PipelineConfigSettings
   }
 
-  interface PipelineConfigShopware {
-    endpoint: string
-    accessToken: string
-    languageId: string
-  }
-
   interface PipelineConfigSettings {
-    enableCoupons: boolean
     legalText: string
     legalInfo: string
   }

@@ -1,6 +1,6 @@
 'use strict'
 
-const { decorateError } = require('./logDecorator')
+const { decorateError, decorateMessage } = require('./logDecorator')
 /**
  * Select storage to use: device or user (if logged in)
  *
@@ -35,6 +35,10 @@ const saveContextToken = async function (contextToken, context) {
  * @return {Promise<void>}
  */
 const saveCouponCode = async function (couponCode, context) {
+  if (context.config.cacheCoupon) {
+    context.log.debug(decorateMessage('Coupon cache is disabled, skipping save'))
+    return
+  }
   _getStorage(context).set('couponCode', couponCode).catch(err => {
     context.log.error(decorateError(err), 'Failed to save coupon code')
   })
