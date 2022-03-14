@@ -49,7 +49,7 @@
     "showCoupon": {
       "type": "admin",
       "destination": "backend",
-      "default": false,
+      "default": true,
       "params": {
         "type": "checkbox",
         "label": "Enable Coupon Entry",
@@ -62,7 +62,7 @@
     "cacheCoupon": {
       "type": "admin",
       "destination": "backend",
-      "default": false,
+      "default": true,
       "params": {
         "type": "checkbox",
         "label": "Save coupon",
