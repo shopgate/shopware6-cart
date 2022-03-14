@@ -125,47 +125,47 @@
     {
       "key": "created_promotion_byCode_id",
       "value": "592ec6c332066a3e26505fb45e0e1706",
-		"type": "default",
-		"enabled": true
-	},
-	  {
-		  "key": "created_promotion_5item_id",
-		  "value": "de6574123eaf18b84fed679c7e379d14",
-		  "type": "default",
-		  "enabled": true
-	  },
-	  {
-		  "key": "created_promotion_4itemPlus_id",
-		  "value": "d3fba691fc02db1d8b3fafe2fae15258",
-		  "type": "default",
-		  "enabled": true
-	  },
-	  {
-		  "key": "created_promotion_3item_id",
-		  "value": "d232f8cdf9fa72a80819694c038c3f2a",
-		  "type": "default",
-		  "enabled": true
-	  },
-	  {
-		  "key": "created_rule_5item_id",
-		  "value": "92a0758a8e997be800886de3299d0892",
-		  "type": "default",
-		  "enabled": true
-	  },
-	  {
-		  "key": "created_rule_4itemPlus_id",
-		  "value": "1defa1e2f3aa80b984ff5481fa00a86a",
-		  "type": "default",
-		  "enabled": true
-	  },
-	  {
-		  "key": "created_rule_3item_id",
-		  "value": "43b61622f08d8600fe4a1bd80d5eab60",
-		  "type": "default",
-		  "enabled": true
-	  }
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "created_promotion_5item_id",
+      "value": "de6574123eaf18b84fed679c7e379d14",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "created_promotion_4itemPlus_id",
+      "value": "d3fba691fc02db1d8b3fafe2fae15258",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "created_promotion_3item_id",
+      "value": "d232f8cdf9fa72a80819694c038c3f2a",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "created_rule_5item_id",
+      "value": "92a0758a8e997be800886de3299d0892",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "created_rule_4itemPlus_id",
+      "value": "1defa1e2f3aa80b984ff5481fa00a86a",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "created_rule_3item_id",
+      "value": "43b61622f08d8600fe4a1bd80d5eab60",
+      "type": "default",
+      "enabled": true
+    }
   ],
-	"_postman_variable_scope": "environment",
-	"_postman_exported_at": "2022-03-11T17:44:22.319Z",
-	"_postman_exported_using": "Postman/9.14.12"
+  "_postman_variable_scope": "environment",
+  "_postman_exported_at": "2022-03-11T17:44:22.319Z",
+  "_postman_exported_using": "Postman/9.14.12"
 }
