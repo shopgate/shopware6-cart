@@ -35,7 +35,7 @@ const saveContextToken = async function (contextToken, context) {
  * @return {Promise<void>}
  */
 const saveCouponCode = async function (couponCode, context) {
-  if (context.config.cacheCoupon) {
+  if (!context.config.cacheCoupon) {
     context.log.debug(decorateMessage('Coupon cache is disabled, skipping save'))
     return
   }

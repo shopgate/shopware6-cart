@@ -102,9 +102,11 @@
     },
     {
       "path": "extension/src/hooks/addContextCouponToCart.js",
-      "description": "Attempts to add saved coupon to cart",
+      "description": "Attempts to add saved coupon after cart manipulation",
       "hooks": [
-        "shopgate.cart.addProducts.v1:after"
+        "shopgate.cart.addProducts.v1:after",
+        "shopgate.cart.updateProducts.v1:after",
+        "shopgate.cart.deleteProducts.v1:after"
       ],
       "input": [],
       "output": []
