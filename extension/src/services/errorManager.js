@@ -103,7 +103,7 @@ const throwOnMessage = function (messages, context) {
         context.log.fatal(decorateError(message), 'Unexpected UID provided')
         throw new UnknownError()
       default:
-        context.log.fatal(decorateError(message), 'Could not map message')
+        context.log.error(decorateError(message), 'Could not map message')
         throw new UnknownError()
     }
   })
@@ -120,7 +120,7 @@ const throwOnMessage = function (messages, context) {
  */
 const throwOnApiError = function (error, context) {
   if (!error.statusCode) {
-    context.log.error(decorateError(error))
+    context.log.error(decorateError(error), 'Not a Shopware API error thrown')
     throw new UnknownError()
   }
   switch (error.statusCode) {
@@ -131,7 +131,7 @@ const throwOnApiError = function (error, context) {
       context.log.fatal(decorateError(error), 'Unauthorized request, is your SalesChannel access token missing?')
       throw UnknownError()
     case 403:
-      context.log.fatal(decorateError(error), 'Cannot call this endpoint with authentication')
+      context.log.fatal(decorateError(error), 'Cannot call this endpoint without authentication')
       throw new ForbiddenError()
     case 412:
       context.log.fatal(decorateError(error), 'Possibly SalesChannel access key is invalid.')

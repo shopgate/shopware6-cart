@@ -7,25 +7,27 @@
  */
 module.exports = async (context, input) => {
   const totals = []
-  if (input.swCart.price.totalPrice) {
+  const { totalPrice, calculatedTaxes } = input.swCart.price
+
+  if (totalPrice) {
     totals.push({
       type: 'grandTotal',
-      label: 'Total', // todo: translate
-      amount: input.swCart.price.totalPrice,
+      label: '',
+      amount: totalPrice,
       subTotals: [
         {
           type: 'subTotal',
-          label: 'NET total',
+          label: 'NET',
           amount: input.swCart.price.netPrice
         }
       ]
     })
   }
-  if (input.swCart.price.calculatedTaxes) {
-    const totalTax = input.swCart.price.calculatedTaxes.reduce((total, { tax }) => tax + total, 0.0)
+  if (calculatedTaxes) {
+    const totalTax = calculatedTaxes.reduce((total, { tax }) => tax + total, 0.0)
     totals.push({
       type: 'tax',
-      label: 'Total Tax', // todo: translate
+      label: 'Tax',
       amount: totalTax,
       subTotals:
         input.swCart.price.calculatedTaxes.map(
@@ -38,12 +40,11 @@ module.exports = async (context, input) => {
           })
     })
   }
-  const promos = input.swCart.lineItems
-    .filter(lineItem => lineItem.type === 'promotion')
+  const promos = input.swCart.lineItems.filter(lineItem => lineItem.type === 'promotion')
   if (promos) {
     totals.push({
       type: 'discount',
-      label: 'Discounts', // todo: translate
+      label: '',
       amount: promos.reduce((total, { price: { totalPrice } }) => -totalPrice + total, 0.0),
       subTotals: promos.map((promo) => {
         return {

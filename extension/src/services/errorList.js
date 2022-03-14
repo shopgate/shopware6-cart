@@ -5,7 +5,6 @@ class UnknownError extends Error {
     // todo: translate
     super('An internal error occurred.')
     this.code = 'EUNKNOWN'
-    this.displayMessage = null
   }
 }
 
@@ -28,7 +27,7 @@ class ProductStockReachedError extends Error {
 class ForbiddenError extends Error {
   constructor () {
     // todo: translate
-    super('You need to log in before using the action')
+    super('You need to log in before using this action')
     this.code = 'EFORBIDDEN'
   }
 }
