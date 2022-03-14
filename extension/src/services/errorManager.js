@@ -61,7 +61,7 @@ const throwOnCartErrors = function (errorList, context) {
           // this is not a hard error, products are still added/updated
           break
         default:
-          context.log.debug(decorateError(errorList[key]), 'Cannot map error')
+          context.log.error(decorateError(errorList[key]), 'Cannot map error')
           throw new UnknownError()
       }
     })
