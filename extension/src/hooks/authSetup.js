@@ -10,9 +10,9 @@ const { decorateMessage, decorateError } = require('../services/logDecorator')
  * @returns {Promise<void>}
  */
 module.exports = async (context) => {
-  const endpoint = context.config.endpoint || process.env.ENDPOINT
-  const accessToken = context.config.accessToken || process.env.ACCESS_KEY
-  const languageId = context.config.languageId || process.env.LANG_ID
+  const endpoint = process.env.SW_ENDPOINT || context.config.endpoint
+  const accessToken = process.env.SW_ACCESS_KEY || context.config.accessToken
+  const languageId = process.env.SW_LANG_ID || context.config.languageId
 
   if (!endpoint || !accessToken) {
     context.log.fatal(decorateMessage('Please specify endpoint or accessToken in the config'))

@@ -7,7 +7,7 @@ You can set up the ENV variables when running `sgconnect` or use a local `.env` 
 ##### For inline, the command will look like this:
 
 ```shell
-ENDPOINT=http://localhost ACCESS_KEY=SWSCMMJTYLVIT1LBMJQWDLNSRG node $(which sgconnect) backend start
+SW_ENDPOINT=http://localhost SW_ACCESS_KEY=SWSCMMJTYLVIT1LBMJQWDLNSRG node $(which sgconnect) backend start
 ```
 
 ##### As an `.env` file.
@@ -15,9 +15,9 @@ ENDPOINT=http://localhost ACCESS_KEY=SWSCMMJTYLVIT1LBMJQWDLNSRG node $(which sgc
 In `[root]/extension` create an `.env` file with content like this:
 
 ```dotenv
-ENDPOINT: "http://localhost"
-ACCESS_KEY: "SWSCMMJTYLVIT1LBMJQWDLNSRG"
-LANG_ID: "fa964a97a1e841a1bbf04471862ccc7f"
+SW_ENDPOINT: "http://localhost"
+SW_ACCESS_KEY: "SWSCMMJTYLVIT1LBMJQWDLNSRG"
+SW_LANG_ID: "fa964a97a1e841a1bbf04471862ccc7f"
 ```
 
 Run:
