@@ -7,7 +7,7 @@
     "endpoint": {
       "type": "admin",
       "destination": "backend",
-      "default": "http://localhost",
+      "default": null,
       "params": {
         "type": "text",
         "label": "Store URL",
