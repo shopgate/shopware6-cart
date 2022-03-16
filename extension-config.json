@@ -1,8 +1,6 @@
 {
   "version": "0.1.0",
   "id": "@apite/shopware6-cart",
-  "components": [
-  ],
   "configuration": {
     "endpoint": {
       "type": "admin",
@@ -85,6 +83,18 @@
       }
     }
   },
+  "components": [
+    {
+      "id": "en-US",
+      "path": "frontend/locale/en-US.json",
+      "type": "translations"
+    },
+    {
+      "id": "de-DE",
+      "path": "frontend/locale/de-DE.json",
+      "type": "translations"
+    }
+  ],
   "steps": [
     {
       "path": "extension/src/hooks/authSetup.js",

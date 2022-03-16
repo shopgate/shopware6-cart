@@ -1,52 +1,54 @@
 'use strict'
 
-class UnknownError extends Error {
+class CartError extends Error {
+  constructor (message = 'message-default', code = 'EUNKNOWN', entityId = '') {
+    super()
+    this.message = 'Error'
+    this.code = 'ECART'
+    /**
+     * @type {SW6Cart.SGCartError[]}
+     */
+    this.errors = [{ entityId, code, message: `SW6Cart.notice.${message}` }]
+  }
+
+  /**
+   * @param {SW6Cart.SWEntityError} error
+   * @param {string} code - Shopgate Error code, e.g. EUNKNOWN
+   * @return {CartError}
+   */
+  mapEntityError (error, code = 'ESWERROR') {
+    this.errors = [{
+      entityId: error.id,
+      code,
+      message: 'SW6Cart.notice.' + error.messageKey,
+      messageParams: { ...error }
+    }]
+    return this
+  }
+}
+
+class UnknownError extends CartError {
   constructor () {
-    // todo: translate
-    super('An internal error occurred.')
-    this.code = 'EUNKNOWN'
+    super('message-default', 'EUNKNOWN', '')
   }
 }
 
-class ProductStockReachedError extends Error {
-  constructor () {
-    // todo: translate
-    super('Maximum stock reached for this product')
-    this.code = 'ESTOCKREACHED'
+class ProductNotFoundError extends CartError {
+  constructor (entityId = '') {
+    super('product-not-found', 'ENOTFOUND', entityId)
   }
 }
 
-class ForbiddenError extends Error {
-  constructor () {
-    // todo: translate
-    super('You need to log in before using this action')
-    this.code = 'EFORBIDDEN'
-  }
-}
+class ProductStockReachedError extends CartError {}
 
-class NotFoundError extends Error {
-  constructor (message) {
-    super(message)
-    this.code = 'ENOTFOUND'
-  }
-}
+class CouponNotFound extends CartError {}
 
-class ProductNotFoundError extends NotFoundError {
-  constructor () {
-    // todo: translate
-    super('Unfortunately, this product is no longer available')
-  }
-}
-
-class CouponNotFound extends NotFoundError {}
-
-class CouponNotEligible extends NotFoundError {}
+class CouponNotEligibleError extends CartError {}
 
 module.exports = {
-  CouponNotEligible,
+  CartError,
+  CouponNotEligibleError,
   CouponNotFound,
-  ForbiddenError,
-  NotFoundError,
   ProductNotFoundError,
   ProductStockReachedError,
   UnknownError

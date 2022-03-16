@@ -58,3 +58,4 @@ typings/
 .env
 
 extension/config.json
+frontend/config.json

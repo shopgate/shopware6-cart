@@ -100,6 +100,15 @@ const { Cart } = require('@shopware-pwa/shopware-6-client')
  * @property {string} message
  */
 
+/**
+ * @typedef {Object} SW6Cart.SGCartError
+ * @property {string} entityId
+ * @property {string} code - e.g. ENOTFOUND
+ * @property {string} message
+ * @property {Object|undefined} messageParams
+ * @property {boolean|undefined} translated
+ */
+
 ///
 /// SW hacky pass-through
 ///

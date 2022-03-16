@@ -4,8 +4,8 @@ const {
   ProductNotFoundError,
   ProductStockReachedError,
   UnknownError,
-  ForbiddenError,
-  CouponNotFound, CouponNotEligible
+  CouponNotFound,
+  CouponNotEligibleError
 } = require('./errorList')
 const { decorateError } = require('./logDecorator')
 
@@ -52,11 +52,12 @@ const throwOnCartErrors = function (errorList, context) {
       context.log.info(decorateError(errorList[key]))
       switch (errorList[key].messageKey) {
         case 'product-not-found':
-          throw new ProductNotFoundError()
+          throw (new ProductNotFoundError().mapEntityError(errorList[key], 'ENOTFOUND'))
         case 'promotion-not-found':
-          throw new CouponNotFound(errorList[key].message)
+          throw (new CouponNotFound().mapEntityError(errorList[key], 'EINVALIDCOUPON'))
         case 'product-stock-reached':
-          throw new ProductStockReachedError()
+        case 'purchase-steps-quantity':
+          throw (new ProductStockReachedError().mapEntityError(errorList[key], 'ESTOCKREACHED'))
         case 'shipping-method-blocked':
           // this is not a hard error, products are still added/updated
           break
@@ -82,7 +83,7 @@ const throwOnCartInfoErrors = function (errorList, context) {
       context.log.info(decorateError(errorList[key]))
       switch (errorList[key].messageKey) {
         case 'promotion-not-eligible':
-          throw new CouponNotEligible(errorList[key].message)
+          throw (new CouponNotEligibleError().mapEntityError(errorList[key], 'ENOTELIGIBLE'))
       }
     })
   throwOnCartErrors(errorList, context)
@@ -98,7 +99,7 @@ const throwOnMessage = function (messages, context) {
     switch (message.code) {
       case 'CHECKOUT__CART_LINEITEM_NOT_FOUND':
         context.log.info(decorateError(message), 'Could not locate line item in cart')
-        throw new ProductNotFoundError()
+        throw new ProductNotFoundError(message.meta?.parameters?.identifier)
       case 'FRAMEWORK__INVALID_UUID':
         context.log.fatal(decorateError(message), 'Unexpected UID provided')
         throw new UnknownError()
@@ -132,7 +133,7 @@ const throwOnApiError = function (error, context) {
       throw UnknownError()
     case 403:
       context.log.fatal(decorateError(error), 'Cannot call this endpoint without authentication')
-      throw new ForbiddenError()
+      throw new UnknownError()
     case 412:
       context.log.fatal(decorateError(error), 'Possibly SalesChannel access key is invalid.')
       throw new UnknownError()
