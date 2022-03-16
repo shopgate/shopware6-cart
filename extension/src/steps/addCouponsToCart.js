@@ -2,7 +2,7 @@
 
 const { addPromotionCode } = require('@shopware-pwa/shopware-6-client')
 const { throwOnCartInfoErrors, throwOnApiError } = require('../services/errorManager')
-const { CouponNotFound, CouponNotEligible } = require('../services/errorList')
+const { CouponNotFound, CouponNotEligibleError } = require('../services/errorList')
 const { saveCouponCode, removeCouponCode } = require('../services/contextManager')
 
 /**
@@ -22,7 +22,7 @@ module.exports = async (context, input) => {
     })
     .catch(async e => {
       // when the cart is not empty, it will throw these
-      if (e instanceof CouponNotFound || e instanceof CouponNotEligible) {
+      if (e instanceof CouponNotFound || e instanceof CouponNotEligibleError) {
         await saveCouponCode(couponCode, context)
       }
       throw e
