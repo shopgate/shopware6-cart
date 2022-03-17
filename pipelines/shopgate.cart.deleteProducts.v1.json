@@ -1,0 +1,74 @@
+{
+  "version": "1",
+  "pipeline": {
+    "id": "shopgate.cart.deleteProducts.v1",
+    "public": true,
+    "input": [
+      {
+        "key": "CartItemIds",
+        "id": "1020",
+        "optional": true
+      },
+      {
+        "key": "cartItemIds",
+        "id": "1021",
+        "optional": true
+      }
+    ],
+    "output": [],
+    "steps": [
+      {
+        "type": "conditional",
+        "input": [
+          {
+            "key": "cartItemIds",
+            "id": "1021",
+            "optional": true
+          }
+        ],
+        "expression": {
+          "notok": [
+            {
+              "name": "cartItemIds"
+            }
+          ]
+        },
+        "then": {
+          "type": "staticValue",
+          "input": [
+            {
+              "key": "CartItemIds",
+              "id": "1020",
+              "optional": true
+            }
+          ],
+          "values": [
+            {
+              "key": "cartItemIds",
+              "passthrough": "CartItemIds"
+            }
+          ],
+          "output": [
+            {
+              "key": "cartItemIds",
+              "id": "1021"
+            }
+          ]
+        }
+      },
+      {
+        "id": "@apite/shopware6-cart",
+        "path": "@apite/shopware6-cart/src/steps/deleteCartItems.js",
+        "type": "extension",
+        "input": [
+          {
+            "id": "1021",
+            "key": "cartItemIds",
+            "optional": true
+          }
+        ],
+        "output": []
+      }
+    ]
+  }
+}

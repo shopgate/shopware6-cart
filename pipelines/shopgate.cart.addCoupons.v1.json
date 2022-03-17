@@ -1,0 +1,28 @@
+{
+  "version": "1",
+  "pipeline": {
+    "id": "shopgate.cart.addCoupons.v1",
+    "input": [
+      {
+        "id": "1020",
+        "key": "couponCodes"
+      }
+    ],
+    "output": [],
+    "public": true,
+    "steps": [
+      {
+        "type": "extension",
+        "id": "@apite/shopware6-cart",
+        "path": "@apite/shopware6-cart/src/steps/addCouponsToCart.js",
+        "input": [
+          {
+            "id": "1020",
+            "key": "couponCodes"
+          }
+        ],
+        "output": []
+      }
+    ]
+  }
+}

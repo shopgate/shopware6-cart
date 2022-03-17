@@ -1,0 +1,28 @@
+{
+  "version": "1",
+  "pipeline": {
+    "id": "shopgate.cart.addProducts.v1",
+    "public": true,
+    "input": [
+      {
+        "key": "products",
+        "id": "100"
+      }
+    ],
+    "output": [],
+    "steps": [
+      {
+        "type": "extension",
+        "id": "@apite/shopware6-cart",
+        "path": "@apite/shopware6-cart/src/steps/addProductsToCart.js",
+        "input": [
+          {
+            "key": "products",
+            "id": "100"
+          }
+        ],
+        "output": []
+      }
+    ]
+  }
+}

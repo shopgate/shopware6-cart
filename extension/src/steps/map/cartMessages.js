@@ -1,0 +1,24 @@
+'use strict'
+
+const { toShopgateMessage } = require('../../services/errorManager')
+const { decorateError } = require('../../services/logDecorator')
+
+/**
+ * Despite out attempt, the messages are not printed in default theme
+ *
+ * @param {SW6Cart.PipelineContext} context
+ * @param {SWCartInput} input
+ * @returns {Promise<{messages: Array}>}
+ */
+module.exports = async (context, input) => {
+  const messages = []
+  const errors = { ...input.swCart.errors }
+  Object.keys(errors)
+    .filter(key => errors[key].level > 0)
+    .forEach(key => {
+      context.log.info(decorateError(errors[key]), 'Untranslated cart error message')
+      messages.push(toShopgateMessage(errors[key]))
+    })
+
+  return { messages }
+}

@@ -1,0 +1,73 @@
+{
+  "version": "1",
+  "pipeline": {
+    "id": "shopgate.cart.updateProducts.v1",
+    "public": true,
+    "input": [
+      {
+        "key": "CartItem",
+        "id": "1010",
+        "optional": true
+      },
+      {
+        "key": "cartItems",
+        "id": "1011",
+        "optional": true
+      }
+    ],
+    "output": [],
+    "steps": [
+      {
+        "type": "conditional",
+        "input": [
+          {
+            "key": "cartItems",
+            "id": "1011",
+            "optional": true
+          }
+        ],
+        "expression": {
+          "notok": [
+            {
+              "name": "cartItems"
+            }
+          ]
+        },
+        "then": {
+          "type": "staticValue",
+          "input": [
+            {
+              "key": "CartItem",
+              "id": "1010",
+              "optional": true
+            }
+          ],
+          "values": [
+            {
+              "key": "cartItems",
+              "passthrough": "CartItem"
+            }
+          ],
+          "output": [
+            {
+              "key": "cartItems",
+              "id": "1011"
+            }
+          ]
+        }
+      },
+      {
+        "type": "extension",
+        "id": "@apite/shopware6-cart",
+        "path": "@apite/shopware6-cart/src/steps/updateProductsInCart.js",
+        "input": [
+          {
+            "key": "cartItems",
+            "id": "1011"
+          }
+        ],
+        "output": []
+      }
+    ]
+  }
+}

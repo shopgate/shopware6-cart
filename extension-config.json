@@ -1,8 +1,125 @@
 {
-  "version": "1.0.0",
+  "version": "0.1.0",
   "id": "@apite/shopware6-cart",
-  "components": [
-  ],
   "configuration": {
-  }
+    "endpoint": {
+      "type": "admin",
+      "destination": "backend",
+      "default": null,
+      "params": {
+        "type": "text",
+        "label": "Store URL",
+        "description": "This is the URL of your frontend store. We will be making calls via Shopware's Store API.",
+        "required": true,
+        "options": {
+          "placeholder": "http://example.com"
+        }
+      }
+    },
+    "accessToken": {
+      "type": "admin",
+      "destination": "backend",
+      "default": null,
+      "params": {
+        "type": "text",
+        "label": "SalesChannel AccessToken",
+        "description": "Navigate to your Shopware backend. Go to the desired Sales Channel. In the 'API access' section copy the 'API access key' here",
+        "required": true,
+        "options": {
+          "placeholder": "SWSCMMJTYLVIT..."
+        }
+      }
+    },
+    "languageId": {
+      "type": "admin",
+      "destination": "backend",
+      "default": null,
+      "params": {
+        "type": "text",
+        "label": "Language ID",
+        "description": "If not provided it will use the default language of the SalesChannel. Otherwise please go to admin backend, Settings > Languages > [Language you want]. Copy the ID in the website URL bar, e.g. http://example.com/.../detail/fa964a97a1e841a1bbf04471862ccc7f",
+        "required": false,
+        "options": {
+          "placeholder": "fa964a97a1e841a1bbf04471862ccc7f"
+        }
+      }
+    },
+    "showCoupon": {
+      "type": "admin",
+      "destination": "backend",
+      "default": true,
+      "params": {
+        "type": "checkbox",
+        "label": "Enable Coupon Entry",
+        "description": "Shows or hides the coupon filed from the cart. It does not prevent rules to be applied automatically to cart.",
+        "options": {
+          "label": "Allow coupon entry"
+        }
+      }
+    },
+    "cacheCoupon": {
+      "type": "admin",
+      "destination": "backend",
+      "default": true,
+      "params": {
+        "type": "checkbox",
+        "label": "Save coupon",
+        "description": "In the background, tries to apply the last set coupon to the cart until a new coupon is entered or the cart conditions are fulfilled.",
+        "options": {
+          "label": "Save coupon until cart satisfies coupon condition"
+        }
+      }
+    },
+    "settings": {
+      "type": "admin",
+      "destination": "backend",
+      "default": {
+        "legalInfo": "",
+        "legalText": ""
+      },
+      "params": {
+        "type": "json",
+        "label": "Miscellaneous settings"
+      }
+    }
+  },
+  "components": [
+    {
+      "id": "en-US",
+      "path": "frontend/locale/en-US.json",
+      "type": "translations"
+    },
+    {
+      "id": "de-DE",
+      "path": "frontend/locale/de-DE.json",
+      "type": "translations"
+    }
+  ],
+  "steps": [
+    {
+      "path": "extension/src/hooks/authSetup.js",
+      "description": "Sets up authentication before every pipeline call",
+      "hooks": [
+        "shopgate.cart.getCart.v1:before",
+        "shopgate.cart.addCoupons.v1:before",
+        "shopgate.cart.addProducts.v1:before",
+        "shopgate.cart.updateProducts.v1:before",
+        "shopgate.cart.deleteProducts.v1:before",
+        "apite.cart.newCart.v1:before"
+      ],
+      "input": [],
+      "output": []
+    },
+    {
+      "path": "extension/src/hooks/addContextCouponToCart.js",
+      "description": "Attempts to add saved coupon after cart manipulation",
+      "hooks": [
+        "shopgate.cart.addProducts.v1:after",
+        "shopgate.cart.updateProducts.v1:after",
+        "shopgate.cart.deleteProducts.v1:after"
+      ],
+      "input": [],
+      "output": []
+    }
+  ]
 }

@@ -1,0 +1,30 @@
+{
+  "SW6Cart": {
+    "general": {
+      "maintenanceModeHeader": "Maintenance mode",
+      "maintenanceModeDescription": "We are currently updating this site. Please check back later."
+    },
+    "notice": {
+      "VIOLATION::CUSTOMER_EMAIL_NOT_UNIQUE": "This email address has already been registered.",
+      "VIOLATION::CUSTOMER_PASSWORD_NOT_CORRECT": "Password incorrect.",
+      "FRAMEWORK__INVALID_UUID": "The selected payment method does not exist.",
+      "message-default": "Unfortunately, something went wrong.",
+      "addToCartError": "An error occurred while trying to add items to the shopping cart.",
+      "product-not-found": "The product could not be found.",
+      "message-403": "Your session has expired. Please return to the last page and try again.",
+      "product-out-of-stock": "Product is not available at the moment.",
+      "product-stock-reached": "The product \"{name}\" is only available {quantity} times",
+      "purchase-steps-quantity": "The product \"{name}\" is not available in this quantity. The quantity was changed to {quantity}",
+      "shipping-method-blocked": "The shipping method \"{name}\" is blocked for your current shopping cart.",
+      "payment-method-blocked": "The payment method \"{name}\" is blocked for your current shopping cart.",
+      "promotion-not-found": "Promotion with code \"{promotionCode}\" could not be found.",
+      "promotion-not-eligible": "Promotion code valid - however, not all conditions were met and the discount was not applied. Once all conditions are met, the discount will be applied automatically.",
+      "promotion-excluded": "One or more discounts have been removed from the shopping cart, due to conflicts with other discounts. Once the conditions are met again, the discounts will be applied automatically.",
+      "shipping-address-blocked": "Shipping to the selected shipping address is currently not possible.",
+      "billing-address-blocked": "Billing to the selected address is not possible.",
+      "shipping-address-invalid": "The selected shipping address is not valid or incomplete. Please check your entries.",
+      "billing-address-invalid": "The selected billing address is not valid or incomplete. Please check your entries.",
+      "cart-merged-hint": "The current shopping cart might contain additional products that have been added and saved during a previous visit."
+    }
+  }
+}

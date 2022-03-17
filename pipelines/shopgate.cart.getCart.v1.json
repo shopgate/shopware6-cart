@@ -1,0 +1,145 @@
+{
+  "version": "1",
+  "pipeline": {
+    "id": "shopgate.cart.getCart.v1",
+    "public": true,
+    "input": [],
+    "output": [
+      {
+        "key": "messages",
+        "id": "1100"
+      },
+      {
+        "key": "cartItems",
+        "id": "1200"
+      },
+      {
+        "key": "currency",
+        "id": "1300"
+      },
+      {
+        "key": "totals",
+        "id": "1400"
+      },
+      {
+        "key": "text",
+        "id": "1500"
+      },
+      {
+        "key": "flags",
+        "id": "1600"
+      }
+    ],
+    "steps": [
+      {
+        "id": "@apite/shopware6-cart",
+        "path": "@apite/shopware6-cart/src/steps/getCart.js",
+        "type": "extension",
+        "input": [],
+        "output": [
+          {
+            "key": "swCart",
+            "id": "100"
+          }
+        ]
+      },
+      {
+        "id": "@apite/shopware6-cart",
+        "path": "@apite/shopware6-cart/src/steps/map/contextCurrency.js",
+        "type": "extension",
+        "input": [],
+        "output": [
+          {
+            "key": "currency",
+            "id": "1300"
+          }
+        ]
+      },
+      {
+        "id": "@apite/shopware6-cart",
+        "path": "@apite/shopware6-cart/src/steps/map/cartMessages.js",
+        "type": "extension",
+        "input": [
+          {
+            "key": "swCart",
+            "id": "100"
+          }
+        ],
+        "output": [
+          {
+            "key": "messages",
+            "id": "1100"
+          }
+        ]
+      },
+      {
+        "id": "@apite/shopware6-cart",
+        "path": "@apite/shopware6-cart/src/steps/map/cartItems.js",
+        "type": "extension",
+        "input": [
+          {
+            "key": "swCart",
+            "id": "100"
+          },
+          {
+            "key": "currency",
+            "id": "1300"
+          }
+        ],
+        "output": [
+          {
+            "key": "cartItems",
+            "id": "1200"
+          }
+        ]
+      },
+      {
+        "id": "@apite/shopware6-cart",
+        "path": "@apite/shopware6-cart/src/steps/map/cartTotals.js",
+        "type": "extension",
+        "input": [
+          {
+            "key": "swCart",
+            "id": "100"
+          }
+        ],
+        "output": [
+          {
+            "key": "totals",
+            "id": "1400"
+          }
+        ]
+      },
+      {
+        "id": "@apite/shopware6-cart",
+        "path": "@apite/shopware6-cart/src/steps/map/cartText.js",
+        "type": "extension",
+        "input": [],
+        "output": [
+          {
+            "key": "text",
+            "id": "1500"
+          }
+        ]
+      },
+      {
+        "id": "@apite/shopware6-cart",
+        "path": "@apite/shopware6-cart/src/steps/map/cartFlags.js",
+        "type": "extension",
+        "input": [
+          {
+            "key": "swCart",
+            "id": "100",
+            "optional": true
+          }
+        ],
+        "output": [
+          {
+            "key": "flags",
+            "id": "1600"
+          }
+        ]
+      }
+    ]
+  }
+}
