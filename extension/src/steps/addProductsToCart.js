@@ -11,6 +11,7 @@ const { throwOnCartErrors, throwOnApiError } = require('../services/errorManager
 module.exports = async (context, input) => {
   const swItems = input.products.map(({ productId, quantity }) => {
     return {
+      id: productId,
       referencedId: productId,
       quantity,
       type: 'product'
