@@ -93,6 +93,11 @@
       "id": "de-DE",
       "path": "frontend/locale/de-DE.json",
       "type": "translations"
+    },
+    {
+      "id": "CheckoutSubscription",
+      "path": "frontend/Checkout/subscribers.js",
+      "type": "subscribers"
     }
   ],
   "steps": [
@@ -105,6 +110,7 @@
         "shopgate.cart.addProducts.v1:before",
         "shopgate.cart.updateProducts.v1:before",
         "shopgate.cart.deleteProducts.v1:before",
+        "shopgate.checkout.getUrl.v1:before",
         "apite.cart.newCart.v1:before"
       ],
       "input": [],
