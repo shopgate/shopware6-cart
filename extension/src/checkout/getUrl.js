@@ -9,10 +9,10 @@ const { throwOnApiError } = require('../services/errorManager')
  * @returns {Promise<SW6Cart.UrlResponse>}
  */
 module.exports = async (context) => {
-  // todo: what happens if not logged in? We should redirect to login. Do we do it?
   const { token, expiration } = await getLoginToken().catch(e => throwOnApiError(e, context))
   const url = new URL('sgconnect/login', config.endpoint)
   url.searchParams.append('token', token)
+  url.searchParams.append('affiliateCode', 'SGConnect_App')
 
   return {
     url,
