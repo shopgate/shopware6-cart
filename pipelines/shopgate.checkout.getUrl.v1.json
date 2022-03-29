@@ -1,0 +1,24 @@
+{
+  "version": "1",
+  "pipeline": {
+    "id": "shopgate.checkout.getUrl.v1",
+    "public": true,
+    "input": [],
+    "output": [
+      {"key": "url", "id": "1000"},
+      {"key": "expires", "id": "1100"}
+    ],
+    "steps": [
+      {
+        "type": "extension",
+        "id": "@apite/shopware6-cart",
+        "path": "@apite/shopware6-cart/src/checkout/getUrl.js",
+        "input": [],
+        "output": [
+          {"key": "url", "id": "1000"},
+          {"key": "expires", "id": "1100"}
+        ]
+      }
+    ]
+  }
+}

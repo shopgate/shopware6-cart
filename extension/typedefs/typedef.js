@@ -109,6 +109,12 @@ const { Cart } = require('@shopware-pwa/shopware-6-client')
  * @property {boolean|undefined} translated
  */
 
+/**
+ * @typedef {Object} SW6Cart.UrlResponse
+ * @property {string} url
+ * @property {?string} expires
+ */
+
 ///
 /// SW hacky pass-through
 ///
