@@ -1,7 +1,7 @@
 {
   "version": "1",
   "pipeline": {
-    "id": "apite.cart.setContextToken.v1",
+    "id": "apite.favorites.setContextToken.v1",
     "public": true,
     "input": [
       {
@@ -13,21 +13,13 @@
     "steps": [
       {
         "id": "@apite/shopware6-cart",
-        "path": "@apite/shopware6-cart/src/steps/setContextToken.js",
+        "path": "@apite/shopware6-cart/src/steps/setContextTokenFavorites.js",
         "type": "extension",
         "input": [
           {
             "key": "contextToken",
             "id": "1000"
           }
-        ],
-        "output": []
-      },
-      {
-        "type": "pipeline",
-        "id": "apite.favorites.setContextToken.v1",
-        "input": [
-          {"key": "contextToken", "id": "1000"}
         ],
         "output": []
       }
