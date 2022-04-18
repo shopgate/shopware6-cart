@@ -13,7 +13,7 @@
     "steps": [
       {
         "id": "@apite/shopware6-cart",
-        "path": "@apite/shopware6-cart/src/steps/setContextToken.js",
+        "path": "@apite/shopware6-cart/src/context/setContextToken.js",
         "type": "extension",
         "input": [
           {

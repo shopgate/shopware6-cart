@@ -111,7 +111,7 @@ const { Cart } = require('@shopware-pwa/shopware-6-client')
 
 /**
  * @typedef {Object} SW6Cart.UrlResponse
- * @property {string} url
+ * @property {string|URL} url
  * @property {?string} expires
  */
 

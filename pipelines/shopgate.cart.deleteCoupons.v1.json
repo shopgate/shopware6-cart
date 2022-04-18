@@ -10,7 +10,7 @@
     "steps": [
       {
         "id": "@apite/shopware6-cart",
-        "path": "@apite/shopware6-cart/src/steps/getCart.js",
+        "path": "@apite/shopware6-cart/src/cart/getCart.js",
         "type": "extension",
         "input": [
         ],
@@ -20,7 +20,7 @@
       },
       {
         "id": "@apite/shopware6-cart",
-        "path": "@apite/shopware6-cart/src/steps/map/couponToCartItem.js",
+        "path": "@apite/shopware6-cart/src/cart/map/couponToCartItem.js",
         "type": "extension",
         "input": [
           {"id": "100", "key": "swCart"},
@@ -32,7 +32,7 @@
       },
       {
         "id": "@apite/shopware6-cart",
-        "path": "@apite/shopware6-cart/src/steps/deleteCartItems.js",
+        "path": "@apite/shopware6-cart/src/cart/deleteCartItems.js",
         "type": "extension",
         "input": [
           {"id": "200", "key": "cartItemIds"}

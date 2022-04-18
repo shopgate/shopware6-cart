@@ -25,6 +25,9 @@
       "shipping-address-invalid": "Die gewählte Versandadresse ist nicht gültig oder unvollständig. Bitte prüfen Sie Ihre Eingaben.",
       "billing-address-invalid": "Die gewählte Rechnungsadresse ist nicht gültig oder unvollständig. Bitte prüfen Sie Ihre Eingaben.",
       "cart-merged-hint": "Der aktuelle Warenkorb enthält u.U. zusätzliche Produkte, die noch von einem früheren Besuch gespeichert waren."
+    },
+    "app": {
+      "not-in-sync": "Unfortunately the session expired, you will need to log back in."
     }
   }
 }
