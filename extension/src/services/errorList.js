@@ -46,8 +46,20 @@ class CouponNotFound extends CartError {}
 
 class CouponNotEligibleError extends CartError {}
 
+/**
+ * Our custom frontend handles this error
+ */
+class ContextDeSyncError extends Error {
+  constructor () {
+    super()
+    this.message = 'SW6Cart.app.not-in-sync'
+    this.code = 'EDESYNC'
+  }
+}
+
 module.exports = {
   CartError,
+  ContextDeSyncError,
   CouponNotEligibleError,
   CouponNotFound,
   ProductNotFoundError,

@@ -25,6 +25,9 @@
       "shipping-address-invalid": "The selected shipping address is not valid or incomplete. Please check your entries.",
       "billing-address-invalid": "The selected billing address is not valid or incomplete. Please check your entries.",
       "cart-merged-hint": "The current shopping cart might contain additional products that have been added and saved during a previous visit."
+    },
+    "app": {
+      "not-in-sync": "Unfortunately the session expired, you will need to log back in."
     }
   }
 }

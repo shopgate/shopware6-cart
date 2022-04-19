@@ -3,14 +3,13 @@
 const { saveContextToken } = require('../services/contextManager')
 
 /**
- * This pipeline should be called from the user extension,
- * once the user logs in/logs out
+ * Check frontend->subscriptions->context for more info
  *
  * @param {SW6Cart.PipelineContext} context
  * @param {Object} input
  * @property {string} input.contextToken
  * @returns {Promise<void>}
  */
-module.exports = async (context, input) => {
-  await saveContextToken(input.contextToken, context)
+module.exports = async (context, { contextToken }) => {
+  await saveContextToken(contextToken, context)
 }

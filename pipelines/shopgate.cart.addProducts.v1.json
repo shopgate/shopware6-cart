@@ -14,7 +14,7 @@
       {
         "type": "extension",
         "id": "@apite/shopware6-cart",
-        "path": "@apite/shopware6-cart/src/steps/addProductsToCart.js",
+        "path": "@apite/shopware6-cart/src/cart/addProductsToCart.js",
         "input": [
           {
             "key": "products",

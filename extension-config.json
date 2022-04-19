@@ -95,8 +95,13 @@
       "type": "translations"
     },
     {
-      "id": "CheckoutSubscription",
-      "path": "frontend/Checkout/subscribers.js",
+      "id": "CheckoutSubscriber",
+      "path": "frontend/subscriptions/checkout.js",
+      "type": "subscribers"
+    },
+    {
+      "id": "ErrorSubscriber",
+      "path": "frontend/subscriptions/errors.js",
       "type": "subscribers"
     }
   ],
@@ -123,6 +128,15 @@
         "shopgate.cart.addProducts.v1:after",
         "shopgate.cart.updateProducts.v1:after",
         "shopgate.cart.deleteProducts.v1:after"
+      ],
+      "input": [],
+      "output": []
+    },
+    {
+      "path": "extension/src/hooks/validateUserContext.js",
+      "description": "Checks if the App customer context token is in sync with Shopware",
+      "hooks": [
+        "shopgate.checkout.getUrl.v1:before"
       ],
       "input": [],
       "output": []

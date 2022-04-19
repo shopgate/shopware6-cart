@@ -13,7 +13,7 @@
     "steps": [
       {
         "id": "@apite/shopware6-cart",
-        "path": "@apite/shopware6-cart/src/steps/newCart.js",
+        "path": "@apite/shopware6-cart/src/cart/newCart.js",
         "type": "extension",
         "input": [],
         "output": [
