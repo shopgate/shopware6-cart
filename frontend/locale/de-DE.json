@@ -27,7 +27,7 @@
       "cart-merged-hint": "Der aktuelle Warenkorb enthält u.U. zusätzliche Produkte, die noch von einem früheren Besuch gespeichert waren."
     },
     "app": {
-      "not-in-sync": "Unfortunately the session expired, you will need to log back in."
+      "not-in-sync": "Die Sitzung ist abgelaufen. Bitte loggen Sie sich erneut ein."
     }
   }
 }
