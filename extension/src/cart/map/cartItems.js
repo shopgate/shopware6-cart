@@ -1,5 +1,7 @@
 'use strict'
 
+const _get = require('lodash/get')
+
 const SW_TYPE_PRODUCT = 'product'
 const SW_TYPE_COUPON = 'promotion'
 
@@ -9,7 +11,7 @@ const SW_TYPE_COUPON = 'promotion'
  * @return {{type: string, value: number}}
  */
 const getCouponPrice = function (lineItem) {
-  const swType = lineItem.priceDefinition?.type
+  const swType = _get(lineItem, 'priceDefinition.type')
   return swType === 'percentage'
     ? { type: swType, value: -(lineItem.priceDefinition[swType]) }
     : { type: 'fixed', value: -(lineItem.price.totalPrice) }

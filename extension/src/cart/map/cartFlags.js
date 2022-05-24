@@ -1,5 +1,6 @@
 'use strict'
 
+const _get = require('lodash/get')
 const { decorateError } = require('../../services/logDecorator')
 
 /**
@@ -13,7 +14,7 @@ module.exports = async (context, input) => {
 
   return {
     flags: {
-      taxIncluded: input.swCart.price?.taxStatus === 'gross',
+      taxIncluded: _get(input, 'swCart.price.taxStatus') === 'gross',
       orderable: true, // hardErrors.length === 0,
       coupons: context.config.showCoupon
     }

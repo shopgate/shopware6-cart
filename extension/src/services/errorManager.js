@@ -1,5 +1,6 @@
 'use strict'
 
+const _get = require('lodash/get')
 const {
   ProductNotFoundError,
   ProductStockReachedError,
@@ -99,7 +100,7 @@ const throwOnMessage = function (messages, context) {
     switch (message.code) {
       case 'CHECKOUT__CART_LINEITEM_NOT_FOUND':
         context.log.info(decorateError(message), 'Could not locate line item in cart')
-        throw new ProductNotFoundError(message.meta?.parameters?.identifier)
+        throw new ProductNotFoundError(_get(message, 'meta.parameters.identifier', ''))
       case 'FRAMEWORK__INVALID_UUID':
         context.log.fatal(decorateError(message), 'Unexpected UID provided')
         throw new UnknownError()
