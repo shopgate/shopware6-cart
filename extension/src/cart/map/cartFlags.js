@@ -1,6 +1,6 @@
 'use strict'
 
-const _get = require('lodash/get')
+const _get = require('lodash.get')
 const { decorateError } = require('../../services/logDecorator')
 
 /**

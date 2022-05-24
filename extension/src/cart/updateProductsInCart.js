@@ -1,5 +1,6 @@
 'use strict'
 
+const _get = require('lodash.get')
 const { changeCartItemQuantity } = require('@shopware-pwa/shopware-6-client')
 const { throwOnCartErrors, throwOnApiError } = require('../services/errorManager')
 
@@ -14,7 +15,7 @@ module.exports = async (context, input) => {
   await Promise.all(
     input.cartItems.map(item => {
       sync = sync.then(
-        () => changeCartItemQuantity(item.CartItemId ?? item.cartItemId, item.quantity)
+        () => changeCartItemQuantity(_get(item, 'CartItemId', item.cartItemId), item.quantity)
           .catch(e => throwOnApiError(e, context))
           .then(swCart => throwOnCartErrors(swCart.errors, context))
       )
