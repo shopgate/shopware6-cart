@@ -9,7 +9,7 @@ module.exports = async (context, input) => {
   const totals = []
   const { totalPrice, calculatedTaxes } = input.swCart.price
 
-  if (totalPrice) {
+  if (totalPrice > 0) {
     totals.push({
       type: 'grandTotal',
       label: '',
@@ -23,25 +23,24 @@ module.exports = async (context, input) => {
       ]
     })
   }
-  if (calculatedTaxes) {
-    const totalTax = calculatedTaxes.reduce((total, { tax }) => tax + total, 0.0)
-    totals.push({
-      type: 'tax',
-      label: 'Tax',
-      amount: totalTax,
-      subTotals:
-        input.swCart.price.calculatedTaxes.map(
-          ({ taxRate, tax }) => {
-            return {
-              type: 'tax',
-              label: taxRate + '%',
-              amount: tax
-            }
-          })
-    })
-  }
+
+  totals.push({
+    type: 'tax',
+    label: 'Tax',
+    amount: calculatedTaxes.reduce((total, { tax }) => tax + total, 0.0),
+    subTotals:
+      calculatedTaxes.map(
+        ({ taxRate, tax }) => {
+          return {
+            type: 'tax',
+            label: taxRate + '%',
+            amount: tax
+          }
+        })
+  })
+
   const promos = input.swCart.lineItems.filter(lineItem => lineItem.type === 'promotion')
-  if (promos) {
+  if (promos.length) {
     totals.push({
       type: 'discount',
       label: '',
