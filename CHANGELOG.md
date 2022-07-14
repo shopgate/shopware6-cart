@@ -6,6 +6,7 @@ The format is based on [Keep a Changelog](http://keepachangelog.com/) and this p
 
 ## 0.1.0-beta.2
 
+- added translated errors when coupons/auto-promo's are no longer valid for cart
 - removed `Discount: -0.0` when no discount is applied on cart page
 - changed logic around tax display on cart page
 

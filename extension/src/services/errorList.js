@@ -46,6 +46,8 @@ class CouponNotFound extends CartError {}
 
 class CouponNotEligibleError extends CartError {}
 
+class AutoPromoNotEligibleError extends CartError {}
+
 /**
  * Our custom frontend handles this error
  */
@@ -58,6 +60,7 @@ class ContextDeSyncError extends Error {
 }
 
 module.exports = {
+  AutoPromoNotEligibleError,
   CartError,
   ContextDeSyncError,
   CouponNotEligibleError,

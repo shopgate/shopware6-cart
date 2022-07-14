@@ -13,6 +13,7 @@
       "product-not-found": "The product could not be found.",
       "message-403": "Your session has expired. Please return to the last page and try again.",
       "product-out-of-stock": "Product is not available at the moment.",
+      "auto-promotion-not-found": "Promotion \"{name}\" is no longer valid!",
       "product-stock-reached": "The product \"{name}\" is only available {quantity} times",
       "purchase-steps-quantity": "The product \"{name}\" is not available in this quantity. The quantity was changed to {quantity}",
       "shipping-method-blocked": "The shipping method \"{name}\" is blocked for your current shopping cart.",

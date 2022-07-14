@@ -2,6 +2,7 @@
 
 const _get = require('lodash.get')
 const {
+  AutoPromoNotEligibleError,
   ProductNotFoundError,
   ProductStockReachedError,
   UnknownError,
@@ -56,6 +57,8 @@ const throwOnCartErrors = function (errorList, context) {
           throw (new ProductNotFoundError().mapEntityError(errorList[key], 'ENOTFOUND'))
         case 'promotion-not-found':
           throw (new CouponNotFound().mapEntityError(errorList[key], 'EINVALIDCOUPON'))
+        case 'auto-promotion-not-found':
+          throw (new AutoPromoNotEligibleError().mapEntityError(errorList[key], 'ENOTELIGIBLE'))
         case 'product-stock-reached':
         case 'purchase-steps-quantity':
           throw (new ProductStockReachedError().mapEntityError(errorList[key], 'ESTOCKREACHED'))
