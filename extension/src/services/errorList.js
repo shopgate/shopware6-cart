@@ -42,9 +42,11 @@ class ProductNotFoundError extends CartError {
 
 class ProductStockReachedError extends CartError {}
 
-class CouponNotFound extends CartError {}
+class PromoAddedError extends CartError {}
 
-class CouponNotEligibleError extends CartError {}
+class PromoNotFoundError extends CartError {}
+
+class PromoNotEligibleError extends CartError {}
 
 class AutoPromoNotEligibleError extends CartError {}
 
@@ -63,8 +65,9 @@ module.exports = {
   AutoPromoNotEligibleError,
   CartError,
   ContextDeSyncError,
-  CouponNotEligibleError,
-  CouponNotFound,
+  PromoAddedError,
+  PromoNotEligibleError,
+  PromoNotFoundError,
   ProductNotFoundError,
   ProductStockReachedError,
   UnknownError
