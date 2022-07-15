@@ -4,6 +4,9 @@
       "maintenanceModeHeader": "Wartungsmodus",
       "maintenanceModeDescription": "Wir aktualisieren derzeit die Inhalte dieser Seite. Bitte schauen Sie später wieder vorbei."
     },
+    "cart": {
+      "summaryShipping": "Versandkosten"
+    },
     "notice": {
       "VIOLATION::CUSTOMER_EMAIL_NOT_UNIQUE": "Diese E-Mail-Adresse ist bereits registriert.",
       "VIOLATION::CUSTOMER_PASSWORD_NOT_CORRECT": "Das Passwort ist nicht korrekt.",

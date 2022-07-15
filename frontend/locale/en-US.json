@@ -4,6 +4,9 @@
       "maintenanceModeHeader": "Maintenance mode",
       "maintenanceModeDescription": "We are currently updating this site. Please check back later."
     },
+    "cart": {
+      "summaryShipping": "Shipping costs"
+    },
     "notice": {
       "VIOLATION::CUSTOMER_EMAIL_NOT_UNIQUE": "This email address has already been registered.",
       "VIOLATION::CUSTOMER_PASSWORD_NOT_CORRECT": "Password incorrect.",

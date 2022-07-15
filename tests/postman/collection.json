@@ -1720,8 +1720,12 @@
                   "listen": "test",
                   "script": {
                     "exec": [
-                      "pm.test(\"Status code is 200\", function () {\r",
-                      "    pm.response.to.have.status(200);\r",
+                      "pm.test(\"Status code is 500\", function () {\r",
+                      "    pm.response.to.have.status(500);\r",
+                      "});\r",
+                      "pm.test(\"Check we get a notice of coupon added\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData.error.errors[0].code).to.eql('EPROMOADDED');\r",
                       "});"
                     ],
                     "type": "text/javascript"
@@ -2399,8 +2403,12 @@
                   "listen": "test",
                   "script": {
                     "exec": [
-                      "pm.test(\"Status code is 200\", function () {\r",
-                      "    pm.response.to.have.status(200);\r",
+                      "pm.test(\"Status code is 500\", function () {\r",
+                      "    pm.response.to.have.status(500);\r",
+                      "});\r",
+                      "pm.test(\"Check we get a notice of coupon added\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData.error.errors[0].code).to.eql('EPROMOADDED');\r",
                       "});"
                     ],
                     "type": "text/javascript"
@@ -2569,7 +2577,7 @@
           "name": "Empty cart coupon",
           "item": [
             {
-              "name": "Add",
+              "name": "add",
               "item": [
                 {
                   "name": "new cart",
@@ -2932,8 +2940,12 @@
                       "listen": "test",
                       "script": {
                         "exec": [
-                          "pm.test(\"Status code is 200\", function () {\r",
-                          "    pm.response.to.have.status(200);\r",
+                          "pm.test(\"Status code is 500\", function () {\r",
+                          "    pm.response.to.have.status(500);\r",
+                          "});\r",
+                          "pm.test(\"Check we get a notice of coupon added\", function () {\r",
+                          "    var jsonData = pm.response.json();\r",
+                          "    pm.expect(jsonData.error.errors[0].code).to.eql('EPROMOADDED');\r",
                           "});"
                         ],
                         "type": "text/javascript"
