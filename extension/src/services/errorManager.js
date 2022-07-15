@@ -2,11 +2,13 @@
 
 const _get = require('lodash.get')
 const {
+  AutoPromoNotEligibleError,
   ProductNotFoundError,
   ProductStockReachedError,
-  UnknownError,
-  CouponNotFound,
-  CouponNotEligibleError
+  PromoAddedError,
+  PromoNotEligibleError,
+  PromoNotFoundError,
+  UnknownError
 } = require('./errorList')
 const { decorateError } = require('./logDecorator')
 
@@ -55,7 +57,9 @@ const throwOnCartErrors = function (errorList, context) {
         case 'product-not-found':
           throw (new ProductNotFoundError().mapEntityError(errorList[key], 'ENOTFOUND'))
         case 'promotion-not-found':
-          throw (new CouponNotFound().mapEntityError(errorList[key], 'EINVALIDCOUPON'))
+          throw (new PromoNotFoundError().mapEntityError(errorList[key], 'EINVALIDCOUPON'))
+        case 'auto-promotion-not-found':
+          throw (new AutoPromoNotEligibleError().mapEntityError(errorList[key], 'ENOTELIGIBLE'))
         case 'product-stock-reached':
         case 'purchase-steps-quantity':
           throw (new ProductStockReachedError().mapEntityError(errorList[key], 'ESTOCKREACHED'))
@@ -84,7 +88,10 @@ const throwOnCartInfoErrors = function (errorList, context) {
       context.log.info(decorateError(errorList[key]))
       switch (errorList[key].messageKey) {
         case 'promotion-not-eligible':
-          throw (new CouponNotEligibleError().mapEntityError(errorList[key], 'ENOTELIGIBLE'))
+        case 'promotion-excluded':
+          throw (new PromoNotEligibleError().mapEntityError(errorList[key], 'ENOTELIGIBLE'))
+        case 'promotion-discount-added':
+          throw (new PromoAddedError().mapEntityError(errorList[key], 'EPROMOADDED'))
       }
     })
   throwOnCartErrors(errorList, context)

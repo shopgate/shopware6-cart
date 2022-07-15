@@ -1,7 +1,7 @@
 'use strict'
 
 const { removeCartItem } = require('@shopware-pwa/shopware-6-client')
-const { throwOnApiError, throwOnCartErrors } = require('../services/errorManager')
+const { throwOnApiError, throwOnCartInfoErrors } = require('../services/errorManager')
 
 /**
  * @param {SW6Cart.PipelineContext} context
@@ -17,7 +17,7 @@ module.exports = async (context, input) => {
         sync = sync.then(
           () => removeCartItem(lineItemId)
             .catch(e => throwOnApiError(e, context))
-            .then(cart => throwOnCartErrors(cart.errors, context))
+            .then(cart => throwOnCartInfoErrors(cart.errors, context))
         )
         return sync
       }

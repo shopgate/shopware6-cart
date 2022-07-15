@@ -2,7 +2,7 @@
 
 const _get = require('lodash.get')
 const { changeCartItemQuantity } = require('@shopware-pwa/shopware-6-client')
-const { throwOnCartErrors, throwOnApiError } = require('../services/errorManager')
+const { throwOnCartInfoErrors, throwOnApiError } = require('../services/errorManager')
 
 /**
  * @param {SW6Cart.PipelineContext} context
@@ -17,7 +17,7 @@ module.exports = async (context, input) => {
       sync = sync.then(
         () => changeCartItemQuantity(_get(item, 'CartItemId', item.cartItemId), item.quantity)
           .catch(e => throwOnApiError(e, context))
-          .then(swCart => throwOnCartErrors(swCart.errors, context))
+          .then(swCart => throwOnCartInfoErrors(swCart.errors, context))
       )
       return sync
     })
