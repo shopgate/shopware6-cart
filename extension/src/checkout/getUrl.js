@@ -4,7 +4,7 @@ const {
   apiManager: { createApiConfig },
   configManager: { getEndpoint },
   connectApiManager: { getLoginToken }
-} = require('@apite/sw6-webcheckout-helper')
+} = require('@apite/shopware6-utility')
 const { throwOnApiError } = require('../services/errorManager')
 
 /**

@@ -1,6 +1,6 @@
 'use strict'
 
-const { contextManager: { saveContextToken } } = require('@apite/sw6-webcheckout-helper')
+const { contextManager: { saveContextToken } } = require('@apite/shopware6-utility')
 
 /**
  * Check frontend->subscriptions->context for more info
@@ -10,7 +10,5 @@ const { contextManager: { saveContextToken } } = require('@apite/sw6-webcheckout
  * @property {string} input.contextToken
  * @returns {Promise<void>}
  */
-module.exports = async (context, { contextToken }) => {
-  context.log.warn('cart: set context token: ' + contextToken)
-  await saveContextToken(contextToken, context)
-}
+module.exports = async (context, { contextToken }) =>
+  saveContextToken(contextToken, context)

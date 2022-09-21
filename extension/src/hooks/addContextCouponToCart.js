@@ -3,7 +3,7 @@
 const {
   apiManager: { createApiConfig },
   contextManager: { getCouponCode, removeCouponCode }
-} = require('@apite/sw6-webcheckout-helper')
+} = require('@apite/shopware6-utility')
 const { addPromotionCode } = require('@shopware-pwa/shopware-6-client')
 
 /**
