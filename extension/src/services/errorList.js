@@ -6,13 +6,13 @@ class CartError extends Error {
     this.message = 'Error'
     this.code = 'ECART'
     /**
-     * @type {SW6Cart.SGCartError[]}
+     * @type {ApiteSW6Cart.SGCartError[]}
      */
-    this.errors = [{ entityId, code, message: `SW6Cart.notice.${message}`, translated: false }]
+    this.errors = [{ entityId, code, message: `ApiteSW6Cart.notice.${message}`, translated: false }]
   }
 
   /**
-   * @param {SW6Cart.SWEntityError} error
+   * @param {ApiteSW6Cart.SWEntityError} error
    * @param {string} code - Shopgate Error code, e.g. EUNKNOWN
    * @return {CartError}
    */
@@ -20,7 +20,7 @@ class CartError extends Error {
     this.errors = [{
       entityId: error.id,
       code,
-      message: 'SW6Cart.notice.' + error.messageKey,
+      message: 'ApiteSW6Cart.notice.' + error.messageKey,
       messageParams: { ...error },
       translated: false
     }]
@@ -56,7 +56,7 @@ class AutoPromoNotEligibleError extends CartError {}
 class ContextDeSyncError extends Error {
   constructor () {
     super()
-    this.message = 'SW6Cart.app.not-in-sync'
+    this.message = 'ApiteSW6Cart.app.not-in-sync'
     this.code = 'EDESYNC'
   }
 }

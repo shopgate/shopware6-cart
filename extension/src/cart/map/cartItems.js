@@ -7,7 +7,7 @@ const SW_TYPE_COUPON = 'promotion'
 
 /* jshint -W014 */
 /**
- * @param {SW6Cart.SWLineItem} lineItem
+ * @param {ApiteSW6Helper.SWLineItem} lineItem
  * @return {{type: string, value: number}}
  */
 const getCouponPrice = function (lineItem) {
@@ -17,9 +17,9 @@ const getCouponPrice = function (lineItem) {
     : { type: 'fixed', value: -(lineItem.price.totalPrice) }
 }
 /**
- * @param {SW6Cart.PipelineContext} context
+ * @param {ApiteSW6Helper.PipelineContext} context
  * @param {SWCartInput} input
- * @returns {Promise<{cartItems: SW6Cart.CartItem[]}>}
+ * @returns {Promise<{cartItems: ApiteSW6Cart.CartItem[]}>}
  */
 module.exports = async (context, input) => {
   const coupons = input.swCart.lineItems

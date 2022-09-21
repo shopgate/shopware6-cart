@@ -11,7 +11,8 @@
     "frontend": "sgconnect frontend start"
   },
   "dependencies": {
-    "@shopware-pwa/shopware-6-client": "^1.4.0",
+    "@apite/sw6-webcheckout-helper": "file:../../sw6-webcheckout-helper",
+    "@shopware-pwa/shopware-6-client": "^1.5.3",
     "lodash.get": "^4.4.2"
   },
   "devDependencies": {

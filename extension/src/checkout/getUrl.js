@@ -1,16 +1,21 @@
 'use strict'
 
-const { config } = require('@shopware-pwa/shopware-6-client')
-const { getLoginToken } = require('../services/connectApiManager')
+const {
+  apiManager: { createApiConfig },
+  configManager: { getEndpoint },
+  connectApiManager: { getLoginToken }
+} = require('@apite/sw6-webcheckout-helper')
 const { throwOnApiError } = require('../services/errorManager')
 
 /**
- * @param {SW6Cart.PipelineContext} context
- * @returns {Promise<SW6Cart.UrlResponse>}
+ * @param {ApiteSW6Helper.PipelineContext} context
+ * @returns {Promise<ApiteSW6Cart.UrlResponse>}
  */
 module.exports = async (context) => {
-  const { token, expiration } = await getLoginToken().catch(e => throwOnApiError(e, context))
-  const url = new URL('sgconnect/login', config.endpoint)
+  const endpoint = getEndpoint(context)
+  const api = await createApiConfig(context)
+  const { token, expiration } = await getLoginToken(api).catch(e => throwOnApiError(e, context))
+  const url = new URL('sgconnect/login', endpoint)
   url.searchParams.append('token', token)
   url.searchParams.append('affiliateCode', 'SGConnect_App')
 

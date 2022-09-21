@@ -1,12 +1,7 @@
 /* eslint-disable */
 // noinspection ES6ShorthandObjectProperty
 const {
-  CartErrors,
-  ClientApiError,
-  ErrorLevel,
   EntityError,
-  LineItem,
-  ShopwareError
 } = require('@shopware-pwa/commons')
 const { Cart } = require('@shopware-pwa/shopware-6-client')
 
@@ -46,32 +41,32 @@ const { Cart } = require('@shopware-pwa/shopware-6-client')
 ///
 
 /**
- * @typedef {Object} SW6Cart.CartItem
+ * @typedef {Object} ApiteSW6Cart.CartItem
  * @property {string} id
  * @property {number} quantity
  * @property {string} type
- * @property {?SW6Cart.CartItemProduct} product
- * @property {?SW6Cart.CartItemCoupon} coupon
+ * @property {?ApiteSW6Cart.CartItemProduct} product
+ * @property {?ApiteSW6Cart.CartItemCoupon} coupon
  * @property {Array} messages
  * @property {string} currency
  */
 
 /**
- * @typedef {Object} SW6Cart.CartItemProduct
+ * @typedef {Object} ApiteSW6Cart.CartItemProduct
  * @property {string} id
  * @property {string} name
  * @property {string} featuredImageUrl
  * @property {Object} price
  * @property {number} price.unit
- * @property {number} price.default full amount with quantity or striked price
+ * @property {number} price.default full amount with quantity or struck price
  * @property {number|null} price.special full amount with quantity when strike is given
- * @property {SW6Cart.CartItemProductProperty[]} properties
+ * @property {ApiteSW6Cart.CartItemProductProperty[]} properties
  * @property {Array} appliedDiscounts
  * @property {Array} additionalInfo
  */
 
 /**
- * @typedef {Object} SW6Cart.CartItemCoupon
+ * @typedef {Object} ApiteSW6Cart.CartItemCoupon
  * @property {string|undefined} code
  * @property {string|undefined} description
  * @property {string|undefined} label
@@ -81,7 +76,7 @@ const { Cart } = require('@shopware-pwa/shopware-6-client')
  */
 
 /**
- * @typedef {Object} SW6Cart.CartItemProductProperty
+ * @typedef {Object} ApiteSW6Cart.CartItemProductProperty
  * @property {string} label - Color
  * @property {string} value - Red
  */
@@ -101,27 +96,16 @@ const { Cart } = require('@shopware-pwa/shopware-6-client')
  */
 
 /**
- * @typedef {Object} SW6Cart.SGCartError
+ * @typedef {Object} ApiteSW6Cart.SGCartError
  * @property {string} entityId
- * @property {string} code - e.g. ENOTFOUND
+ * @property {EntityError.messageKey | string} code - e.g. ENOTFOUND
  * @property {string} message
  * @property {Object|undefined} messageParams
  * @property {boolean|undefined} translated
  */
 
 /**
- * @typedef {Object} SW6Cart.UrlResponse
+ * @typedef {Object} ApiteSW6Cart.UrlResponse
  * @property {string|URL} url
  * @property {?string} expires
  */
-
-///
-/// SW hacky pass-through
-///
-/** @typedef {EntityError} SW6Cart.SWEntityError */
-/** @typedef {CartErrors} SW6Cart.SWCartErrors */
-/** @typedef {ErrorLevel} SW6Cart.SWErrorLevel */
-/** @typedef {ClientApiError} SW6Cart.SWClientApiError */
-/** @typedef {ShopwareError} SW6Cart.ShopwareError */
-/** @typedef {Cart} SW6Cart.SWCart */
-/** @typedef {LineItem} SW6Cart.SWLineItem */

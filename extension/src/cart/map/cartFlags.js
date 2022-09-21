@@ -4,7 +4,7 @@ const _get = require('lodash.get')
 const { decorateError } = require('../../services/logDecorator')
 
 /**
- * @param {SW6Cart.PipelineContext} context
+ * @param {ApiteSW6Helper.PipelineContext} context
  * @param {SWCartInput} input
  * @returns {Promise<{flags: CartFlags}>}
  */

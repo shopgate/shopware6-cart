@@ -6,7 +6,7 @@
  * @property {string} legalInfo
  */
 /**
- * @param {SW6Cart.PipelineContext} context
+ * @param {ApiteSW6Helper.PipelineContext} context
  * @returns {Promise<{text: CartText}>}
  */
 module.exports = async (context) => {

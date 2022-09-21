@@ -1,9 +1,9 @@
 'use strict'
 
 /**
- * @param {SW6Cart.PipelineContext} context
+ * @param {ApiteSW6Helper.PipelineContext} context
  * @param {Object} input
- * @property {SW6Cart.SWCart} input.swCart
+ * @property {ApiteSW6Cart.SWCart} input.swCart
  * @property {string[]} input.couponCodes
  * @returns {Promise<{ cartItemIds: string[] }>}
  */

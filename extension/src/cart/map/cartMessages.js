@@ -6,7 +6,7 @@ const { decorateError } = require('../../services/logDecorator')
 /**
  * Despite out attempt, the messages are not printed in default theme
  *
- * @param {SW6Cart.PipelineContext} context
+ * @param {ApiteSW6Helper.PipelineContext} context
  * @param {SWCartInput} input
  * @returns {Promise<{messages: Array}>}
  */

@@ -1,12 +1,15 @@
 'use strict'
 
+const {
+  apiManager: { createApiConfig },
+  contextManager: { saveCouponCode, removeCouponCode }
+} = require('@apite/sw6-webcheckout-helper')
 const { addPromotionCode } = require('@shopware-pwa/shopware-6-client')
 const { throwOnCartInfoErrors, throwOnApiError } = require('../services/errorManager')
 const { PromoNotFoundError, PromoNotEligibleError } = require('../services/errorList')
-const { saveCouponCode, removeCouponCode } = require('../services/contextManager')
 
 /**
- * @param {SW6Cart.PipelineContext} context
+ * @param {ApiteSW6Helper.PipelineContext} context
  * @param {Object} input
  * @param {string[]} input.couponCodes
  * @returns {Promise<void>}
@@ -14,7 +17,8 @@ const { saveCouponCode, removeCouponCode } = require('../services/contextManager
 module.exports = async (context, input) => {
   const couponCode = input.couponCodes.pop()
 
-  await addPromotionCode(couponCode)
+  const apiConfig = await createApiConfig(context)
+  await addPromotionCode(couponCode, apiConfig)
     .catch(e => throwOnApiError(e, context))
     .then(swCart => {
       throwOnCartInfoErrors(swCart.errors, context)

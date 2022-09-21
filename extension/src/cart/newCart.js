@@ -1,17 +1,17 @@
 'use strict'
 
-const { saveContextToken } = require('../services/contextManager')
-const { getCart, update } = require('@shopware-pwa/shopware-6-client')
+const { apiManager: { createApiConfig } } = require('@apite/sw6-webcheckout-helper')
+const { getCart } = require('@shopware-pwa/shopware-6-client')
 const { throwOnApiError } = require('../services/errorManager')
 
 /**
  * This pipeline is created for testing purposes only
  *
- * @param {SW6Cart.PipelineContext} context
+ * @param {ApiteSW6Helper.PipelineContext} context
  */
 module.exports = async (context) => {
-  update({ contextToken: undefined })
-  const { token } = await getCart().catch(e => throwOnApiError(e, context))
-  await saveContextToken(token, context)
+  const apiConfig = await createApiConfig(context, { contextToken: undefined })
+  const { token } = await getCart(apiConfig).catch(e => throwOnApiError(e, context))
+
   return { token }
 }
