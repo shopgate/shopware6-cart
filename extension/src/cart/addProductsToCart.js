@@ -1,8 +1,10 @@
 'use strict'
 
-const { apiManager: { createApiConfig } } = require('@apite/shopware6-utility')
+const {
+  apiManager: { createApiConfig },
+  errorManager: { throwOnCartErrors, throwOnApiError }
+} = require('@apite/shopware6-utility')
 const { addCartItems } = require('@shopware-pwa/shopware-6-client')
-const { throwOnCartErrors, throwOnApiError } = require('../services/errorManager')
 
 /**
  * @param {ApiteSW6Helper.PipelineContext} context

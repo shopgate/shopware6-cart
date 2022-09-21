@@ -1,9 +1,11 @@
 'use strict'
 
-const { apiManager: { createApiConfig } } = require('@apite/shopware6-utility')
+const {
+  apiManager: { createApiConfig },
+  errorManager: { throwOnApiError },
+  errorList: { ContextDeSyncError }
+} = require('@apite/shopware6-utility')
 const { getSessionContext } = require('@shopware-pwa/shopware-6-client')
-const { throwOnApiError } = require('../services/errorManager')
-const { ContextDeSyncError } = require('../services/errorList')
 const { decorateMessage } = require('../services/logDecorator')
 
 /**
@@ -12,7 +14,8 @@ const { decorateMessage } = require('../services/logDecorator')
  */
 module.exports = async (context) => {
   const apiConfig = await createApiConfig(context)
-  const swContext = await getSessionContext(apiConfig).catch(error => throwOnApiError(error, context))
+  const swContext = await getSessionContext(apiConfig)
+    .catch(error => throwOnApiError(error, context))
 
   if (context.meta.userId && !swContext.customer) {
     context.log.warn(decorateMessage('Logged in the app, but contextToken is of a guest'))

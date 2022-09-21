@@ -1,9 +1,11 @@
 'use strict'
 
-const _get = require('lodash.get')
-const { apiManager: { createApiConfig } } = require('@apite/shopware6-utility')
+const {
+  apiManager: { createApiConfig },
+  errorManager: { throwOnApiError, throwOnCartInfoErrors }
+} = require('@apite/shopware6-utility')
 const { changeCartItemQuantity } = require('@shopware-pwa/shopware-6-client')
-const { throwOnCartInfoErrors, throwOnApiError } = require('../services/errorManager')
+const _get = require('lodash.get')
 
 /**
  * @param {ApiteSW6Helper.PipelineContext} context

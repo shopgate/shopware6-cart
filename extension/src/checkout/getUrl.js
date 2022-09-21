@@ -3,9 +3,9 @@
 const {
   apiManager: { createApiConfig },
   configManager: { getEndpoint },
-  connectApiManager: { getLoginToken }
+  connectApiManager: { getLoginToken },
+  errorManager: { throwOnApiError }
 } = require('@apite/shopware6-utility')
-const { throwOnApiError } = require('../services/errorManager')
 
 /**
  * @param {ApiteSW6Helper.PipelineContext} context

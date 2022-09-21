@@ -1,6 +1,6 @@
 'use strict'
 
-const { toShopgateMessage } = require('../../services/errorManager')
+const { errorManager: { toShopgateMessage } } = require('@apite/shopware6-utility')
 const { decorateError } = require('../../services/logDecorator')
 
 /**

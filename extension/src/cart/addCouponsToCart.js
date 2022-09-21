@@ -2,11 +2,11 @@
 
 const {
   apiManager: { createApiConfig },
-  contextManager: { saveCouponCode, removeCouponCode }
+  contextManager: { saveCouponCode, removeCouponCode },
+  errorManager: { throwOnCartInfoErrors, throwOnApiError },
+  errorList: { PromoNotFoundError, PromoNotEligibleError }
 } = require('@apite/shopware6-utility')
 const { addPromotionCode } = require('@shopware-pwa/shopware-6-client')
-const { throwOnCartInfoErrors, throwOnApiError } = require('../services/errorManager')
-const { PromoNotFoundError, PromoNotEligibleError } = require('../services/errorList')
 
 /**
  * @param {ApiteSW6Helper.PipelineContext} context
