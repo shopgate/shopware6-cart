@@ -1,6 +1,6 @@
 {
   "name": "@apite/shopware6-cart",
-  "version": "0.1.0-beta.2",
+  "version": "0.1.0-beta.3",
   "description": "Shopgate Connect Shopware 6 Cart extension created by Apite",
   "license": "Apache-2.0",
   "type": "commonjs",
@@ -12,7 +12,8 @@
   },
   "dependencies": {
     "@apite/shopware6-utility": "file:../../shopware6-utility",
-    "@shopware-pwa/shopware-6-client": "^1.5.3"
+    "@shopware-pwa/shopware-6-client": "^1.5.3",
+    "lodash.get": "^4.4.2"
   },
   "devDependencies": {
     "@shopware-pwa/commons": "^1.3.0",
