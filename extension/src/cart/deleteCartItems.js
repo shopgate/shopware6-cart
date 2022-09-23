@@ -7,8 +7,8 @@ const {
 const { removeCartItem } = require('@shopware-pwa/shopware-6-client')
 
 /**
- * @param {ApiteSW6Helper.PipelineContext} context
- * @param {SGDeleteCartItemInput} input
+ * @param {ApiteSW6Utility.PipelineContext} context
+ * @param {ApiteSW6Cart.SGDeleteItemInput} input
  * @returns {Promise<void>}
  */
 module.exports = async (context, input) => {

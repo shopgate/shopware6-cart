@@ -10,7 +10,7 @@ const { addPromotionCode } = require('@shopware-pwa/shopware-6-client')
  * We avoid throwing errors in this call as it's
  * our non-customer attempts to add coupon to cart.
  *
- * @param {ApiteSW6Helper.PipelineContext} context
+ * @param {ApiteSW6Utility.PipelineContext} context
  * @returns {Promise<void>}
  */
 module.exports = async (context) => {

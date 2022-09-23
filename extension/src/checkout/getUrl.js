@@ -8,8 +8,8 @@ const {
 } = require('@apite/shopware6-utility')
 
 /**
- * @param {ApiteSW6Helper.PipelineContext} context
- * @returns {Promise<ApiteSW6Cart.UrlResponse>}
+ * @param {ApiteSW6Utility.PipelineContext} context
+ * @returns {Promise<ApiteSW6Utility.UrlResponse>}
  */
 module.exports = async (context) => {
   const endpoint = getEndpoint(context)
@@ -20,7 +20,7 @@ module.exports = async (context) => {
   url.searchParams.append('affiliateCode', 'SGConnect_App')
 
   return {
-    url,
+    url: url.toString(),
     expires: new Date(expiration * 1000).toISOString()
   }
 }

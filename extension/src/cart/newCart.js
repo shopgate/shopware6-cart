@@ -9,7 +9,8 @@ const { getCart } = require('@shopware-pwa/shopware-6-client')
 /**
  * This pipeline is created for testing purposes only
  *
- * @param {ApiteSW6Helper.PipelineContext} context
+ * @param {ApiteSW6Utility.PipelineContext} context
+ * @returns {Promise<{token: string}>}
  */
 module.exports = async (context) => {
   const apiConfig = await createApiConfig(context, { contextToken: undefined })

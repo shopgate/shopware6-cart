@@ -9,8 +9,9 @@ const { getSessionContext } = require('@shopware-pwa/shopware-6-client')
 const { decorateMessage } = require('../services/logDecorator')
 
 /**
- * @param {ApiteSW6Helper.PipelineContext} context
+ * @param {ApiteSW6Utility.PipelineContext} context
  * @returns {Promise<void>}
+ * @throws {ContextDeSyncError}
  */
 module.exports = async (context) => {
   const apiConfig = await createApiConfig(context)

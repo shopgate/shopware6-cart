@@ -1,7 +1,7 @@
 'use strict'
 
 /**
- * @param {ApiteSW6Helper.PipelineContext} context
+ * @param {ApiteSW6Utility.PipelineContext} context
  * @param {Object} input
  * @property {ApiteSW6Cart.SWCart} input.swCart
  * @property {string[]} input.couponCodes

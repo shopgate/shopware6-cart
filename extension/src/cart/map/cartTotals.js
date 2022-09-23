@@ -2,8 +2,8 @@
 
 const { Total, TotalsHandler } = require('../../services/totalsHandler')
 /**
- * @param {ApiteSW6Helper.PipelineContext} context
- * @param {SWCartInput} input
+ * @param {ApiteSW6Utility.PipelineContext} context
+ * @param {ApiteSW6Cart.Input} input
  * @returns {Promise<{totals: []}>}
  */
 module.exports = async (context, input) => {

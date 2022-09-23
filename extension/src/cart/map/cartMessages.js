@@ -4,11 +4,11 @@ const { errorManager: { toShopgateMessage } } = require('@apite/shopware6-utilit
 const { decorateError } = require('../../services/logDecorator')
 
 /**
- * Despite out attempt, the messages are not printed in default theme
+ * Despite our attempts, the messages are not printed in default theme
  *
- * @param {ApiteSW6Helper.PipelineContext} context
- * @param {SWCartInput} input
- * @returns {Promise<{messages: Array}>}
+ * @param {ApiteSW6Utility.PipelineContext} context
+ * @param {ApiteSW6Cart.Input} input
+ * @returns {Promise<{messages: ApiteSW6Cart.SGCartMessage[]}>}
  */
 module.exports = async (context, input) => {
   const messages = []

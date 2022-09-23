@@ -8,8 +8,8 @@ const { changeCartItemQuantity } = require('@shopware-pwa/shopware-6-client')
 const _get = require('lodash.get')
 
 /**
- * @param {ApiteSW6Helper.PipelineContext} context
- * @param {SGUpdateProductInput} input
+ * @param {ApiteSW6Utility.PipelineContext} context
+ * @param {ApiteSW6Cart.SGUpdateProductInput} input
  * @returns {Promise<void>}
  */
 module.exports = async (context, input) => {
