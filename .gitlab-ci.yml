@@ -1,0 +1,11 @@
+stages:
+  - upload
+
+test:
+  image: registry.gitlab.com/apite/shopgate/connect-engage/images/webc:latest
+  services: [ ]
+  stage: upload
+  only:
+    - push
+  script:
+    - sgconnect --help
