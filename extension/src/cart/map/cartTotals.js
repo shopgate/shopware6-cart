@@ -2,8 +2,8 @@
 
 const { Total, TotalsHandler } = require('../../services/totalsHandler')
 /**
- * @param {SW6Cart.PipelineContext} context
- * @param {SWCartInput} input
+ * @param {ApiteSW6Utility.PipelineContext} context
+ * @param {ApiteSW6Cart.Input} input
  * @returns {Promise<{totals: []}>}
  */
 module.exports = async (context, input) => {
@@ -38,7 +38,7 @@ module.exports = async (context, input) => {
   if (input.swCart.deliveries.length) {
     const shipping = input.swCart.deliveries[0].shippingCosts.totalPrice
     totals.addTotal(
-      (new Total('shipping', shipping, 'SW6Cart.cart.summaryShipping'))
+      (new Total('shipping', shipping, 'ApiteSW6Utility.cart.summaryShipping'))
     )
   }
 

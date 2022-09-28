@@ -1,6 +1,6 @@
 {
   "name": "@apite/shopware6-cart",
-  "version": "0.1.0-beta.2",
+  "version": "0.1.0-beta.3",
   "description": "Shopware 6 cart extension frontend",
   "license": "Apache-2.0",
   "scripts": {

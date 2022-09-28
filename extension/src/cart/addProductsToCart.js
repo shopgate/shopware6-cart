@@ -1,11 +1,14 @@
 'use strict'
 
+const {
+  apiManager: { createApiConfig },
+  errorManager: { throwOnCartErrors, throwOnApiError }
+} = require('@apite/shopware6-utility')
 const { addCartItems } = require('@shopware-pwa/shopware-6-client')
-const { throwOnCartErrors, throwOnApiError } = require('../services/errorManager')
 
 /**
- * @param {SW6Cart.PipelineContext} context
- * @param {SGAddProductInput} input
+ * @param {ApiteSW6Utility.PipelineContext} context
+ * @param {ApiteSW6Cart.SGAddProductInput} input
  * @returns {Promise<void>}
  */
 module.exports = async (context, input) => {
@@ -18,7 +21,8 @@ module.exports = async (context, input) => {
     }
   })
 
-  await addCartItems(swItems)
+  const apiConfig = await createApiConfig(context)
+  await addCartItems(swItems, apiConfig)
     .catch(e => throwOnApiError(e, context))
     .then(swCart => throwOnCartErrors(swCart.errors, context))
 }

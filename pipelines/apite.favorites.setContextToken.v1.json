@@ -4,24 +4,65 @@
     "id": "apite.favorites.setContextToken.v1",
     "public": true,
     "input": [
-      {
-        "key": "contextToken",
-        "id": "1000"
-      }
+      {"key": "contextToken", "id": "1000"}
     ],
     "output": [],
     "steps": [
       {
-        "id": "@apite/shopware6-cart",
-        "path": "@apite/shopware6-cart/src/steps/setContextTokenFavorites.js",
+        "id": "@apite/shopware6-favorites",
+        "path": "@apite/shopware6-favorites/src/steps/setContextToken.js",
         "type": "extension",
         "input": [
-          {
-            "key": "contextToken",
-            "id": "1000"
-          }
+          {"key": "contextToken", "id": "1000"}
         ],
         "output": []
+      },
+      {
+        "id": "afterContextTokenSet",
+        "type": "hook",
+        "input": [],
+        "output": []
+      },
+      {
+        "type": "extension",
+        "id": "@shopgate/favorites",
+        "path": "@shopgate/favorites/anonymous/getItems.js",
+        "input": [],
+        "output": [
+          {"key": "productIds", "id": "40"}
+        ]
+      },
+      {
+        "id": "@apite/shopware6-favorites",
+        "path": "@apite/shopware6-favorites/src/steps/addFavorites.js",
+        "type": "extension",
+        "input": [
+          {"id": "40", "key": "productIds"}
+        ],
+        "output": [
+          {"id": "50", "key": "success"}
+        ]
+      },
+      {
+        "type": "conditional",
+        "input": [
+          {"key": "success", "id": "50"}
+        ],
+        "expression": {
+          "eq": [
+            {"type":"input", "name": "success"},
+            {"type":"static", "value": true}
+          ]
+        },
+        "then": {
+          "type": "extension",
+          "id": "@shopgate/favorites",
+          "path": "@shopgate/favorites/anonymous/deleteItem.js",
+          "input": [
+            {"key": "productIds", "id": "40"}
+          ],
+          "output": []
+        }
       }
     ]
   }

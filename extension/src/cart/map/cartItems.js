@@ -5,9 +5,8 @@ const _get = require('lodash.get')
 const SW_TYPE_PRODUCT = 'product'
 const SW_TYPE_COUPON = 'promotion'
 
-/* jshint -W014 */
 /**
- * @param {SW6Cart.SWLineItem} lineItem
+ * @param {ApiteSW6Utility.SWLineItem} lineItem
  * @return {{type: string, value: number}}
  */
 const getCouponPrice = function (lineItem) {
@@ -17,9 +16,9 @@ const getCouponPrice = function (lineItem) {
     : { type: 'fixed', value: -(lineItem.price.totalPrice) }
 }
 /**
- * @param {SW6Cart.PipelineContext} context
- * @param {SWCartInput} input
- * @returns {Promise<{cartItems: SW6Cart.CartItem[]}>}
+ * @param {ApiteSW6Utility.PipelineContext} context
+ * @param {ApiteSW6Cart.Input} input
+ * @returns {Promise<{cartItems: ApiteSW6Cart.Item[]}>}
  */
 module.exports = async (context, input) => {
   const coupons = input.swCart.lineItems

@@ -1,12 +1,7 @@
 {
-  "id": "bb767c16-15b4-4a65-a7ef-7017d11e205b",
-  "name": "SW6 - Cart",
+  "id": "c38e2b30-3432-4715-afe7-5fba4ead0b9b",
+  "name": "WebC - SW6 - Cart",
   "values": [
-    {
-      "key": "endpoint_cart_new",
-      "value": "/pipelines/apite.cart.newCart.v1",
-      "enabled": true
-    },
     {
       "key": "sw_host",
       "value": "http://localhost",
@@ -14,7 +9,13 @@
     },
     {
       "key": "sw_endpoint_api",
-      "value": "{{host}}{{system_port}}/api",
+      "value": "{{sw_host}}{{system_port}}/api",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "sw_endpoint_store_api",
+      "value": "{{sw_host}}{{system_port}}/store-api",
       "type": "default",
       "enabled": true
     },
@@ -40,15 +41,8 @@
       "enabled": true
     },
     {
-      "key": "username",
-      "value": "test@example.com",
-      "type": "text",
-      "enabled": true
-    },
-    {
-      "key": "password",
-      "value": "shopware",
-      "type": "text",
+      "key": "endpoint_cart_new",
+      "value": "/pipelines/apite.cart.newCart.v1",
       "enabled": true
     },
     {
@@ -107,6 +101,18 @@
     {
       "key": "system_default_language",
       "value": "2fbb5fe2e29a4d70aa5854ce7ce3e20b",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "created_customer2_id",
+      "value": "a66134b70b6946f7a1817532f0cd981f",
+      "type": "default",
+      "enabled": true
+    },
+    {
+      "key": "created_customer2_email",
+      "value": "test2@example.com",
       "type": "default",
       "enabled": true
     },
@@ -175,9 +181,21 @@
       "value": "43b61622f08d8600fe4a1bd80d5eab60",
       "type": "default",
       "enabled": true
+    },
+    {
+      "key": "username",
+      "value": "test@example.com",
+      "type": "text",
+      "enabled": true
+    },
+    {
+      "key": "password",
+      "value": "shopware",
+      "type": "text",
+      "enabled": true
     }
   ],
   "_postman_variable_scope": "environment",
-  "_postman_exported_at": "2022-03-25T14:39:19.283Z",
-  "_postman_exported_using": "Postman/9.15.4"
+  "_postman_exported_at": "2022-09-24T14:32:54.342Z",
+  "_postman_exported_using": "Postman/9.31.7"
 }

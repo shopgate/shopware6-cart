@@ -1,14 +1,14 @@
 'use strict'
 
-const { toShopgateMessage } = require('../../services/errorManager')
+const { errorManager: { toShopgateMessage } } = require('@apite/shopware6-utility')
 const { decorateError } = require('../../services/logDecorator')
 
 /**
- * Despite out attempt, the messages are not printed in default theme
+ * Despite our attempts, the messages are not printed in default theme
  *
- * @param {SW6Cart.PipelineContext} context
- * @param {SWCartInput} input
- * @returns {Promise<{messages: Array}>}
+ * @param {ApiteSW6Utility.PipelineContext} context
+ * @param {ApiteSW6Cart.Input} input
+ * @returns {Promise<{messages: ApiteSW6Cart.SGCartMessage[]}>}
  */
 module.exports = async (context, input) => {
   const messages = []

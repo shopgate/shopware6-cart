@@ -1,13 +1,16 @@
 'use strict'
 
-const { getCouponCode, removeCouponCode } = require('../services/contextManager')
+const {
+  apiManager: { createApiConfig },
+  contextManager: { getCouponCode, removeCouponCode }
+} = require('@apite/shopware6-utility')
 const { addPromotionCode } = require('@shopware-pwa/shopware-6-client')
 
 /**
  * We avoid throwing errors in this call as it's
  * our non-customer attempts to add coupon to cart.
  *
- * @param {SW6Cart.PipelineContext} context
+ * @param {ApiteSW6Utility.PipelineContext} context
  * @returns {Promise<void>}
  */
 module.exports = async (context) => {
@@ -15,7 +18,8 @@ module.exports = async (context) => {
   if (!coupon) {
     return
   }
-  await addPromotionCode(coupon)
+  const apiConfig = await createApiConfig(context)
+  await addPromotionCode(coupon, apiConfig)
     .then(() => removeCouponCode(context))
     .catch(() => {})
 }

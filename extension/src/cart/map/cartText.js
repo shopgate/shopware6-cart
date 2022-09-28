@@ -1,13 +1,8 @@
 'use strict'
 
 /**
- * @typedef CartText
- * @property {string} legalText
- * @property {string} legalInfo
- */
-/**
- * @param {SW6Cart.PipelineContext} context
- * @returns {Promise<{text: CartText}>}
+ * @param {ApiteSW6Utility.PipelineContext} context
+ * @returns {Promise<{text: ApiteSW6Cart.CartText}>}
  */
 module.exports = async (context) => {
   const { legalText, legalInfo } = context.config.settings

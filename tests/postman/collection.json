@@ -1,7 +1,7 @@
 {
   "info": {
-    "_postman_id": "50d491c4-7e96-4418-937f-eb6017ffddfa",
-    "name": "SW6 - Cart",
+    "_postman_id": "c5e95f53-fa76-4750-9bf3-f6b9c23b220a",
+    "name": "WebC - SW6 - Cart",
     "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
     "_exporter_id": "5289226"
   },
@@ -13,7 +13,7 @@
           "name": "init",
           "item": [
             {
-              "name": "SW: get sales channel",
+              "name": "SWA: get sales channel",
               "event": [
                 {
                   "listen": "test",
@@ -27,6 +27,7 @@
                       "    var jsonData = pm.response.json();\r",
                       "    pm.expect(jsonData.data[0].name).to.be.eq('Storefront');\r",
                       "    pm.environment.set(\"gen_salesChannel_id\", jsonData.data[0].id);\r",
+                      "    pm.environment.set(\"gen_salesChannel_accessKey\", jsonData.data[0].accessKey);\r",
                       "});"
                     ],
                     "type": "text/javascript"
@@ -83,7 +84,7 @@
           "name": "prod",
           "item": [
             {
-              "name": "SW: get variant child",
+              "name": "SWA: get variant child",
               "event": [
                 {
                   "listen": "test",
@@ -132,7 +133,7 @@
               "response": []
             },
             {
-              "name": "SW: create no stock prod",
+              "name": "SWA: create no stock prod",
               "event": [
                 {
                   "listen": "test",
@@ -184,7 +185,7 @@
               "response": []
             },
             {
-              "name": "SW: create no stock backorder prod",
+              "name": "SWA: create no stock backorder prod",
               "event": [
                 {
                   "listen": "test",
@@ -244,7 +245,7 @@
               "name": "3 item coupon",
               "item": [
                 {
-                  "name": "SW: create 3 item code",
+                  "name": "SWA: create 3 item code",
                   "event": [
                     {
                       "listen": "test",
@@ -293,7 +294,7 @@
                   "response": []
                 },
                 {
-                  "name": "SW: create 3 item rule",
+                  "name": "SWA: create 3 item rule",
                   "event": [
                     {
                       "listen": "test",
@@ -355,7 +356,7 @@
                   "response": []
                 },
                 {
-                  "name": "SW: cart condition to 3 item promo",
+                  "name": "SWA: cart condition to 3 item promo",
                   "event": [
                     {
                       "listen": "test",
@@ -409,7 +410,7 @@
               "name": "5 item rule",
               "item": [
                 {
-                  "name": "SW: create 5 item rule",
+                  "name": "SWA: create 5 item rule",
                   "event": [
                     {
                       "listen": "test",
@@ -471,7 +472,7 @@
                   "response": []
                 },
                 {
-                  "name": "SW: create 5 item promo",
+                  "name": "SWA: create 5 item promo",
                   "event": [
                     {
                       "listen": "test",
@@ -520,7 +521,7 @@
                   "response": []
                 },
                 {
-                  "name": "SW: cart condition to 5 item promo",
+                  "name": "SWA: cart condition to 5 item promo",
                   "event": [
                     {
                       "listen": "test",
@@ -574,7 +575,7 @@
               "name": "4+ & 6- rule",
               "item": [
                 {
-                  "name": "SW: create 4+ item rule",
+                  "name": "SWA: create 4+ item rule",
                   "event": [
                     {
                       "listen": "test",
@@ -636,7 +637,7 @@
                   "response": []
                 },
                 {
-                  "name": "SW: create 4+ item promo",
+                  "name": "SWA: create 4+ item promo",
                   "event": [
                     {
                       "listen": "test",
@@ -685,7 +686,7 @@
                   "response": []
                 },
                 {
-                  "name": "SW: cart condition to 4 item promo",
+                  "name": "SWA: cart condition to 4 item promo",
                   "event": [
                     {
                       "listen": "test",
@@ -736,7 +737,7 @@
               ]
             },
             {
-              "name": "SW: create coupon code",
+              "name": "SWA: create coupon code",
               "event": [
                 {
                   "listen": "test",
@@ -866,7 +867,7 @@
       "name": "update",
       "item": [
         {
-          "name": "new cart",
+          "name": "WebC: new cart",
           "event": [
             {
               "listen": "test",
@@ -902,7 +903,7 @@
           "response": []
         },
         {
-          "name": "addProducts",
+          "name": "WebC: add products",
           "event": [
             {
               "listen": "test",
@@ -938,7 +939,7 @@
           "response": []
         },
         {
-          "name": "getCart",
+          "name": "WebC: get Cart",
           "event": [
             {
               "listen": "test",
@@ -991,7 +992,7 @@
           "response": []
         },
         {
-          "name": "updateProduct 1",
+          "name": "WebC: update Product 1",
           "event": [
             {
               "listen": "test",
@@ -1027,7 +1028,7 @@
           "response": []
         },
         {
-          "name": "getCart",
+          "name": "WebC: get Cart",
           "event": [
             {
               "listen": "test",
@@ -1078,7 +1079,7 @@
           "response": []
         },
         {
-          "name": "update (max stock)",
+          "name": "WebC: update (max stock)",
           "event": [
             {
               "listen": "test",
@@ -1114,7 +1115,7 @@
           "response": []
         },
         {
-          "name": "getCart (max stock)",
+          "name": "WebC: get Cart (max stock)",
           "event": [
             {
               "listen": "test",
@@ -1164,7 +1165,7 @@
       "name": "delete",
       "item": [
         {
-          "name": "new cart",
+          "name": "WebC: new cart",
           "event": [
             {
               "listen": "test",
@@ -1200,7 +1201,7 @@
           "response": []
         },
         {
-          "name": "addProducts 1 (2x)",
+          "name": "WebC: add Products (2x)",
           "event": [
             {
               "listen": "test",
@@ -1236,7 +1237,7 @@
           "response": []
         },
         {
-          "name": "addProducts 2",
+          "name": "WebC: add Products 2",
           "event": [
             {
               "listen": "test",
@@ -1272,7 +1273,7 @@
           "response": []
         },
         {
-          "name": "getCart",
+          "name": "WebC: get Cart",
           "event": [
             {
               "listen": "test",
@@ -1332,7 +1333,7 @@
           "response": []
         },
         {
-          "name": "Delete 2",
+          "name": "WebC: Delete 2",
           "event": [
             {
               "listen": "test",
@@ -1369,7 +1370,7 @@
           "response": []
         },
         {
-          "name": "getCart",
+          "name": "WebC: get Cart",
           "event": [
             {
               "listen": "test",
@@ -1416,7 +1417,7 @@
           "response": []
         },
         {
-          "name": "Delete 1",
+          "name": "WebC: Delete 1",
           "event": [
             {
               "listen": "test",
@@ -1453,7 +1454,7 @@
           "response": []
         },
         {
-          "name": "getCart",
+          "name": "WebC: get Cart",
           "event": [
             {
               "listen": "test",
@@ -1498,7 +1499,7 @@
       "name": "Errors",
       "item": [
         {
-          "name": "addProducts (disabled)",
+          "name": "WebC: add Products (disabled)",
           "event": [
             {
               "listen": "test",
@@ -1535,7 +1536,7 @@
           "response": []
         },
         {
-          "name": "Delete no exist",
+          "name": "WebC: Delete no exist",
           "event": [
             {
               "listen": "test",
@@ -1572,7 +1573,7 @@
           "response": []
         },
         {
-          "name": "update no exist",
+          "name": "WebC: update no exist",
           "event": [
             {
               "listen": "test",
@@ -1609,7 +1610,7 @@
           "response": []
         },
         {
-          "name": "addCoupons no exist",
+          "name": "WebC: add coupons no exist",
           "event": [
             {
               "listen": "test",
@@ -1655,7 +1656,7 @@
           "name": "Code & Rule",
           "item": [
             {
-              "name": "new cart",
+              "name": "WebC: new cart",
               "event": [
                 {
                   "listen": "test",
@@ -1691,7 +1692,7 @@
               "response": []
             },
             {
-              "name": "addProducts",
+              "name": "WebC: add Products",
               "request": {
                 "method": "POST",
                 "header": [],
@@ -1714,7 +1715,7 @@
               "response": []
             },
             {
-              "name": "addCoupons",
+              "name": "WebC: add Coupons",
               "event": [
                 {
                   "listen": "test",
@@ -1754,7 +1755,7 @@
               "response": []
             },
             {
-              "name": "getCart (check coupon)",
+              "name": "WebC: get Cart (check coupon)",
               "event": [
                 {
                   "listen": "test",
@@ -1805,7 +1806,7 @@
               "response": []
             },
             {
-              "name": "addProducts",
+              "name": "WebC: add Products",
               "request": {
                 "method": "POST",
                 "header": [],
@@ -1828,7 +1829,7 @@
               "response": []
             },
             {
-              "name": "getCart (check promo)",
+              "name": "WebC: get Cart (check promo)",
               "event": [
                 {
                   "listen": "test",
@@ -1892,7 +1893,7 @@
               "response": []
             },
             {
-              "name": "Delete coupon",
+              "name": "WebC: Delete coupon",
               "request": {
                 "method": "POST",
                 "header": [],
@@ -1915,7 +1916,7 @@
               "response": []
             },
             {
-              "name": "getCart (no coupon)",
+              "name": "WebC: getCart (no coupon)",
               "event": [
                 {
                   "listen": "test",
@@ -1962,7 +1963,7 @@
               "response": []
             },
             {
-              "name": "Delete Rule",
+              "name": "WebC: Delete Rule",
               "event": [
                 {
                   "listen": "test",
@@ -1998,7 +1999,7 @@
               "response": []
             },
             {
-              "name": "getCart (no rule)",
+              "name": "WebC: get Cart (no rule)",
               "event": [
                 {
                   "listen": "test",
@@ -2051,7 +2052,7 @@
           "name": "Saved coupon (by code)",
           "item": [
             {
-              "name": "new cart",
+              "name": "WebC: new cart",
               "event": [
                 {
                   "listen": "test",
@@ -2087,7 +2088,7 @@
               "response": []
             },
             {
-              "name": "addProducts",
+              "name": "WebC: add Products",
               "request": {
                 "method": "POST",
                 "header": [],
@@ -2110,7 +2111,7 @@
               "response": []
             },
             {
-              "name": "addCoupons",
+              "name": "WebC: add Coupons",
               "event": [
                 {
                   "listen": "test",
@@ -2146,7 +2147,7 @@
               "response": []
             },
             {
-              "name": "getCart (check no coupon)",
+              "name": "WebC: check no coupon",
               "event": [
                 {
                   "listen": "test",
@@ -2188,7 +2189,7 @@
               "response": []
             },
             {
-              "name": "addProducts",
+              "name": "WebC: add Products",
               "request": {
                 "method": "POST",
                 "header": [],
@@ -2211,7 +2212,7 @@
               "response": []
             },
             {
-              "name": "getCart (check coupon)",
+              "name": "WebC: check coupon",
               "event": [
                 {
                   "listen": "test",
@@ -2262,7 +2263,7 @@
               "response": []
             },
             {
-              "name": "Delete coupon",
+              "name": "WebC: Delete coupon",
               "request": {
                 "method": "POST",
                 "header": [],
@@ -2285,7 +2286,7 @@
               "response": []
             },
             {
-              "name": "getCart (no coupon)",
+              "name": "WebC: no coupon",
               "event": [
                 {
                   "listen": "test",
@@ -2338,7 +2339,7 @@
           "name": "Saved coupon (by id)",
           "item": [
             {
-              "name": "new cart",
+              "name": "WebC: new cart",
               "event": [
                 {
                   "listen": "test",
@@ -2374,7 +2375,7 @@
               "response": []
             },
             {
-              "name": "addProducts",
+              "name": "WebC: add Products",
               "request": {
                 "method": "POST",
                 "header": [],
@@ -2397,7 +2398,7 @@
               "response": []
             },
             {
-              "name": "addCoupons",
+              "name": "WebC: add Coupons",
               "event": [
                 {
                   "listen": "test",
@@ -2437,7 +2438,7 @@
               "response": []
             },
             {
-              "name": "getCart (check coupon)",
+              "name": "WebC: check coupon",
               "event": [
                 {
                   "listen": "test",
@@ -2489,7 +2490,7 @@
               "response": []
             },
             {
-              "name": "Delete coupon",
+              "name": "WebC: Delete coupon",
               "event": [
                 {
                   "listen": "test",
@@ -2523,7 +2524,7 @@
               "response": []
             },
             {
-              "name": "getCart (no coupon)",
+              "name": "WebC: no coupon",
               "event": [
                 {
                   "listen": "test",
@@ -2580,7 +2581,7 @@
               "name": "add",
               "item": [
                 {
-                  "name": "new cart",
+                  "name": "WebC: new cart",
                   "event": [
                     {
                       "listen": "test",
@@ -2616,7 +2617,7 @@
                   "response": []
                 },
                 {
-                  "name": "addCoupons",
+                  "name": "WebC: add Coupons",
                   "event": [
                     {
                       "listen": "test",
@@ -2652,7 +2653,7 @@
                   "response": []
                 },
                 {
-                  "name": "addProducts (1)",
+                  "name": "WebC: add Products (1)",
                   "event": [
                     {
                       "listen": "test",
@@ -2688,7 +2689,7 @@
                   "response": []
                 },
                 {
-                  "name": "addProducts (2)",
+                  "name": "WebC: add Products (2)",
                   "event": [
                     {
                       "listen": "test",
@@ -2724,7 +2725,7 @@
                   "response": []
                 },
                 {
-                  "name": "getCart (check coupon)",
+                  "name": "WebC: check coupon",
                   "event": [
                     {
                       "listen": "test",
@@ -2780,7 +2781,7 @@
               "name": "update",
               "item": [
                 {
-                  "name": "new cart",
+                  "name": "WebC: new cart",
                   "event": [
                     {
                       "listen": "test",
@@ -2816,7 +2817,7 @@
                   "response": []
                 },
                 {
-                  "name": "addCoupons",
+                  "name": "WebC: add Coupons",
                   "event": [
                     {
                       "listen": "test",
@@ -2852,7 +2853,7 @@
                   "response": []
                 },
                 {
-                  "name": "addProducts (1)",
+                  "name": "WebC: add Products (1)",
                   "event": [
                     {
                       "listen": "test",
@@ -2888,7 +2889,7 @@
                   "response": []
                 },
                 {
-                  "name": "getCart",
+                  "name": "WebC: getCart",
                   "event": [
                     {
                       "listen": "test",
@@ -2934,7 +2935,7 @@
                   "response": []
                 },
                 {
-                  "name": "updateProduct 1",
+                  "name": "WebC: update Product 1",
                   "event": [
                     {
                       "listen": "test",
@@ -2974,7 +2975,7 @@
                   "response": []
                 },
                 {
-                  "name": "getCart (check coupon)",
+                  "name": "WebC: check coupon",
                   "event": [
                     {
                       "listen": "test",
@@ -3032,7 +3033,7 @@
           "name": "Rule Auto-remove",
           "item": [
             {
-              "name": "new cart",
+              "name": "WebC: new cart",
               "event": [
                 {
                   "listen": "test",
@@ -3068,7 +3069,7 @@
               "response": []
             },
             {
-              "name": "addProducts",
+              "name": "WebC: add Products",
               "event": [
                 {
                   "listen": "test",
@@ -3104,7 +3105,7 @@
               "response": []
             },
             {
-              "name": "getCart (check promo)",
+              "name": "WebC: check promo",
               "event": [
                 {
                   "listen": "test",
@@ -3152,7 +3153,7 @@
               "response": []
             },
             {
-              "name": "update to qty 2",
+              "name": "WebC: update to qty 2",
               "event": [
                 {
                   "listen": "test",
@@ -3188,7 +3189,7 @@
               "response": []
             },
             {
-              "name": "getCart (check promo)",
+              "name": "WebC: check promo",
               "event": [
                 {
                   "listen": "test",
@@ -3239,51 +3240,136 @@
       ]
     },
     {
-      "name": "user - checkout",
-      "item": [
+      "name": "WebC: get checkout URL",
+      "event": [
         {
-          "name": "getCheckoutUrl",
-          "event": [
-            {
-              "listen": "test",
-              "script": {
-                "exec": [
-                  "const response = pm.response.json();",
-                  "",
-                  "pm.test(\"Status code is 200\", function() {",
-                  "    pm.response.to.have.status(200);",
-                  "})",
-                  "",
-                  "pm.test(\"has url\", function() {",
-                  "    pm.expect(response.url).to.be.a('string').to.not.be.empty;",
-                  "});"
-                ],
-                "type": "text/javascript"
-              }
-            }
-          ],
-          "request": {
-            "method": "POST",
-            "header": [
-              {
-                "key": "Content-Type",
-                "value": "application/json"
-              }
+          "listen": "test",
+          "script": {
+            "exec": [
+              "const response = pm.response.json();",
+              "",
+              "pm.test(\"Status code is 200\", function() {",
+              "    pm.response.to.have.status(200);",
+              "})",
+              "",
+              "pm.test(\"has url\", function() {",
+              "    pm.expect(response.url).to.be.a('string').to.not.be.empty;",
+              "});"
             ],
-            "body": {
-              "mode": "raw",
-              "raw": "{}"
-            },
-            "url": {
-              "raw": "{{domain}}{{endpoint_checkout_url_get}}",
-              "host": [
-                "{{domain}}{{endpoint_checkout_url_get}}"
-              ]
-            }
-          },
-          "response": []
+            "type": "text/javascript"
+          }
         }
-      ]
+      ],
+      "request": {
+        "method": "POST",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          }
+        ],
+        "body": {
+          "mode": "raw",
+          "raw": "{}"
+        },
+        "url": {
+          "raw": "{{domain}}{{endpoint_checkout_url_get}}",
+          "host": [
+            "{{domain}}{{endpoint_checkout_url_get}}"
+          ]
+        }
+      },
+      "response": []
+    }
+  ],
+  "auth": {
+    "type": "bearer",
+    "bearer": [
+      {
+        "key": "token",
+        "value": "{{gen_access_token}}",
+        "type": "string"
+      }
+    ]
+  },
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "/**",
+          " * SW Token generation",
+          " */",
+          "var getToken = true;",
+          "if (!pm.environment.get('gen_token_expires') || !pm.environment.get('gen_access_token')) {",
+          "    console.log('Token or expiry date are missing');",
+          "} else if (pm.environment.get('gen_token_expires') <= (new Date()).getTime()) {",
+          "    console.log('Token is expired');",
+          "} else {",
+          "    getToken = false;",
+          "}",
+          "",
+          "if (getToken === true) {",
+          "    const createRequest = {",
+          "        \"client_id\": pm.environment.get(\"sw_client_id\"),",
+          "        \"grant_type\": \"password\",",
+          "        \"scopes\": \"write\",",
+          "        \"username\": pm.environment.get(\"sw_admin\"),",
+          "        \"password\": pm.environment.get(\"sw_pass\")",
+          "    };",
+          "    const refreshRequest = {",
+          "        \"grant_type\": \"refresh_token\",",
+          "        \"client_id\": pm.environment.get(\"sw_client_id\"),",
+          "        \"refresh_token\": pm.environment.get(\"gen_refresh_token\")",
+          "    };",
+          "    // SW Auth",
+          "    const authRequest = {",
+          "        url: pm.globals.replaceIn(pm.environment.replaceIn(pm.environment.get(\"sw_endpoint_auth\"))),",
+          "        method: 'POST',",
+          "        header: 'Accept: application/json\\nContent-Type: application/json; charset=utf-8',",
+          "        body: {",
+          "            mode: 'application/json'",
+          "        }",
+          "    };",
+          "    // set body depending on type of request needed",
+          "    authRequest.body.raw = JSON.stringify(pm.environment.get(\"gen_refresh_token\") ? refreshRequest : createRequest);",
+          "    pm.sendRequest(authRequest, function (err, res) {",
+          "        if (res.code !== 200) {",
+          "            pm.environment.unset('gen_access_token');",
+          "            pm.environment.unset('gen_token_expires');",
+          "            pm.environment.unset('gen_refresh_token');",
+          "            console.log('Invalidated refresh token');",
+          "            return;",
+          "        }",
+          "        ",
+          "        var responseJson = res.json();",
+          "        pm.environment.set('gen_access_token', responseJson.access_token)",
+          "",
+          "        var expiryDate = new Date();",
+          "        expiryDate.setSeconds(expiryDate.getSeconds() + responseJson.expires_in);",
+          "        pm.environment.set('gen_token_expires', expiryDate.getTime());",
+          "        pm.environment.set('gen_refresh_token', responseJson.refresh_token);",
+          "        console.log('Saved the token and expiry date');",
+          "    });",
+          "}"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// remove generated token data if not authorized",
+          "if (pm.response.code === 401) {",
+          "    console.log('Removing tokens due to 401 response. Please try again.');",
+          "    pm.environment.unset('gen_access_token');",
+          "    pm.environment.unset('gen_token_expires');",
+          "    pm.environment.unset('gen_refresh_token');",
+          "}"
+        ]
+      }
     }
   ]
 }
