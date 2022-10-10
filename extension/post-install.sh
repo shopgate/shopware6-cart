@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 LOCAL_DIR=$PWD
 cd ./node_modules/@apite/shopware6-utility/src/locale || exit
