@@ -16,7 +16,7 @@ module.exports = async (context, input) => {
     )
   }
   totals.addTotal(
-    (new Total('tax', calculatedTaxes.reduce((total, { tax }) => tax + total, 0.0), 'Tax'))
+    (new Total('tax', calculatedTaxes.reduce((total, { tax }) => tax + total, 0.0), 'ApiteSW6Utility.cart.summaryTax'))
       .setSubtotals(
         calculatedTaxes.map(
           ({ taxRate, tax }) => ({ type: 'tax', label: taxRate + '%', amount: tax })
