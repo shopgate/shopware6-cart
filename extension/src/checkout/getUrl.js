@@ -3,7 +3,7 @@
 const {
   apiManager: { createApiConfig },
   configManager: { getEndpoint },
-  connectApiManager: { getLoginToken },
+  connectApiManager: { getLoginToken, getLoginUrl },
   errorManager: { throwOnApiError }
 } = require('@apite/shopware6-utility')
 
@@ -12,12 +12,9 @@ const {
  * @returns {Promise<ApiteSW6Utility.UrlResponse>}
  */
 module.exports = async (context) => {
-  const endpoint = getEndpoint(context)
   const api = await createApiConfig(context)
   const { token, expiration } = await getLoginToken(api).catch(e => throwOnApiError(e, context))
-  const url = new URL('sgconnect/login', endpoint)
-  url.searchParams.append('token', token)
-  url.searchParams.append('affiliateCode', 'SGConnect_App')
+  const url = getLoginUrl(getEndpoint(context), { token, affiliateCode: 'SGConnect_App' })
 
   return {
     url: url.toString(),
