@@ -1,9 +1,12 @@
 {
   "name": "@apite/shopware6-cart",
-  "version": "1.1.0",
   "description": "Shopware 6 cart extension frontend",
   "license": "Apache-2.0",
+  "repository": {
+    "url": "https://gitlab.com/apite/shopgate/connect-engage/ext-shopware6-cart"
+  },
   "scripts": {
+    "init": "npm i && cd ../extension && npm i && cd ..",
     "lint": "./node_modules/.bin/eslint --ignore-path ../.gitignore --ext .js --ext .jsx ."
   },
   "devDependencies": {
