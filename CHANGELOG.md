@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres
 to [Semantic Versioning](http://semver.org/).
 
+## 1.1.1
+
+- added logging when getting the checkout URL
+- fixed favorites placeholder in case SW6 favorites extension is not deployed
+- fixed URL concatenation logic to accommodate folders within an endpoint
+
 ## 1.1.0
 
 - added translation for `Tax` label in cart totals

@@ -9,5 +9,4 @@ const { contextManager: { saveContextToken } } = require('@apite/shopware6-utili
  * @param {ApiteSW6Utility.ContextToken} input
  * @returns {Promise<void>}
  */
-module.exports = async (context, { contextToken }) =>
-  saveContextToken(contextToken, context)
+module.exports = async (context, { contextToken }) => saveContextToken(contextToken, context)
