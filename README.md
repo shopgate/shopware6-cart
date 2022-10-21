@@ -1,12 +1,23 @@
 ## Shopgate Connect Shopware 6 Cart Extension by Apite
 
-
 ### Development
 
 #### Setup
+
 ```shell
 cd extension && npm i && cd ..
 cd frontend && npm i && cd ..
+```
+
+#### Utility extension modification
+
+If you need to add to the Utility extension, you will need to download it separately & install it locally:
+
+```shell
+cd ..
+git clone git@gitlab.com:apite/shopgate/connect-engage/shopware6-utility.git
+cd ext-shopware6-user/extension
+npm run utility:develop
 ```
 
 #### Configurations
