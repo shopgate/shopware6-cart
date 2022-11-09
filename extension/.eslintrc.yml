@@ -1,5 +1,5 @@
 root: true
 extends:
-  - standard
+  - eslint-config-standard
 env:
   node: true
