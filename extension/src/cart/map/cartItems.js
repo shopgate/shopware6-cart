@@ -1,6 +1,7 @@
 'use strict'
 
 const _get = require('lodash.get')
+const { getCurrencySymbol } = require('./swCurrency')
 
 const SW_TYPE_PRODUCT = 'product'
 const SW_TYPE_COUPON = 'promotion'
@@ -38,9 +39,18 @@ module.exports = async (context, input) => {
         messages: []
       }
     })
+
+  const symbol = getCurrencySymbol(input.currency)
   const products = input.swCart.lineItems
     .filter(({ type }) => type === SW_TYPE_PRODUCT)
     .map((lineItem) => {
+      const refPrice = lineItem.price.referencePrice
+      let info
+      if (refPrice) {
+        info = `${refPrice.purchaseUnit} ${refPrice.unitName} ` +
+          `(${symbol}${refPrice.price} / ${refPrice.referenceUnit} ${refPrice.unitName})`
+      }
+
       return {
         id: lineItem.id,
         quantity: lineItem.quantity,
@@ -52,7 +62,8 @@ module.exports = async (context, input) => {
           price: {
             unit: lineItem.price.unitPrice,
             default: lineItem.price.totalPrice,
-            special: null
+            special: null,
+            info
           },
           properties: lineItem.payload.options.map(
             ({ group, option }) => ({ label: group, value: option })
@@ -65,5 +76,6 @@ module.exports = async (context, input) => {
         messages: []
       }
     })
+
   return { cartItems: [...products, ...coupons] }
 }
