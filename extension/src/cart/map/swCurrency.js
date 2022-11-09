@@ -9,6 +9,6 @@ const currencyMap = { EUR: '€', USD: '$', GBP: '£', DKK: 'kr', CZK: 'Kč', PL
  * @param {string} iso3
  * @returns {?string}
  */
-const getCurrencySymbol = iso3 => currencyMap[iso3] ?? null
+const getCurrencySymbol = iso3 => currencyMap[iso3] || iso3
 
 module.exports = { currencyMap, getCurrencySymbol }

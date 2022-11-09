@@ -3555,7 +3555,7 @@
                       "pm.test('check price info', () => {\r",
                       "    const foundItem = getProductById(response.cartItems, pm.environment.get('created_product_unitKg_child1_id'));\r",
                       "    pm.expect(foundItem).to.not.be.undefined;\r",
-                      "    pm.expect(foundItem.product.price).to.haveOwnProperty('info').to.eq('(€20 / 1 kilo)');\r",
+                      "    pm.expect(foundItem.product.price).to.haveOwnProperty('info').to.eq('5 kilo (€20 / 1 kilo)');\r",
                       "});\r",
                       "\r",
                       "pm.test('check no price info', () => {\r",
