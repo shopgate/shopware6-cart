@@ -27,6 +27,8 @@
                       "    var jsonData = pm.response.json();\r",
                       "    pm.expect(jsonData.data[0].name).to.be.eq('Storefront');\r",
                       "    pm.environment.set(\"gen_salesChannel_id\", jsonData.data[0].id);\r",
+                      "    pm.environment.set(\"gen_salesChannel_currency_id\", jsonData.data[0].currencyId);\r",
+                      "    pm.environment.set(\"gen_salesChannel_navCat_id\", jsonData.data[0].navigationCategoryId);\r",
                       "    pm.environment.set(\"gen_salesChannel_accessKey\", jsonData.data[0].accessKey);\r",
                       "});"
                     ],
@@ -77,12 +79,236 @@
                 }
               },
               "response": []
+            },
+            {
+              "name": "SWA: create unit kg",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"write\": {\r\n        \"entity\": \"unit\",\r\n        \"action\": \"upsert\",\r\n        \"payload\": [\r\n            {\r\n                \"id\": \"{{created_unit_kg_id}}\",\r\n                \"name\": \"kilo\",\r\n                \"shortCode\": \"kg\"\r\n            }\r\n        ]\r\n    }\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{sw_endpoint_api}}/_action/sync",
+                  "host": [
+                    "{{sw_endpoint_api}}"
+                  ],
+                  "path": [
+                    "_action",
+                    "sync"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "SWA: get any options",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});\r",
+                      "\r",
+                      "pm.test(\"get any option id\", function () {\r",
+                      "    var jsonData = pm.response.json();\r",
+                      "    pm.expect(jsonData.data).length.greaterThan(2);\r",
+                      "    const group = jsonData.data[1];\r",
+                      "    const grpOptions = group.relationships.options.data;\r",
+                      "    let index = 1;\r",
+                      "    grpOptions.forEach(option => {\r",
+                      "        pm.environment.set('gen_option'+index+'_id', option.id);\r",
+                      "        index++;\r",
+                      "    });\r",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [
+                  {
+                    "key": "Content-Type",
+                    "value": "application/json",
+                    "type": "text"
+                  }
+                ],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"associations\": {\r\n        \"options\": {\r\n            \"total-count-mode\": 1\r\n        }\r\n    }\r\n}"
+                },
+                "url": {
+                  "raw": "{{sw_endpoint_api}}/search/property-group",
+                  "host": [
+                    "{{sw_endpoint_api}}"
+                  ],
+                  "path": [
+                    "search",
+                    "property-group"
+                  ]
+                }
+              },
+              "response": []
             }
           ]
         },
         {
           "name": "prod",
           "item": [
+            {
+              "name": "Unit Variant",
+              "item": [
+                {
+                  "name": "SWA: create unit configurable",
+                  "event": [
+                    {
+                      "listen": "test",
+                      "script": {
+                        "exec": [
+                          "pm.test(\"Product created\", function () {\r",
+                          "    pm.response.to.have.status(200);\r",
+                          "});"
+                        ],
+                        "type": "text/javascript"
+                      }
+                    }
+                  ],
+                  "request": {
+                    "auth": {
+                      "type": "bearer",
+                      "bearer": [
+                        {
+                          "key": "token",
+                          "value": "{{gen_access_token}}",
+                          "type": "string"
+                        }
+                      ]
+                    },
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"overwrites\": {\r\n        \"id\": \"{{created_product_unitKg_id}}\",\r\n        \"name\" : \"API: unit product\",\r\n        \"productNumber\" : \"SG.EXT.SW6.CART.UNIT.KG.CONFIG\",\r\n        \"stock\": 9999,\r\n        \"isCloseout\": true,\r\n        \"releaseDate\": \"2022-11-08T11:00:04.389+00:00\",\r\n        \"price\": [\r\n            {\r\n                \"currencyId\": \"{{gen_salesChannel_currency_id}}\",\r\n                \"gross\": 20,\r\n                \"net\": 18,\r\n                \"linked\": true\r\n            }\r\n        ],\r\n        \"purchaseUnit\": 1\r\n    },\r\n    \"cloneChildren\": false\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{sw_endpoint_api}}/_action/clone/product/:productId",
+                      "host": [
+                        "{{sw_endpoint_api}}"
+                      ],
+                      "path": [
+                        "_action",
+                        "clone",
+                        "product",
+                        ":productId"
+                      ],
+                      "variable": [
+                        {
+                          "key": "productId",
+                          "value": "{{catalog_product_main_id}}"
+                        }
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "SWA: create child",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"write-product\": {\r\n        \"entity\": \"product\",\r\n        \"action\": \"upsert\",\r\n        \"payload\": [\r\n            {\r\n                \"id\": \"{{created_product_unitKg_child1_id}}\",\r\n                \"parentId\": \"{{created_product_unitKg_id}}\",\r\n                \"options\": [\r\n                    {\r\n                        \"id\": \"{{gen_option1_id}}\"\r\n                    }\r\n                ],\r\n                \"price\": [\r\n                    {\r\n                        \"currencyId\": \"{{gen_salesChannel_currency_id}}\",\r\n                        \"gross\": 100,\r\n                        \"net\": 90,\r\n                        \"linked\": true\r\n                    }\r\n                ],\r\n                \"productNumber\": \"SG.EXT.SW6.CART.UNIT.KG.VARIANT.1\",\r\n                \"stock\": 999,\r\n                \"purchaseUnit\": 5,\r\n                \"unitId\": \"{{created_unit_kg_id}}\"\r\n            }\r\n        ]\r\n    }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{sw_endpoint_api}}/_action/sync",
+                      "host": [
+                        "{{sw_endpoint_api}}"
+                      ],
+                      "path": [
+                        "_action",
+                        "sync"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "SWA: create child 2",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"write-product\": {\r\n        \"entity\": \"product\",\r\n        \"action\": \"upsert\",\r\n        \"payload\": [\r\n            {\r\n                \"id\": \"{{created_product_unitKg_child2_id}}\",\r\n                \"parentId\": \"{{created_product_unitKg_id}}\",\r\n                \"options\": [\r\n                    {\r\n                        \"id\": \"{{gen_option2_id}}\"\r\n                    }\r\n                ],\r\n                \"productNumber\": \"SG.EXT.SW6.CART.UNIT.KG.VARIANT.2\",\r\n                \"stock\": 999,\r\n                \"unitId\": \"{{created_unit_kg_id}}\"\r\n            }\r\n        ]\r\n    }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{sw_endpoint_api}}/_action/sync",
+                      "host": [
+                        "{{sw_endpoint_api}}"
+                      ],
+                      "path": [
+                        "_action",
+                        "sync"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "SWA: create child 3",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"write-product\": {\r\n        \"entity\": \"product\",\r\n        \"action\": \"upsert\",\r\n        \"payload\": [\r\n            {\r\n                \"id\": \"9fa6061e07fb411da2d76669d485f485\",\r\n                \"parentId\": \"{{created_product_unitKg_id}}\",\r\n                \"options\": [\r\n                    {\r\n                        \"id\": \"{{gen_option3_id}}\"\r\n                    }\r\n                ],\r\n                \"productNumber\": \"SG.EXT.SW6.CART.UNIT.KG.VARIANT.3\",\r\n                \"stock\": 999\r\n            }\r\n        ]\r\n    }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{sw_endpoint_api}}/_action/sync",
+                      "host": [
+                        "{{sw_endpoint_api}}"
+                      ],
+                      "path": [
+                        "_action",
+                        "sync"
+                      ]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
             {
               "name": "SWA: get variant child",
               "event": [
@@ -3242,6 +3468,133 @@
     {
       "name": "totals check",
       "item": [
+        {
+          "name": "Unit check",
+          "item": [
+            {
+              "name": "WebC: new cart",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{domain}}{{endpoint_cart_new}}",
+                  "host": [
+                    "{{domain}}{{endpoint_cart_new}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "WebC: add variants",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "pm.test(\"Status code is 200\", function () {\r",
+                      "    pm.response.to.have.status(200);\r",
+                      "});"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"products\": [\r\n        {\r\n            \"productId\": \"{{created_product_unitKg_child1_id}}\",\r\n            \"quantity\": 1\r\n        },\r\n        {\r\n            \"productId\": \"{{created_product_unitKg_child3_id}}\",\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{domain}}{{endpoint_cart_products_add}}",
+                  "host": [
+                    "{{domain}}{{endpoint_cart_products_add}}"
+                  ]
+                }
+              },
+              "response": []
+            },
+            {
+              "name": "WebC: get Cart",
+              "event": [
+                {
+                  "listen": "test",
+                  "script": {
+                    "exec": [
+                      "const response = pm.response.json()\r",
+                      "\r",
+                      "pm.test('check price info', () => {\r",
+                      "    const foundItem = getProductById(response.cartItems, pm.environment.get('created_product_unitKg_child1_id'));\r",
+                      "    pm.expect(foundItem).to.not.be.undefined;\r",
+                      "    pm.expect(foundItem.product.price).to.haveOwnProperty('info').to.eq('(€20 / 1 kilo)');\r",
+                      "});\r",
+                      "\r",
+                      "pm.test('check no price info', () => {\r",
+                      "    const foundItem = getProductById(response.cartItems, pm.environment.get('created_product_unitKg_child3_id'));\r",
+                      "    pm.expect(foundItem).to.not.be.undefined;\r",
+                      "    pm.expect(foundItem.product.price.info).to.be.undefined;\r",
+                      "});\r",
+                      "\r",
+                      "function getProductById(list, id) {\r",
+                      "    return list.find(item => item.id === id);\r",
+                      "}"
+                    ],
+                    "type": "text/javascript"
+                  }
+                }
+              ],
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{domain}}{{endpoint_cart_get}}",
+                  "host": [
+                    "{{domain}}{{endpoint_cart_get}}"
+                  ]
+                }
+              },
+              "response": []
+            }
+          ]
+        },
         {
           "name": "WebC: new cart",
           "event": [
