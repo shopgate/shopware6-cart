@@ -1,7 +1,7 @@
 'use strict'
 
 const _get = require('lodash.get')
-const { getCurrencySymbol } = require('./swCurrency')
+const { getDEPrice, getDENumber } = require('../../services/printService')
 
 const SW_TYPE_PRODUCT = 'product'
 const SW_TYPE_COUPON = 'promotion'
@@ -40,42 +40,45 @@ module.exports = async (context, input) => {
       }
     })
 
-  const symbol = getCurrencySymbol(input.currency)
   const products = input.swCart.lineItems
     .filter(({ type }) => type === SW_TYPE_PRODUCT)
-    .map((lineItem) => {
-      const refPrice = lineItem.price.referencePrice
-      let info
-      if (refPrice) {
-        info = `${refPrice.purchaseUnit} ${refPrice.unitName} ` +
-          `(${symbol}${refPrice.price} / ${refPrice.referenceUnit} ${refPrice.unitName})`
-      }
-
-      return {
-        id: lineItem.id,
-        quantity: lineItem.quantity,
-        type: 'product',
-        product: {
-          id: lineItem.referencedId,
-          name: lineItem.label,
-          featuredImageUrl: lineItem.cover.url,
-          price: {
-            unit: lineItem.price.unitPrice,
-            default: lineItem.price.totalPrice,
-            special: null,
-            info
-          },
-          properties: lineItem.payload.options.map(
-            ({ group, option }) => ({ label: group, value: option })
-          ),
-          appliedDiscounts: [],
-          additionalInfo: []
+    .map((lineItem) => ({
+      id: lineItem.id,
+      quantity: lineItem.quantity,
+      type: 'product',
+      product: {
+        id: lineItem.referencedId,
+        name: lineItem.label,
+        featuredImageUrl: lineItem.cover.url,
+        price: {
+          unit: lineItem.price.unitPrice,
+          default: lineItem.price.totalPrice,
+          special: null,
+          info: buildProductInfo(lineItem.price.referencePrice)
         },
-        currency: input.currency,
-        coupon: null,
-        messages: []
-      }
-    })
+        properties: lineItem.payload.options.map(
+          ({ group, option }) => ({ label: group, value: option })
+        ),
+        appliedDiscounts: [],
+        additionalInfo: []
+      },
+      currency: input.currency,
+      coupon: null,
+      messages: []
+    }))
 
   return { cartItems: [...products, ...coupons] }
+}
+
+/**
+ * Builds product price / unit block if it exists
+ *
+ * @param {{purchaseUnit: number,referenceUnit: number,price: number, unitName:string}|ApiteSW6Utility.ReferencePrice|undefined} refPrice
+ * @return {string|undefined}
+ */
+const buildProductInfo = refPrice => {
+  return refPrice
+    ? `${getDENumber(refPrice.purchaseUnit)} ${refPrice.unitName} ` +
+    `(${getDEPrice(refPrice.price)} / ${refPrice.referenceUnit} ${refPrice.unitName})`
+    : undefined
 }

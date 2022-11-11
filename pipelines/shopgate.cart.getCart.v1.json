@@ -37,10 +37,18 @@
         "type": "extension",
         "input": [],
         "output": [
-          {
-            "key": "swCart",
-            "id": "100"
-          }
+          {"key": "swCart", "id": "90"}
+        ]
+      },
+      {
+        "id": "@apite/shopware6-cart",
+        "path": "@apite/shopware6-cart/src/cart/enrichCart.js",
+        "type": "extension",
+        "input": [
+          {"key": "swCart", "id": "90"}
+        ],
+        "output": [
+          {"key": "swCart", "id": "100"}
         ]
       },
       {
