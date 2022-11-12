@@ -227,13 +227,13 @@
                   "response": []
                 },
                 {
-                  "name": "SWA: create child",
+                  "name": "SWA: create child (5kg)",
                   "request": {
                     "method": "POST",
                     "header": [],
                     "body": {
                       "mode": "raw",
-                      "raw": "{\r\n    \"write-product\": {\r\n        \"entity\": \"product\",\r\n        \"action\": \"upsert\",\r\n        \"payload\": [\r\n            {\r\n                \"id\": \"{{created_product_unitKg_child1_id}}\",\r\n                \"parentId\": \"{{created_product_unitKg_id}}\",\r\n                \"options\": [\r\n                    {\r\n                        \"id\": \"{{gen_option1_id}}\"\r\n                    }\r\n                ],\r\n                \"price\": [\r\n                    {\r\n                        \"currencyId\": \"{{gen_salesChannel_currency_id}}\",\r\n                        \"gross\": 100,\r\n                        \"net\": 90,\r\n                        \"linked\": true\r\n                    }\r\n                ],\r\n                \"productNumber\": \"SG.EXT.SW6.CART.UNIT.KG.VARIANT.1\",\r\n                \"stock\": 999,\r\n                \"purchaseUnit\": 5,\r\n                \"unitId\": \"{{created_unit_kg_id}}\"\r\n            }\r\n        ]\r\n    }\r\n}",
+                      "raw": "{\r\n    \"write-product\": {\r\n        \"entity\": \"product\",\r\n        \"action\": \"upsert\",\r\n        \"payload\": [\r\n            {\r\n                \"id\": \"{{created_product_unitKg_child1_id}}\",\r\n                \"parentId\": \"{{created_product_unitKg_id}}\",\r\n                \"options\": [\r\n                    {\r\n                        \"id\": \"{{gen_option1_id}}\"\r\n                    }\r\n                ],\r\n                \"price\": [\r\n                    {\r\n                        \"currencyId\": \"{{gen_salesChannel_currency_id}}\",\r\n                        \"gross\": 120,\r\n                        \"net\": 110,\r\n                        \"linked\": true\r\n                    }\r\n                ],\r\n                \"productNumber\": \"SG.EXT.SW6.CART.UNIT.KG.VARIANT.1\",\r\n                \"stock\": 999,\r\n                \"purchaseUnit\": 5,\r\n                \"unitId\": \"{{created_unit_kg_id}}\"\r\n            }\r\n        ]\r\n    }\r\n}",
                       "options": {
                         "raw": {
                           "language": "json"
@@ -254,7 +254,7 @@
                   "response": []
                 },
                 {
-                  "name": "SWA: create child 2",
+                  "name": "SWA: create child (1kg)",
                   "request": {
                     "method": "POST",
                     "header": [],
@@ -281,13 +281,40 @@
                   "response": []
                 },
                 {
-                  "name": "SWA: create child 3",
+                  "name": "SWA: create child 3 (no kg)",
                   "request": {
                     "method": "POST",
                     "header": [],
                     "body": {
                       "mode": "raw",
                       "raw": "{\r\n    \"write-product\": {\r\n        \"entity\": \"product\",\r\n        \"action\": \"upsert\",\r\n        \"payload\": [\r\n            {\r\n                \"id\": \"9fa6061e07fb411da2d76669d485f485\",\r\n                \"parentId\": \"{{created_product_unitKg_id}}\",\r\n                \"options\": [\r\n                    {\r\n                        \"id\": \"{{gen_option3_id}}\"\r\n                    }\r\n                ],\r\n                \"productNumber\": \"SG.EXT.SW6.CART.UNIT.KG.VARIANT.3\",\r\n                \"stock\": 999\r\n            }\r\n        ]\r\n    }\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{sw_endpoint_api}}/_action/sync",
+                      "host": [
+                        "{{sw_endpoint_api}}"
+                      ],
+                      "path": [
+                        "_action",
+                        "sync"
+                      ]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "SWA: create child (.25)",
+                  "request": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"write-product\": {\r\n        \"entity\": \"product\",\r\n        \"action\": \"upsert\",\r\n        \"payload\": [\r\n            {\r\n                \"id\": \"{{created_product_unitKg_child4_id}}\",\r\n                \"parentId\": \"{{created_product_unitKg_id}}\",\r\n                \"options\": [\r\n                    {\r\n                        \"id\": \"{{gen_option1_id}}\"\r\n                    }\r\n                ],\r\n                \"price\": [\r\n                    {\r\n                        \"currencyId\": \"{{gen_salesChannel_currency_id}}\",\r\n                        \"gross\": 5.23,\r\n                        \"net\": 4.76,\r\n                        \"linked\": true\r\n                    }\r\n                ],\r\n                \"productNumber\": \"SG.EXT.SW6.CART.UNIT.KG.VARIANT.4\",\r\n                \"stock\": 999,\r\n                \"purchaseUnit\": 0.25,\r\n                \"unitId\": \"{{created_unit_kg_id}}\"\r\n            }\r\n        ]\r\n    }\r\n}",
                       "options": {
                         "raw": {
                           "language": "json"
@@ -3527,7 +3554,7 @@
                 "header": [],
                 "body": {
                   "mode": "raw",
-                  "raw": "{\r\n    \"products\": [\r\n        {\r\n            \"productId\": \"{{created_product_unitKg_child1_id}}\",\r\n            \"quantity\": 1\r\n        },\r\n        {\r\n            \"productId\": \"{{created_product_unitKg_child3_id}}\",\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}",
+                  "raw": "{\r\n    \"products\": [\r\n        {\r\n            \"productId\": \"{{created_product_unitKg_child1_id}}\",\r\n            \"quantity\": 1\r\n        },\r\n        {\r\n            \"productId\": \"{{created_product_unitKg_child2_id}}\",\r\n            \"quantity\": 1\r\n        },\r\n        {\r\n            \"productId\": \"{{created_product_unitKg_child3_id}}\",\r\n            \"quantity\": 1\r\n        },\r\n        {\r\n            \"productId\": \"{{created_product_unitKg_child4_id}}\",\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}",
                   "options": {
                     "raw": {
                       "language": "json"
@@ -3555,13 +3582,25 @@
                       "pm.test('check price info', () => {\r",
                       "    const foundItem = getProductById(response.cartItems, pm.environment.get('created_product_unitKg_child1_id'));\r",
                       "    pm.expect(foundItem).to.not.be.undefined;\r",
-                      "    pm.expect(foundItem.product.price).to.haveOwnProperty('info').to.eq('5 kilo (€20 / 1 kilo)');\r",
+                      "    pm.expect(foundItem.product.price).to.haveOwnProperty('info').to.eq('5 kilo (24,00 € / 1 kilo)');\r",
+                      "});\r",
+                      "\r",
+                      "pm.test('check price info', () => {\r",
+                      "    const foundItem = getProductById(response.cartItems, pm.environment.get('created_product_unitKg_child2_id'));\r",
+                      "    pm.expect(foundItem).to.not.be.undefined;\r",
+                      "    pm.expect(foundItem.product.price).to.haveOwnProperty('info').to.eq('1 kilo (20,00 € / 1 kilo)');\r",
                       "});\r",
                       "\r",
                       "pm.test('check no price info', () => {\r",
                       "    const foundItem = getProductById(response.cartItems, pm.environment.get('created_product_unitKg_child3_id'));\r",
                       "    pm.expect(foundItem).to.not.be.undefined;\r",
                       "    pm.expect(foundItem.product.price.info).to.be.undefined;\r",
+                      "});\r",
+                      "\r",
+                      "pm.test('check price info', () => {\r",
+                      "    const foundItem = getProductById(response.cartItems, pm.environment.get('created_product_unitKg_child4_id'));\r",
+                      "    pm.expect(foundItem).to.not.be.undefined;\r",
+                      "    pm.expect(foundItem.product.price).to.haveOwnProperty('info').to.eq('0,25 kilo (20,92 € / 1 kilo)');\r",
                       "});\r",
                       "\r",
                       "function getProductById(list, id) {\r",

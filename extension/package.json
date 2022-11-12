@@ -15,7 +15,7 @@
     "postinstall": "./post-install.sh"
   },
   "dependencies": {
-    "@apite/shopware6-utility": "^0.3.0",
+    "@apite/shopware6-utility": "^1.0.0",
     "@shopware-pwa/shopware-6-client": "^1.5.3",
     "lodash.get": "^4.4.2"
   },
