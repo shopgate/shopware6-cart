@@ -1,26 +1,22 @@
 'use strict'
 
-/**
- * @param {float|number} price
- * @return {string}
- */
-const getDEPrice = (price) => {
-  const germanCurrency = Intl.NumberFormat('de-DE', {
-    style: 'currency',
-    currency: 'EUR'
-  })
-
-  return germanCurrency.format(price)
-}
+const currencyFormatter = require('currency-formatter')
 
 /**
- * @param {float|number} number
+ * @param {number} price
+ * @param {string} currency - iso3 currency (e.g. EUR)
  * @return {string}
  */
-const getDENumber = (number) => {
-  const format = Intl.NumberFormat('de-DE')
-
-  return format.format(number)
+const getPrice = (price, currency) => {
+  return currencyFormatter.format(price, { code: currency })
 }
 
-module.exports = { getDENumber, getDEPrice }
+const getNumber = (price, currency) => {
+  if (currency === 'EUR') {
+    return price.toString().replace('.', ',')
+  }
+
+  return price
+}
+
+module.exports = { getNumber, getPrice }

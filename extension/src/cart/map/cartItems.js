@@ -1,7 +1,7 @@
 'use strict'
 
 const _get = require('lodash.get')
-const { getDEPrice, getDENumber } = require('../../services/printService')
+const { getPrice, getNumber } = require('../../services/printService')
 
 const SW_TYPE_PRODUCT = 'product'
 const SW_TYPE_COUPON = 'promotion'
@@ -54,7 +54,7 @@ module.exports = async (context, input) => {
           unit: lineItem.price.unitPrice,
           default: lineItem.price.totalPrice,
           special: null,
-          info: buildProductInfo(lineItem.price.referencePrice)
+          info: buildProductInfo(lineItem.price.referencePrice, input.currency)
         },
         properties: lineItem.payload.options.map(
           ({ group, option }) => ({ label: group, value: option })
@@ -74,11 +74,12 @@ module.exports = async (context, input) => {
  * Builds product price / unit block if it exists
  *
  * @param {{purchaseUnit: number,referenceUnit: number,price: number, unitName:string}|ApiteSW6Utility.ReferencePrice|undefined} refPrice
+ * @param {string} currency - ISO3 currency
  * @return {string|undefined}
  */
-const buildProductInfo = refPrice => {
+const buildProductInfo = (refPrice, currency) => {
   return refPrice
-    ? `${getDENumber(refPrice.purchaseUnit)} ${refPrice.unitName} ` +
-    `(${getDEPrice(refPrice.price)} / ${refPrice.referenceUnit} ${refPrice.unitName})`
+    ? `${getNumber(refPrice.purchaseUnit, currency)} ${refPrice.unitName} ` +
+    `(${getPrice(refPrice.price, currency)} / ${refPrice.referenceUnit} ${refPrice.unitName})`
     : undefined
 }
