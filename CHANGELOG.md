@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres
 to [Semantic Versioning](http://semver.org/).
 
+## 1.3.1
+
+- changed usage of `Intl` formatter to 3rd party due to Node 10 incompatibility
+
 ## 1.3.0
 
 - added data to case where the purchase unit is equal to 1 reference unit (e.g. `1 kilo (20,00 € / 1 kilo`)
