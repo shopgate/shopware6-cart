@@ -1,8 +1,9 @@
 'use strict'
 
 const _get = require('lodash.get')
-const { createApiConfig } = require('@apite/shopware6-utility/src/services/apiManager')
 const { getProducts } = require('@shopware-pwa/shopware-6-client')
+const { apiManager: { createApiConfig } } = require('@apite/shopware6-utility')
+const { decorateError } = require('../services/logDecorator')
 
 /**
  * @param {ApiteSW6Utility.PipelineContext} context
@@ -10,8 +11,12 @@ const { getProducts } = require('@shopware-pwa/shopware-6-client')
  * @returns {Promise<{swCart: ApiteSW6Utility.SWCart}>}
  */
 module.exports = async (context, { swCart }) => {
-  const productsWithDetails = await getProductDetails(context, swCart.lineItems.map(lineItem => lineItem.id))
-  swCart.lineItems.forEach((item, index) => {
+  const lineItemIds = swCart.lineItems.map(lineItem => lineItem.id)
+  if (lineItemIds.length === 0) {
+    return { swCart }
+  }
+  const productsWithDetails = await getProductDetails(context, lineItemIds)
+  productsWithDetails && swCart.lineItems.forEach((item, index) => {
     // we need to find products that do not have a reference price
     if (item.type !== 'product' || item.price.referencePrice) {
       return
@@ -33,16 +38,15 @@ module.exports = async (context, { swCart }) => {
 /**
  * @param {ApiteSW6Utility.PipelineContext} context
  * @param {Array<string>} ids
- * @returns {Promise<EntityResult<"product", Product[]>>}
+ * @returns {Promise<EntityResult<"product", Product[]>|undefined>}
  */
 const getProductDetails = async (context, ids) => {
   const apiConfig = await createApiConfig(context)
   const criteria = {
     ids,
     includes: { product: ['id', 'purchaseUnit', 'referenceUnit', 'packUnit', 'packUnitPlural', 'unit.unitName'] },
-    associations: {
-      unit: { 'total-count-mode': 1 }
-    }
+    associations: { unit: { 'total-count-mode': 1 } }
   }
-  return getProducts(criteria, apiConfig)
+
+  return getProducts(criteria, apiConfig).catch(e => decorateError(e))
 }

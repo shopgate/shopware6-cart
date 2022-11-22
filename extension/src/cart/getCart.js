@@ -14,5 +14,6 @@ module.exports = async (context) => {
   const apiConfig = await createApiConfig(context)
   const swCart = await getCart(apiConfig).catch(e => throwOnApiError(e, context))
 
+  context.log.debug('Cart token received: ' + swCart.token)
   return { swCart }
 }

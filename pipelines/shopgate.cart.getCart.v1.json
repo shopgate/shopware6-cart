@@ -5,30 +5,12 @@
     "public": true,
     "input": [],
     "output": [
-      {
-        "key": "messages",
-        "id": "1100"
-      },
-      {
-        "key": "cartItems",
-        "id": "1200"
-      },
-      {
-        "key": "currency",
-        "id": "1300"
-      },
-      {
-        "key": "totals",
-        "id": "1400"
-      },
-      {
-        "key": "text",
-        "id": "1500"
-      },
-      {
-        "key": "flags",
-        "id": "1600"
-      }
+      {"key": "messages", "id": "1100"},
+      {"key": "cartItems", "id": "1200"},
+      {"key": "currency", "id": "1300"},
+      {"key": "totals", "id": "1400"},
+      {"key": "text", "id": "1500"},
+      {"key": "flags", "id": "1600"}
     ],
     "steps": [
       {
@@ -38,6 +20,16 @@
         "input": [],
         "output": [
           {"key": "swCart", "id": "90"}
+        ]
+      },
+      {
+        "id": "afterGetCart",
+        "type": "hook",
+        "input": [
+          {"key": "swCart", "id": "90"}
+        ],
+        "output": [
+          {"key": "swCart", "id": "90", "optional": true}
         ]
       },
       {
@@ -57,10 +49,7 @@
         "type": "extension",
         "input": [],
         "output": [
-          {
-            "key": "currency",
-            "id": "1300"
-          }
+          {"key": "currency", "id": "1300"}
         ]
       },
       {
@@ -68,16 +57,10 @@
         "path": "@apite/shopware6-cart/src/cart/map/cartMessages.js",
         "type": "extension",
         "input": [
-          {
-            "key": "swCart",
-            "id": "100"
-          }
+          {"key": "swCart", "id": "100"}
         ],
         "output": [
-          {
-            "key": "messages",
-            "id": "1100"
-          }
+          {"key": "messages", "id": "1100"}
         ]
       },
       {
@@ -85,20 +68,23 @@
         "path": "@apite/shopware6-cart/src/cart/map/cartItems.js",
         "type": "extension",
         "input": [
-          {
-            "key": "swCart",
-            "id": "100"
-          },
-          {
-            "key": "currency",
-            "id": "1300"
-          }
+          {"key": "swCart", "id": "100"},
+          {"key": "currency", "id": "1300"}
         ],
         "output": [
-          {
-            "key": "cartItems",
-            "id": "1200"
-          }
+          {"key": "cartItems", "id": "1200"}
+        ]
+      },
+      {
+        "id": "afterCartItemMap",
+        "type": "hook",
+        "input": [
+          {"key": "swCart", "id": "100"},
+          {"key": "cartItems", "id": "1200"},
+          {"key": "currency", "id": "1300"}
+        ],
+        "output": [
+          {"key": "cartItems", "id": "1200", "optional": true}
         ]
       },
       {
@@ -106,16 +92,10 @@
         "path": "@apite/shopware6-cart/src/cart/map/cartTotals.js",
         "type": "extension",
         "input": [
-          {
-            "key": "swCart",
-            "id": "100"
-          }
+          {"key": "swCart", "id": "100"}
         ],
         "output": [
-          {
-            "key": "totals",
-            "id": "1400"
-          }
+          {"key": "totals", "id": "1400"}
         ]
       },
       {
@@ -124,10 +104,7 @@
         "type": "extension",
         "input": [],
         "output": [
-          {
-            "key": "text",
-            "id": "1500"
-          }
+          {"key": "text", "id": "1500"}
         ]
       },
       {
@@ -135,17 +112,10 @@
         "path": "@apite/shopware6-cart/src/cart/map/cartFlags.js",
         "type": "extension",
         "input": [
-          {
-            "key": "swCart",
-            "id": "100",
-            "optional": true
-          }
+          {"key": "swCart", "id": "100"}
         ],
         "output": [
-          {
-            "key": "flags",
-            "id": "1600"
-          }
+          {"key": "flags", "id": "1600"}
         ]
       }
     ]
