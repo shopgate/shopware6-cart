@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres
 to [Semantic Versioning](http://semver.org/).
 
+## 1.4.0
+
+- added cart hooks to easily add custom content to cart
+- changed cart enrich functionality to ignore errors
+- fixed empty cart enrichment step loads all products
+
 ## 1.3.1
 
 - changed usage of `Intl` formatter to 3rd party due to Node 10 incompatibility
