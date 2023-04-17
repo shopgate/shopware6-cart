@@ -19,6 +19,17 @@
  */
 
 /**
+ * @typedef {Object} ApiteSW6Cart.SGCatalogProductInput
+ * @property {Array<ApiteSW6Cart.SGCatalogProduct>} products
+ */
+
+ /**
+ * @typedef ApiteSW6Cart.SGCatalogProduct
+ * @property {string} id
+ * @property {string} featuredImageUrl
+ */
+
+/**
  * @typedef {Object} ApiteSW6Cart.SGUpdateProductInput
  * @property {Array<ApiteSW6Cart.SGUpdateProduct>} cartItems
  * @typedef ApiteSW6Cart.SGUpdateProduct
