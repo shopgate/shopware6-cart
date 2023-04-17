@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@apite/shopware6-utility": "^1.0.0",
-    "@shopware-pwa/shopware-6-client": "^1.5.3",
+    "@shopware-pwa/shopware-6-client": "^1.6.1",
     "lodash.get": "^4.4.2",
     "currency-formatter": "^1.5.9"
   },
