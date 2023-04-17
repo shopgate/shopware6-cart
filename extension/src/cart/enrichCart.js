@@ -6,21 +6,21 @@ const { apiManager: { createApiConfig } } = require('@apite/shopware6-utility')
 const { decorateError } = require('../services/logDecorator')
 
 /**
+ * Adds reference prices to cart products if they are not available
+ *
  * @param {ApiteSW6Utility.PipelineContext} context
  * @param {ApiteSW6Cart.Input} input
  * @returns {Promise<{swCart: ApiteSW6Utility.SWCart}>}
  */
 module.exports = async (context, { swCart }) => {
-  const lineItemIds = swCart.lineItems.map(lineItem => lineItem.id)
+  const lineItemIds = swCart.lineItems
+    .filter(item => item.type === 'product' && !item.price.referencePrice)
+    .map(lineItem => lineItem.id)
   if (lineItemIds.length === 0) {
     return { swCart }
   }
   const productsWithDetails = await getProductDetails(context, lineItemIds)
-  productsWithDetails && swCart.lineItems.forEach((item, index) => {
-    // we need to find products that do not have a reference price
-    if (item.type !== 'product' || item.price.referencePrice) {
-      return
-    }
+  productsWithDetails && productsWithDetails.elements && swCart.lineItems.forEach((item, index) => {
     const details = productsWithDetails.elements.find(el => el.id === item.id)
     if (details && details.unit) {
       swCart.lineItems[index].price.referencePrice = {
@@ -48,5 +48,8 @@ const getProductDetails = async (context, ids) => {
     associations: { unit: { 'total-count-mode': 1 } }
   }
 
-  return getProducts(criteria, apiConfig).catch(e => decorateError(e))
+  return getProducts(criteria, apiConfig).catch(e => {
+    context.log.error(decorateError(e))
+    return null
+  })
 }
