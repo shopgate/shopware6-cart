@@ -21,7 +21,7 @@ const getImageList = async context => _getStorage(context).get(imgStoreKey)
  */
 const saveImageList = async (context, products) => {
   const target = Object.assign({}, await getImageList(context));
-  products.forEach(product => target[product.id] = product.featuredImageUrl);
+  products.forEach(product => target[product.id] = product.featuredImageBaseUrl);
   await _getStorage(context).set(imgStoreKey, target)
 }
 

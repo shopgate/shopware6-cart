@@ -5,6 +5,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres
 to [Semantic Versioning](http://semver.org/).
 
+## 1.5.1
+
+- changed cart image to use the base image URL to avoid black background
+- fixed possible issue with checking that the product cached image list exists
+
 ## 1.5.0
 
 - changed cart image to use the SG service thumbnail with a fallback to Shopware's

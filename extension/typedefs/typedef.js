@@ -26,7 +26,8 @@
  /**
  * @typedef ApiteSW6Cart.SGCatalogProduct
  * @property {string} id
- * @property {string} featuredImageUrl
+ * @property {string} featuredImageUrl - image with color & other properties attached to it
+ * @property {string} featuredImageBaseUrl - image with the least properties
  */
 
 /**
