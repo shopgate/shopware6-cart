@@ -23,7 +23,7 @@ const getCouponPrice = function (lineItem) {
  * @returns {Promise<{cartItems: ApiteSW6Cart.Item[]}>}
  */
 module.exports = async (context, input) => {
-  const detailedProducts = await getImageList(context)
+  const imgList = await getImageList(context)
   const coupons = input.swCart.lineItems
     .filter(({ type }) => type === SW_TYPE_COUPON)
     .map((lineItem) => {
@@ -51,7 +51,7 @@ module.exports = async (context, input) => {
       product: {
         id: lineItem.referencedId,
         name: lineItem.label,
-        featuredImageUrl: detailedProducts.hasOwnProperty(lineItem.id) ? detailedProducts[lineItem.id] : lineItem.cover.url,
+        featuredImageUrl: imgList && imgList.hasOwnProperty(lineItem.id) ? imgList[lineItem.id] : lineItem.cover.url,
         price: {
           unit: lineItem.price.unitPrice,
           default: lineItem.price.totalPrice,
