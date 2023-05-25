@@ -9,6 +9,7 @@ to [Semantic Versioning](http://semver.org/).
 
 - changed cart image to use the base image URL to avoid black background
 - fixed possible issue with checking that the product cached image list exists
+- updated utility dependency to suppress error from getRegistrationUrl/getCart due to race condition
 
 ## 1.5.0
 
