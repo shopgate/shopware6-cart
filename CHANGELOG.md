@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres
 to [Semantic Versioning](http://semver.org/).
 
+## 1.5.2
+
+- added new pipeline to help retrieve token for sync purposes
+
 ## 1.5.1
 
 - changed cart image to use the base image URL to avoid black background
