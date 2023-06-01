@@ -1,20 +1,20 @@
 {
   "version": "1",
   "pipeline": {
-    "id": "apite.cart.newCart.v1",
+    "id": "apite.cart.getContextToken.v1",
     "public": true,
     "input": [],
     "output": [
-      {"key": "contextToken", "id": "100"}
+      {"key": "contextToken", "id": "1000", "optional": true}
     ],
     "steps": [
       {
         "id": "@apite/shopware6-cart",
-        "path": "@apite/shopware6-cart/src/cart/newCart.js",
+        "path": "@apite/shopware6-cart/src/context/getTokenFromStorage.js",
         "type": "extension",
         "input": [],
         "output": [
-          {"key": "token", "id": "100"}
+          {"key": "contextToken", "id": "1000", "optional": true}
         ]
       }
     ]
