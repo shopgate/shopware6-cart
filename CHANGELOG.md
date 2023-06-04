@@ -8,6 +8,7 @@ to [Semantic Versioning](http://semver.org/).
 ## 1.5.2
 
 - added new pipeline to help retrieve token for sync purposes
+- fixed correct cart item thumbnails not showing up for guest/customers at certain points
 
 ## 1.5.1
 
