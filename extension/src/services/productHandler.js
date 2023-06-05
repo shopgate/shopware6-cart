@@ -4,16 +4,9 @@ const imgStoreKey = 'featuredImageStore'
 
 /**
  * @param {ApiteSW6Utility.PipelineContext} context
- * @returns {ApiteSW6Utility.PipelineStorage}
- * @private
- */
-const _getStorage = context => context.meta.userId ? context.storage.user : context.storage.device
-
-/**
- * @param {ApiteSW6Utility.PipelineContext} context
  * @returns {Promise<Array<string,string>>}
  */
-const getImageList = async context => _getStorage(context).get(imgStoreKey)
+const getImageList = async context => context.storage.extension.get(imgStoreKey)
 
 /**
  * @param {ApiteSW6Utility.PipelineContext} context
@@ -22,7 +15,7 @@ const getImageList = async context => _getStorage(context).get(imgStoreKey)
 const saveImageList = async (context, products) => {
   const target = Object.assign({}, await getImageList(context));
   products.forEach(product => target[product.id] = product.featuredImageBaseUrl);
-  await _getStorage(context).set(imgStoreKey, target)
+  await context.storage.extension.set(imgStoreKey, target)
 }
 
 module.exports = { getImageList, saveImageList }
