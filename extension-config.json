@@ -1,5 +1,5 @@
 {
-  "version": "1.5.2",
+  "version": "1.5.3",
   "id": "@apite/shopware6-cart",
   "configuration": {
     "endpoint": {
@@ -12,7 +12,7 @@
         "description": "This is the URL of your frontend store. We will be making calls via Shopware's Store API.",
         "required": true,
         "options": {
-          "placeholder": "http://example.com"
+          "placeholder": "https://example.com"
         }
       }
     },
