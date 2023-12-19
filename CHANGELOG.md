@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres
 to [Semantic Versioning](http://semver.org/).
 
+## 1.5.4
+
+- fixed new languages not being used
+
 ## 1.5.3
 
 - added IT, FR, ES translations
