@@ -1,5 +1,5 @@
 {
-  "version": "1.5.3",
+  "version": "1.5.4",
   "id": "@apite/shopware6-cart",
   "configuration": {
     "endpoint": {
@@ -85,13 +85,28 @@
   },
   "components": [
     {
+      "id": "de-DE",
+      "path": "extension/src/locale/de-DE.json",
+      "type": "translations"
+    },
+    {
       "id": "en-US",
       "path": "extension/src/locale/en-US.json",
       "type": "translations"
     },
     {
-      "id": "de-DE",
-      "path": "extension/src/locale/de-DE.json",
+      "id": "es-ES",
+      "path": "extension/src/locale/es-ES.json",
+      "type": "translations"
+    },
+    {
+      "id": "fr-FR",
+      "path": "extension/src/locale/fr-FR.json",
+      "type": "translations"
+    },
+    {
+      "id": "it-IT",
+      "path": "extension/src/locale/it-IT.json",
       "type": "translations"
     },
     {
