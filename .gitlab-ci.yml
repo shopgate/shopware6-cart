@@ -41,6 +41,8 @@ publish to shopgate:
   image: registry.gitlab.com/apite/shopgate/connect-engage/images/webc:latest
   services: [ ]
   stage: deploy
+  tags:
+    - build-amd64
   only:
     - tags
   variables:
