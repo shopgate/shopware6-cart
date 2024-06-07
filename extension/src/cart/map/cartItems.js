@@ -75,13 +75,14 @@ module.exports = async (context, input) => {
 /**
  * Builds product price / unit block if it exists
  *
- * @param {{purchaseUnit: number,referenceUnit: number,price: number, unitName:string}|ApiteSW6Utility.ReferencePrice|undefined} refPrice
+ * @param {{purchaseUnit: number,referenceUnit: ?number,price: ?number, unitName: string}|undefined} refPrice
  * @param {string} currency - ISO3 currency
  * @return {string|undefined}
  */
 const buildProductInfo = (refPrice, currency) => {
-  return refPrice
-    ? `${getNumber(refPrice.purchaseUnit, currency)} ${refPrice.unitName} ` +
-    `(${getPrice(refPrice.price, currency)} / ${refPrice.referenceUnit} ${refPrice.unitName})`
+  const hasRef = refPrice && refPrice.purchaseUnit && refPrice.purchaseUnit !== 0
+  return hasRef
+    ? `${getNumber(refPrice.purchaseUnit, currency)} ${refPrice.unitName}` +
+    ` (${getPrice(refPrice.price, currency)} / ${refPrice.referenceUnit} ${refPrice.unitName})`
     : undefined
 }

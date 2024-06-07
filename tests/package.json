@@ -8,6 +8,9 @@
   },
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node": "<= 10.0.0"
+  },
   "dependencies": {
     "newman": "latest",
     "newman-reporter-htmlextra": "latest"

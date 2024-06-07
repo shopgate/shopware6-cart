@@ -22,7 +22,7 @@ module.exports = async (context, { swCart }) => {
   const productsWithDetails = await getProductDetails(context, lineItemIds)
   productsWithDetails && productsWithDetails.elements && swCart.lineItems.forEach((item, index) => {
     const details = productsWithDetails.elements.find(el => el.id === item.id)
-    if (details && details.unit) {
+    if (details && details.purchaseUnit && details.unit) {
       swCart.lineItems[index].price.referencePrice = {
         purchaseUnit: details.purchaseUnit,
         referenceUnit: details.referenceUnit,

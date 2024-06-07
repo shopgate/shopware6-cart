@@ -1,3 +1,5 @@
+'use strict'
+
 /**
  * Helps structure cart page totals
  */
