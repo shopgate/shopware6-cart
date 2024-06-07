@@ -2,7 +2,7 @@
 
 const {
   apiManager: { createApiConfig },
-  errorManager: { throwOnCartErrors, throwOnApiError, throwOnCartInfoErrors }
+  errorManager: { throwOnApiError, throwOnCartInfoErrors }
 } = require('@apite/shopware6-utility')
 const { removeCartItem } = require('@shopware-pwa/shopware-6-client')
 
