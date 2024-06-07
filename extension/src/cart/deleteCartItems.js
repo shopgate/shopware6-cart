@@ -2,9 +2,11 @@
 
 const {
   apiManager: { createApiConfig },
-  errorManager: { throwOnApiError, throwOnCartInfoErrors }
+  errorManager: { throwOnCartErrors, throwOnApiError, throwOnCartInfoErrors }
 } = require('@apite/shopware6-utility')
 const { removeCartItem } = require('@shopware-pwa/shopware-6-client')
+
+const NotFoundError = () => ({errors: [{ level: 1, messageKey: 'product-not-found'}]})
 
 /**
  * @param {ApiteSW6Utility.PipelineContext} context
@@ -20,7 +22,7 @@ module.exports = async (context, input) => {
       lineItemId => {
         sync = sync.then(
           () => removeCartItem(lineItemId, apiConfig)
-            .catch(e => throwOnApiError(e, context))
+            .catch(e => e.statusCode === 404 ? NotFoundError() : throwOnApiError(e, context))
             .then(cart => throwOnCartInfoErrors(cart.errors, context))
         )
         return sync
