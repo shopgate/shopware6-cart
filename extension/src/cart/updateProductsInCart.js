@@ -7,6 +7,8 @@ const {
 const { changeCartItemQuantity } = require('@shopware-pwa/shopware-6-client')
 const _get = require('lodash.get')
 
+const NotFoundError = () => ({errors: [{ level: 1, messageKey: 'product-not-found'}]})
+
 /**
  * @param {ApiteSW6Utility.PipelineContext} context
  * @param {ApiteSW6Cart.SGUpdateProductInput} input
@@ -20,7 +22,7 @@ module.exports = async (context, input) => {
     input.cartItems.map(item => {
       sync = sync.then(
         () => changeCartItemQuantity(_get(item, 'CartItemId', item.cartItemId), item.quantity, apiConfig)
-          .catch(e => throwOnApiError(e, context))
+          .catch(e => e.statusCode === 404 ? NotFoundError() : throwOnApiError(e, context))
           .then(swCart => throwOnCartInfoErrors(swCart.errors, context))
       )
       return sync

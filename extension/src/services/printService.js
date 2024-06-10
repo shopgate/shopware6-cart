@@ -12,7 +12,7 @@ const getPrice = (price, currency) => {
 }
 
 const getNumber = (price, currency) => {
-  if (currency === 'EUR') {
+  if (price && currency === 'EUR') {
     return price.toString().replace('.', ',')
   }
 
