@@ -15,10 +15,10 @@
     "postinstall": "./post-install.sh"
   },
   "dependencies": {
-    "@apite/shopware6-utility": "^1.1.1",
+    "@apite/shopware6-utility": "^1.1.2",
     "@shopware-pwa/shopware-6-client": "^1.6.1",
-    "lodash.get": "^4.4.2",
-    "currency-formatter": "^1.5.9"
+    "currency-formatter": "^1.5.9",
+    "lodash.get": "^4.4.2"
   },
   "devDependencies": {
     "@shopware-pwa/commons": "^1.5.3",
@@ -26,8 +26,9 @@
     "@types/lodash.get": "^4.4.7",
     "@types/node": "^17.0.19",
     "dotenv": "^16.0.0",
-    "eslint": "^8.16.0",
-    "eslint-config-standard": "^17.0.0",
+    "standard": "^10.0.3",
+    "eslint": "^6.8.0",
+    "eslint-config-standard": "^14.0.0",
     "eslint-plugin-import": "^2.26.0",
     "eslint-plugin-n": "^15.5.0",
     "eslint-plugin-node": "^11.1.0",
