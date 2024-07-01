@@ -5,6 +5,7 @@ const {
   errorManager: { throwOnApiError }
 } = require('@apite/shopware6-utility')
 const { getCart } = require('@shopware-pwa/shopware-6-client')
+const { decorateMessage } = require('../services/logDecorator')
 
 /**
  * @param {ApiteSW6Utility.PipelineContext} context
@@ -14,6 +15,7 @@ module.exports = async (context) => {
   const apiConfig = await createApiConfig(context)
   const swCart = await getCart(apiConfig).catch(e => throwOnApiError(e, context))
 
-  context.log.debug('Cart token received: ' + swCart.token)
+  context.log.debug(decorateMessage('Cart token received: ' + swCart.token))
+
   return { swCart }
 }

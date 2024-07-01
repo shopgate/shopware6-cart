@@ -4,6 +4,7 @@ const {
   configManager: { getEndpoint },
   connectApiManager: { getLoginUrl }
 } = require('@apite/shopware6-utility')
+const { decorateMessage } = require('../services/logDecorator')
 
 /**
  * @param {ApiteSW6Utility.PipelineContext} context
@@ -11,9 +12,11 @@ const {
  * @returns {Promise<ApiteSW6Utility.UrlResponse>}
  */
 module.exports = async (context, { token, expiration }) => {
-  const url = getLoginUrl(getEndpoint(context), { token, affiliateCode: 'SGConnect_App' }).toString()
-
-  context.log.debug('Checkout URL: ' + url)
+  const url = getLoginUrl(
+    getEndpoint(context),
+    { token, affiliateCode: 'SGConnect_App' }
+  ).toString()
+  context.log.debug(decorateMessage('Checkout URL: ' + url))
 
   return {
     url,
