@@ -6,4 +6,4 @@
  * @param {ApiteSW6Utility.PipelineContext} context
  * @returns {Promise<void>}
  */
-module.exports = async (context) => context.log.debug('If favorites is installed, you should not be seeing this')
+module.exports = async (context) => context.log.debug({}, 'If favorites is installed, you should not be seeing this')

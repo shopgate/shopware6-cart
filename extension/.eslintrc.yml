@@ -1,5 +1,10 @@
 root: true
 extends:
-  - eslint-config-standard
+  - standard
 env:
+  es2020: true
   node: true
+globals:
+  AggregateError: readonly
+  FinalizationRegistry: readonly
+  WeakRef: readonly
