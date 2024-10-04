@@ -1,8 +1,10 @@
 'use strict'
 
 const _get = require('lodash.get')
-const { getProducts } = require('@shopware-pwa/shopware-6-client')
-const { apiManager: { createApiConfig } } = require('@apite/shopware6-utility')
+const {
+  apiManager: { getProducts },
+  clientManger: { createApiConfig }
+} = require('@apite/shopware6-utility')
 const { decorateError } = require('../services/logDecorator')
 
 /**
@@ -10,7 +12,7 @@ const { decorateError } = require('../services/logDecorator')
  *
  * @param {ApiteSW6Utility.PipelineContext} context
  * @param {ApiteSW6Cart.Input} input
- * @returns {Promise<{swCart: ApiteSW6Utility.SWCart}>}
+ * @returns {Promise<{swCart: Cart}>}
  */
 module.exports = async (context, { swCart }) => {
   const lineItemIds = swCart.lineItems
@@ -38,7 +40,7 @@ module.exports = async (context, { swCart }) => {
 /**
  * @param {ApiteSW6Utility.PipelineContext} context
  * @param {Array<string>} ids
- * @returns {Promise<EntityResult<"product", Product[]>|undefined>}
+ * @returns {Promise<EntityResult<'product', Product[]>|null>}
  */
 const getProductDetails = async (context, ids) => {
   const apiConfig = await createApiConfig(context)
@@ -48,7 +50,7 @@ const getProductDetails = async (context, ids) => {
     associations: { unit: { 'total-count-mode': 1 } }
   }
 
-  return getProducts(criteria, apiConfig).catch(e => {
+  return getProducts(apiConfig, criteria).catch(e => {
     context.log.error(decorateError(e))
     return null
   })

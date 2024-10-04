@@ -1,10 +1,10 @@
 'use strict'
 
 const {
-  apiManager: { createApiConfig },
+  apiManager: { addCartItems },
+  clientManger: { createApiConfig },
   contextManager: { getCouponCode, removeCouponCode }
 } = require('@apite/shopware6-utility')
-const { addPromotionCode } = require('@shopware-pwa/shopware-6-client')
 
 /**
  * We avoid throwing errors in this call as it's
@@ -19,7 +19,7 @@ module.exports = async (context) => {
     return
   }
   const apiConfig = await createApiConfig(context)
-  await addPromotionCode(coupon, apiConfig)
+  await addCartItems(apiConfig, [{ type: 'promotion', referencedId: coupon }])
     .then(() => removeCouponCode(context))
     .catch(() => {})
 }

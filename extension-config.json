@@ -40,7 +40,7 @@
         "description": "If not provided it will use the default language of the SalesChannel. Otherwise please go to admin backend, Settings > Languages > [Language you want]. Copy the ID in the website URL bar, e.g. http://example.com/.../detail/fa964a97a1e841a1bbf04471862ccc7f",
         "required": false,
         "options": {
-          "placeholder": "fa964a97a1e841a1bbf04471862ccc7f"
+          "placeholder": "2fbb5fe2e29a4d70aa5854ce7ce3e20b"
         }
       }
     },

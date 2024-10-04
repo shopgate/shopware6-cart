@@ -8,7 +8,7 @@ const SW_TYPE_PRODUCT = 'product'
 const SW_TYPE_COUPON = 'promotion'
 
 /**
- * @param {ApiteSW6Utility.SWLineItem} lineItem
+ * @param {LineItem} lineItem
  * @return {{type: string, value: number}}
  */
 const getCouponPrice = function (lineItem) {
@@ -51,7 +51,7 @@ module.exports = async (context, input) => {
       product: {
         id: lineItem.referencedId,
         name: lineItem.label,
-        featuredImageUrl: imgList && imgList.hasOwnProperty(lineItem.id) ? imgList[lineItem.id] : lineItem.cover.url,
+        featuredImageUrl: _get(imgList, 'lineItem.id') || lineItem.cover.url,
         price: {
           unit: lineItem.price.unitPrice,
           default: lineItem.price.totalPrice,
