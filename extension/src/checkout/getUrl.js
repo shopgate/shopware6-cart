@@ -9,7 +9,7 @@ const { decorateMessage } = require('../services/logDecorator')
 /**
  * @param {ApiteSW6Utility.PipelineContext} context
  * @param {SGConnectAPI.LoginTokenResponse} input
- * @returns {Promise<ApiteSW6Utility.UrlResponse>}
+ * @returns {Promise<SGConnectAPI.UrlResponse>}
  */
 module.exports = async (context, { token, expiration }) => {
   const url = getLoginUrl(
