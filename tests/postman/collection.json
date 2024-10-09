@@ -1585,6 +1585,451 @@
 			"name": "Errors",
 			"item": [
 				{
+					"name": "Stock / steps",
+					"item": [
+						{
+							"name": "SWA: create soon no stock prod",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Product created\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{gen_access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"overwrites\": {\r\n        \"id\": \"2fd33d675f2f48da85d10be4a976578c\",\r\n        \"name\" : \"API: soon to be out of stock\",\r\n        \"productNumber\" : \"SG.CONNECT.DEMO.NO.STOCK.02\",\r\n        \"stock\": 100,\r\n        \"isCloseout\": true,\r\n        \"releaseDate\": \"2022-01-29T11:00:04.389+00:00\"\r\n    },\r\n    \"cloneChildren\": false\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{sw_endpoint_api}}/_action/clone/product/{{catalog_product_advPrices_id}}",
+									"host": [
+										"{{sw_endpoint_api}}"
+									],
+									"path": [
+										"_action",
+										"clone",
+										"product",
+										"{{catalog_product_advPrices_id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "WebC: add Product",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"products\": [\r\n        {\r\n            \"productId\": \"2fd33d675f2f48da85d10be4a976578c\",\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}{{endpoint_cart_products_add}}",
+									"host": [
+										"{{domain}}{{endpoint_cart_products_add}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SWA: reduce stock to 0",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Product updated\", function () {\r",
+											"    pm.response.to.have.status(204);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{gen_access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"stock\": 0\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{sw_endpoint_api}}/product/:id",
+									"host": [
+										"{{sw_endpoint_api}}"
+									],
+									"path": [
+										"product",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "2fd33d675f2f48da85d10be4a976578c"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "WebC: get Cart (no items)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json()\r",
+											"\r",
+											"// items out of stock are currently handled this way\r",
+											"pm.test('that the cart is empty', () => {\r",
+											"    pm.expect(response).to.be.an('object').and.not.empty\r",
+											"    pm.expect(response.cartItems).to.be.an('array').and.be.empty\r",
+											"})\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}{{endpoint_cart_get}}",
+									"host": [
+										"{{domain}}{{endpoint_cart_get}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SWA: min purchase",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Product updated\", function () {\r",
+											"    pm.response.to.have.status(204);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{gen_access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"stock\": 10,\r\n    \"minPurchase\": 3,\r\n    \"purchaseSteps\": 2\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{sw_endpoint_api}}/product/:id",
+									"host": [
+										"{{sw_endpoint_api}}"
+									],
+									"path": [
+										"product",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "2fd33d675f2f48da85d10be4a976578c"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "WebC: add Product (1)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"check error\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.error.code).to.eql('ECART');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check error\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.error.code).to.eql('ECART');\r",
+											"    pm.expect(jsonData.error.errors).to.not.be.empty;\r",
+											"    const error = jsonData.error.errors.pop();\r",
+											"    pm.expect(error.code).to.eq('EPURCHASESTEPS');\r",
+											"    pm.expect(error.messageParams.name).to.exist;\r",
+											"    pm.expect(error.messageParams.quantity).to.exist;\r",
+											"    pm.expect(error.messageParams.messageKey).to.eq('min-order-quantity');\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"products\": [\r\n        {\r\n            \"productId\": \"2fd33d675f2f48da85d10be4a976578c\",\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}{{endpoint_cart_products_add}}",
+									"host": [
+										"{{domain}}{{endpoint_cart_products_add}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "WebC: get Cart (qty check)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const response = pm.response.json()\r",
+											"pm.test('that the cart is not empty', () => {\r",
+											"    pm.expect(response).to.be.an('object').and.not.empty\r",
+											"    pm.expect(response.cartItems).to.be.an('array').and.not.empty\r",
+											"    pm.expect(response.cartItems.length).to.equal(1)\r",
+											"})\r",
+											"\r",
+											"pm.test('the cart qty is correct', () => {\r",
+											"    const lineItem = response.cartItems.find(item => item.product.id === '2fd33d675f2f48da85d10be4a976578c')\r",
+											"    pm.expect(lineItem).to.be.an('object')\r",
+											"    pm.expect(lineItem.quantity).to.eq(3)\r",
+											"})"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}{{endpoint_cart_get}}",
+									"host": [
+										"{{domain}}{{endpoint_cart_get}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "WebC: add Product (1)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"check error\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.error.code).to.eql('ECART');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check error\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.error.code).to.eql('ECART');\r",
+											"    pm.expect(jsonData.error.errors).to.not.be.empty;\r",
+											"    const error = jsonData.error.errors.pop();\r",
+											"    pm.expect(error.code).to.eq('EPURCHASESTEPS');\r",
+											"    pm.expect(error.messageParams.messageKey).to.eq('purchase-steps-quantity');\r",
+											"    // hope that one day these will exist & we can update the message with params\r",
+											"    pm.expect(error.messageParams.name).to.not.exist;\r",
+											"    pm.expect(error.messageParams.quantity).to.not.exist;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"products\": [\r\n        {\r\n            \"productId\": \"2fd33d675f2f48da85d10be4a976578c\",\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}{{endpoint_cart_products_add}}",
+									"host": [
+										"{{domain}}{{endpoint_cart_products_add}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SWA: cleanup product",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Product deleted\", function () {\r",
+											"    pm.response.to.have.status(204);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{gen_access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{sw_endpoint_api}}/product/:id",
+									"host": [
+										"{{sw_endpoint_api}}"
+									],
+									"path": [
+										"product",
+										":id"
+									],
+									"variable": [
+										{
+											"key": "id",
+											"value": "2fd33d675f2f48da85d10be4a976578c"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"description": "After adding the product to cart, reducing the product's stock will result in not having the item in cart anymore. Maybe will change one day"
+				},
+				{
 					"name": "WebC: add Products (disabled)",
 					"event": [
 						{
@@ -1615,6 +2060,52 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"products\": [\r\n        {\r\n            \"productId\": \"{{catalog_product_disabled}}\",\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{domain}}{{endpoint_cart_products_add}}",
+							"host": [
+								"{{domain}}{{endpoint_cart_products_add}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "WebC: add Products (no stock)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"check error\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.error.code).to.eql('ECART');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Check error\", function () {\r",
+									"    var jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.error.code).to.eql('ECART');\r",
+									"    pm.expect(jsonData.error.errors).to.not.be.empty;\r",
+									"    const error = jsonData.error.errors.pop();\r",
+									"    pm.expect(error.code).to.eq('ESTOCKREACHED');\r",
+									"});"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"products\": [\r\n        {\r\n            \"productId\": \"{{created_product_noStock_id}}\",\r\n            \"quantity\": 1\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
