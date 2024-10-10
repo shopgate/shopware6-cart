@@ -75,7 +75,7 @@ module.exports = async (context, input) => {
 /**
  * Builds product price / unit block if it exists
  *
- * @param {{purchaseUnit: number,referenceUnit: ?number,price: ?number, unitName: string}|undefined} refPrice
+ * @param {ReferencePrice|undefined} refPrice
  * @param {string} currency - ISO3 currency
  * @return {string|undefined}
  */

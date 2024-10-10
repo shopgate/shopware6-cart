@@ -315,6 +315,50 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "SWA: re-index prod",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{gen_access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"offset\": 0\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{sw_endpoint_api}}/_action/indexing/:indexer",
+									"host": [
+										"{{sw_endpoint_api}}"
+									],
+									"path": [
+										"_action",
+										"indexing",
+										":indexer"
+									],
+									"variable": [
+										{
+											"key": "indexer",
+											"value": "product.indexer"
+										}
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -857,6 +901,50 @@
 									],
 									"path": [
 										"promotion"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SWA: re-index promo",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{gen_access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"offset\": 0\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{sw_endpoint_api}}/_action/indexing/:indexer",
+									"host": [
+										"{{sw_endpoint_api}}"
+									],
+									"path": [
+										"_action",
+										"indexing",
+										":indexer"
+									],
+									"variable": [
+										{
+											"key": "indexer",
+											"value": "promotion.indexer"
+										}
 									]
 								}
 							},
@@ -1735,6 +1823,57 @@
 							"response": []
 						},
 						{
+							"name": "SWA: re-index 1 prod",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{gen_access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"ids\": [\n        \"2fd33d675f2f48da85d10be4a976578c\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{sw_endpoint_api}}/_action/index-products",
+									"host": [
+										"{{sw_endpoint_api}}"
+									],
+									"path": [
+										"_action",
+										"index-products"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "WebC: get Cart (no items)",
 							"event": [
 								{
@@ -1828,6 +1967,57 @@
 											"key": "id",
 											"value": "2fd33d675f2f48da85d10be4a976578c"
 										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SWA: re-index 1 prod",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 204\", function () {",
+											"    pm.response.to.have.status(204);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{gen_access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"ids\": [\n        \"2fd33d675f2f48da85d10be4a976578c\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{sw_endpoint_api}}/_action/index-products",
+									"host": [
+										"{{sw_endpoint_api}}"
+									],
+									"path": [
+										"_action",
+										"index-products"
 									]
 								}
 							},
