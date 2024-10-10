@@ -2574,7 +2574,7 @@
 											"    pm.expect(coupons).to.have.length(1);\r",
 											"})\r",
 											"pm.test('the first coupon is in the cart', () => {\r",
-											"    const lineItem = response.cartItems.find(item => item.coupon?.code === pm.environment.get('created_promotion_byCode_code'))\r",
+											"    const lineItem = response.cartItems.find(item => item.coupon && item.coupon.code === pm.environment.get('created_promotion_byCode_code'))\r",
 											"    pm.expect(lineItem).to.be.an('object')\r",
 											"    pm.expect(lineItem.quantity).to.eq(1)\r",
 											"    pm.expect(lineItem.type).to.eq('coupon')\r",
@@ -2583,7 +2583,8 @@
 											"    pm.expect(lineItem.coupon.savedPrice.value).to.eq(2.25)\r",
 											"})"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -2610,6 +2611,20 @@
 						},
 						{
 							"name": "WebC: add Products",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {",
+											"    pm.response.to.have.status(200);",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
 							"request": {
 								"method": "POST",
 								"header": [],
@@ -2648,7 +2663,7 @@
 											"    pm.expect(coupons).to.have.length(3);\r",
 											"})\r",
 											"pm.test('the first coupon is in the cart', () => {\r",
-											"    const lineItem = response.cartItems.find(item => item.coupon?.savedPrice?.type === 'percentage')\r",
+											"    const lineItem = response.cartItems.find(item => item.coupon && item.coupon.savedPrice && item.coupon.savedPrice.type === 'percentage')\r",
 											"    pm.expect(lineItem).to.be.an('object', 'should have found line item')\r",
 											"    pm.expect(lineItem.quantity).to.eq(1)\r",
 											"    pm.expect(lineItem.type).to.eq('coupon')\r",
@@ -2670,6 +2685,14 @@
 											"    pm.expect(percentDiscount.amount).to.eq(247.98)\r",
 											"})"
 										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"packages": {},
 										"type": "text/javascript"
 									}
 								}
@@ -3031,7 +3054,7 @@
 											"    pm.expect(coupons).to.have.length(1);\r",
 											"})\r",
 											"pm.test('the first coupon is in the cart', () => {\r",
-											"    const lineItem = response.cartItems.find(item => item.coupon?.code === pm.environment.get('created_promotion_3item_code'))\r",
+											"    const lineItem = response.cartItems.find(item => item.coupon && item.coupon.code === pm.environment.get('created_promotion_3item_code'))\r",
 											"    pm.expect(lineItem).to.be.an('object')\r",
 											"    pm.expect(lineItem.quantity).to.eq(1)\r",
 											"    pm.expect(lineItem.type).to.eq('coupon')\r",
@@ -3040,7 +3063,8 @@
 											"    pm.expect(lineItem.coupon.savedPrice.value).to.eq(1.73)\r",
 											"})"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -3257,7 +3281,7 @@
 											"    pm.expect(coupons).to.have.length(1);\r",
 											"})\r",
 											"pm.test('the first coupon is in the cart', () => {\r",
-											"    const lineItem = response.cartItems.find(item => item.coupon?.code === pm.environment.get('created_promotion_3item_code'))\r",
+											"    const lineItem = response.cartItems.find(item => item.coupon && item.coupon.code === pm.environment.get('created_promotion_3item_code'))\r",
 											"    pm.expect(lineItem).to.be.an('object')\r",
 											"    pm.expect(lineItem.quantity).to.eq(1)\r",
 											"    pm.expect(lineItem.type).to.eq('coupon')\r",
@@ -3267,7 +3291,8 @@
 											"    pm.environment.set('gen_lineItem_promoThree_id', lineItem.id);\r",
 											"})"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -3544,7 +3569,7 @@
 													"    pm.expect(coupons).to.have.length(1);\r",
 													"})\r",
 													"pm.test('the first coupon is in the cart', () => {\r",
-													"    const lineItem = response.cartItems.find(item => item.coupon?.code === pm.environment.get('created_promotion_3item_code'))\r",
+													"    const lineItem = response.cartItems.find(item => item.coupon && item.coupon.code === pm.environment.get('created_promotion_3item_code'))\r",
 													"    pm.expect(lineItem).to.be.an('object')\r",
 													"    pm.expect(lineItem.quantity).to.eq(1)\r",
 													"    pm.expect(lineItem.type).to.eq('coupon')\r",
@@ -3553,7 +3578,8 @@
 													"    pm.expect(lineItem.coupon.savedPrice.value).to.eq(1.73)\r",
 													"})"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -3794,7 +3820,7 @@
 													"    pm.expect(coupons).to.have.length(1);\r",
 													"})\r",
 													"pm.test('the first coupon is in the cart', () => {\r",
-													"    const lineItem = response.cartItems.find(item => item.coupon?.code === pm.environment.get('created_promotion_3item_code'))\r",
+													"    const lineItem = response.cartItems.find(item => item.coupon && item.coupon.code === pm.environment.get('created_promotion_3item_code'))\r",
 													"    pm.expect(lineItem).to.be.an('object')\r",
 													"    pm.expect(lineItem.quantity).to.eq(1)\r",
 													"    pm.expect(lineItem.type).to.eq('coupon')\r",
@@ -3803,7 +3829,8 @@
 													"    pm.expect(lineItem.coupon.savedPrice.value).to.eq(1.73)\r",
 													"})"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
