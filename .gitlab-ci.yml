@@ -153,6 +153,7 @@ publish to shopgate:
     - tar -xvf ${ARTIFACT} -C ./temp/
     - cd temp/extension
     - chmod u+x post-install.sh
+    - rm -rf ../tests
     # run npm so that post-install hook runs
-    - npm install
+    - npm run init
     - sgconnect extension upload temp --force
