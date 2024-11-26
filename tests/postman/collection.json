@@ -157,6 +157,53 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "SW: get shopware ver",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"get SW version\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.version).to.be.a('string');\r",
+											"    pm.environment.set(\"gen_shopware_version\", jsonData.version);\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{gen_access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{sw_endpoint_api}}/_info/config",
+									"host": [
+										"{{sw_endpoint_api}}"
+									],
+									"path": [
+										"_info",
+										"config"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -1766,6 +1813,59 @@
 							"response": []
 						},
 						{
+							"name": "WebC: add too many",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 500\", function () {\r",
+											"    pm.response.to.have.status(500);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Check error\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData.error.code).to.eql('ECART');\r",
+											"    pm.expect(jsonData.error.errors).to.not.be.empty;\r",
+											"    const error = jsonData.error.errors.pop();\r",
+											"    pm.expect(error.code).to.eq('ESTOCKREACHED');\r",
+											"    pm.expect(error.messageParams.messageKey).to.eq('product-stock-reached');\r",
+											"    // functionality is only supported in SW 6.4.10+\r",
+											"    if (Utility.version.isLT(pm.environment.get('gen_shopware_version'), '6.6.7.0')) {\r",
+											"        console.log('Skippin testing params as they are not introduced yet')\r",
+											"        return;\r",
+											"    }\r",
+											"    pm.expect(error.messageParams.name, 'name param should exist').to.exist;\r",
+											"    pm.expect(error.messageParams.quantity, 'qty param should exist').to.exist;\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"CartItem\": [\r\n        {\r\n            \"cartItemId\": \"2fd33d675f2f48da85d10be4a976578c\",\r\n            \"quantity\": 101\r\n        }\r\n    ]\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{domain}}{{endpoint_cart_products_update}}",
+									"host": [
+										"{{domain}}{{endpoint_cart_products_update}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
 							"name": "SWA: reduce stock to 0",
 							"event": [
 								{
@@ -2136,10 +2236,14 @@
 											"    pm.expect(jsonData.error.errors).to.not.be.empty;\r",
 											"    const error = jsonData.error.errors.pop();\r",
 											"    pm.expect(error.code).to.eq('EPURCHASESTEPS');\r",
-											"    pm.expect(error.messageParams.messageKey).to.eq('purchase-steps-quantity');\r",
-											"    // hope that one day these will exist & we can update the message with params\r",
-											"    pm.expect(error.messageParams.name).to.not.exist;\r",
-											"    pm.expect(error.messageParams.quantity).to.not.exist;\r",
+											"\r",
+											"    // params were fixed in this version\r",
+											"    if (Utility.version.isLT(pm.environment.get('gen_shopware_version'), '6.6.7.0')) {\r",
+											"        console.log('Skippin testing params as they are not introduced yet')\r",
+											"        return;\r",
+											"    }\r",
+											"    pm.expect(error.messageParams.name).to.exist;\r",
+											"    pm.expect(error.messageParams.quantity).to.exist;\r",
 											"});"
 										],
 										"type": "text/javascript",
@@ -2283,6 +2387,10 @@
 									"    pm.expect(jsonData.error.errors).to.not.be.empty;\r",
 									"    const error = jsonData.error.errors.pop();\r",
 									"    pm.expect(error.code).to.eq('ESTOCKREACHED');\r",
+									"    pm.expect(error.code).to.eq('EPURCHASESTEPS');\r",
+									"    pm.expect(error.messageParams.messageKey).to.eq('purchase-steps-quantity');\r",
+									"    // making sure the name exists even though we are not using in this string yet\r",
+									"    pm.expect(error.messageParams.name).to.exist;\r",
 									"});"
 								],
 								"type": "text/javascript",
@@ -5237,7 +5345,16 @@
 					"        pm.environment.set('gen_refresh_token', responseJson.refresh_token);",
 					"        console.log('Saved the token and expiry date');",
 					"    });",
-					"}"
+					"}",
+					"",
+					"/**",
+					" * Global utility functions",
+					" */",
+					"Utility = {};",
+					"// Version functionality",
+					"Utility.version = {};",
+					"const versionCompare = (a, b) => a.localeCompare(b, undefined, { numeric: true, sensitivity: 'base' });",
+					"Utility.version.isLT = (a, b) => versionCompare(a, b) < 0;"
 				]
 			}
 		},
