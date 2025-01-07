@@ -9,14 +9,11 @@
   "scripts": {
     "init": "npm i && cd ../frontend && npm i && cd ..",
     "utility:develop": "npm install --save ../../shopware6-utility",
-    "backend": "node -r dotenv/config $(which sgconnect) backend start",
-    "backend:dev": "node -r dotenv/config $(which sgconnect) backend start --inspect",
-    "frontend": "sgconnect frontend start",
+    "lint": "./node_modules/.bin/eslint --ext .js --ext .jsx .",
     "postinstall": "./post-install.sh"
   },
   "dependencies": {
-    "@apite/shopware6-utility": "^1.1.2",
-    "@shopware-pwa/shopware-6-client": "^1.6.1",
+    "@apite/shopware6-utility": "^2.0.0",
     "currency-formatter": "^1.5.9",
     "lodash.get": "^4.4.2"
   },
@@ -25,7 +22,6 @@
     "@types/bunyan": "^1.8.8",
     "@types/lodash.get": "^4.4.7",
     "@types/node": "^17.0.19",
-    "dotenv": "^16.0.0",
     "standard": "^10.0.3",
     "eslint": "^6.8.0",
     "eslint-config-standard": "^14.0.0",

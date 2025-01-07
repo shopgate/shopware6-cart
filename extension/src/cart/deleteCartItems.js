@@ -1,12 +1,12 @@
 'use strict'
 
 const {
-  apiManager: { createApiConfig },
+  apiManager: { removeCartItems },
+  clientManger: { createApiConfig },
   errorManager: { throwOnApiError, throwOnCartInfoErrors }
 } = require('@apite/shopware6-utility')
-const { removeCartItem } = require('@shopware-pwa/shopware-6-client')
 
-const NotFoundError = () => ({errors: [{ level: 1, messageKey: 'product-not-found'}]})
+const NotFoundError = () => ({ errors: [{ level: 1, messageKey: 'product-not-found' }] })
 
 /**
  * @param {ApiteSW6Utility.PipelineContext} context
@@ -21,7 +21,7 @@ module.exports = async (context, input) => {
     input.cartItemIds.map(
       lineItemId => {
         sync = sync.then(
-          () => removeCartItem(lineItemId, apiConfig)
+          () => removeCartItems(apiConfig, [lineItemId])
             .catch(e => e.statusCode === 404 ? NotFoundError() : throwOnApiError(e, context))
             .then(cart => throwOnCartInfoErrors(cart.errors, context))
         )

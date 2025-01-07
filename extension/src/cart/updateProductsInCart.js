@@ -1,13 +1,13 @@
 'use strict'
 
 const {
-  apiManager: { createApiConfig },
+  apiManager: { changeCartItemQuantity },
+  clientManger: { createApiConfig },
   errorManager: { throwOnApiError, throwOnCartInfoErrors }
 } = require('@apite/shopware6-utility')
-const { changeCartItemQuantity } = require('@shopware-pwa/shopware-6-client')
 const _get = require('lodash.get')
 
-const NotFoundError = () => ({errors: [{ level: 1, messageKey: 'product-not-found'}]})
+const NotFoundError = () => ({ errors: [{ level: 1, messageKey: 'product-not-found' }] })
 
 /**
  * @param {ApiteSW6Utility.PipelineContext} context
@@ -21,7 +21,10 @@ module.exports = async (context, input) => {
   await Promise.all(
     input.cartItems.map(item => {
       sync = sync.then(
-        () => changeCartItemQuantity(_get(item, 'CartItemId', item.cartItemId), item.quantity, apiConfig)
+        () => changeCartItemQuantity(apiConfig, [{
+          id: _get(item, 'CartItemId', item.cartItemId),
+          quantity: item.quantity
+        }])
           .catch(e => e.statusCode === 404 ? NotFoundError() : throwOnApiError(e, context))
           .then(swCart => throwOnCartInfoErrors(swCart.errors, context))
       )

@@ -1,11 +1,11 @@
 'use strict'
 
 const {
-  apiManager: { createApiConfig },
+  apiManager: { getSessionContext },
+  clientManger: { createApiConfig },
   errorManager: { throwOnApiError },
   errorList: { ContextDeSyncError }
 } = require('@apite/shopware6-utility')
-const { getSessionContext } = require('@shopware-pwa/shopware-6-client')
 const { decorateMessage } = require('../services/logDecorator')
 
 /**

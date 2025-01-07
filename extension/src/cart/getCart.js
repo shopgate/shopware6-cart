@@ -1,15 +1,15 @@
 'use strict'
 
 const {
-  apiManager: { createApiConfig },
+  apiManager: { getCart },
+  clientManger: { createApiConfig },
   errorManager: { throwOnApiError }
 } = require('@apite/shopware6-utility')
-const { getCart } = require('@shopware-pwa/shopware-6-client')
 const { decorateMessage } = require('../services/logDecorator')
 
 /**
  * @param {ApiteSW6Utility.PipelineContext} context
- * @returns {Promise<{swCart: ApiteSW6Utility.SWCart}>}
+ * @returns {Promise<{swCart: Cart}>}
  */
 module.exports = async (context) => {
   const apiConfig = await createApiConfig(context)

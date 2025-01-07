@@ -4,7 +4,7 @@
 
 /**
  * @typedef {Object} ApiteSW6Cart.Input
- * @property {ApiteSW6Utility.SWCart} swCart
+ * @property {Cart} swCart
  * @property {string} currency
  */
 
@@ -23,7 +23,7 @@
  * @property {Array<ApiteSW6Cart.SGCatalogProduct>} products
  */
 
- /**
+/**
  * @typedef ApiteSW6Cart.SGCatalogProduct
  * @property {string} id
  * @property {string} featuredImageUrl - image with color & other properties attached to it
@@ -78,7 +78,7 @@
 /**
  * @typedef {Object} ApiteSW6Cart.SGCartError
  * @property {string} entityId
- * @property {ApiteSW6Utility.SWEntityError.messageKey | string} code - e.g. ENOTFOUND
+ * @property {EntityError.messageKey | string} code - e.g. ENOTFOUND
  * @property {string} message
  * @property {Object|undefined} messageParams
  * @property {boolean|undefined} translated
@@ -109,7 +109,7 @@
 
 /**
  * @typedef {Object} ApiteSW6Cart.SGCartMessage
- * @property {ApiteSW6Utility.SWEntityError.messageKey | string} code
+ * @property {EntityError.messageKey | string} code
  * @property {'warning', 'error', 'info'} type
  * @property {string} message
  */

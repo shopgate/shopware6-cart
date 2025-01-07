@@ -1,12 +1,12 @@
 'use strict'
 
 const {
-  apiManager: { createApiConfig },
+  apiManager: { addCartItems },
+  clientManger: { createApiConfig },
   contextManager: { saveCouponCode, removeCouponCode },
   errorManager: { throwOnCartInfoErrors, throwOnApiError },
   errorList: { PromoNotFoundError, PromoNotEligibleError }
 } = require('@apite/shopware6-utility')
-const { addPromotionCode } = require('@shopware-pwa/shopware-6-client')
 
 /**
  * @param {ApiteSW6Utility.PipelineContext} context
@@ -16,9 +16,8 @@ const { addPromotionCode } = require('@shopware-pwa/shopware-6-client')
  */
 module.exports = async (context, input) => {
   const couponCode = input.couponCodes.pop()
-
   const apiConfig = await createApiConfig(context)
-  await addPromotionCode(couponCode, apiConfig)
+  await addCartItems(apiConfig, [{ type: 'promotion', referencedId: couponCode }])
     .catch(e => throwOnApiError(e, context))
     .then(swCart => {
       throwOnCartInfoErrors(swCart.errors, context)
