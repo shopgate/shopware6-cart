@@ -1813,7 +1813,7 @@
 							"response": []
 						},
 						{
-							"name": "WebC: add too many",
+							"name": "WebC: update too many",
 							"event": [
 								{
 									"listen": "test",
@@ -2387,8 +2387,7 @@
 									"    pm.expect(jsonData.error.errors).to.not.be.empty;\r",
 									"    const error = jsonData.error.errors.pop();\r",
 									"    pm.expect(error.code).to.eq('ESTOCKREACHED');\r",
-									"    pm.expect(error.code).to.eq('EPURCHASESTEPS');\r",
-									"    pm.expect(error.messageParams.messageKey).to.eq('purchase-steps-quantity');\r",
+									"    pm.expect(error.messageParams.messageKey).to.eq('product-out-of-stock');\r",
 									"    // making sure the name exists even though we are not using in this string yet\r",
 									"    pm.expect(error.messageParams.name).to.exist;\r",
 									"});"

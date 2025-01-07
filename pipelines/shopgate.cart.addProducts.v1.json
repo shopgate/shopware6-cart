@@ -4,42 +4,10 @@
     "id": "shopgate.cart.addProducts.v1",
     "public": true,
     "input": [
-      {"key": "sgxsMeta", "id": "1000"},
       {"key": "products", "id": "100"}
     ],
     "output": [],
     "steps": [
-      {
-        "type": "extension",
-        "id": "@apite/shopware6-cart",
-        "path": "@apite/shopware6-cart/src/product/extractIds.js",
-        "input": [
-          {"key": "products", "id": "100"}
-        ],
-        "output": [
-          {"key": "productIds", "id": "1021"}
-        ]
-      },
-      {
-        "type": "pipeline",
-        "id": "shopgate.catalog.getProducts.v1",
-        "input": [
-          {"key": "sgxsMeta", "id": "1000"},
-          {"key": "productIds", "id": "1021"}
-        ],
-        "output": [
-          {"key": "products", "id": "1022"}
-        ]
-      },
-      {
-        "type": "extension",
-        "id": "@apite/shopware6-cart",
-        "path": "@apite/shopware6-cart/src/product/handleFeaturedImages.js",
-        "input": [
-          {"key": "products", "id": "1022"}
-        ],
-        "output": []
-      },
       {
         "type": "extension",
         "id": "@apite/shopware6-cart",
