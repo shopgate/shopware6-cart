@@ -2,7 +2,6 @@
 
 const _get = require('lodash.get')
 const { getPrice, getNumber } = require('../../services/printService')
-const { getImageList } = require('../../services/productHandler')
 
 const SW_TYPE_PRODUCT = 'product'
 const SW_TYPE_COUPON = 'promotion'
@@ -23,7 +22,6 @@ const getCouponPrice = function (lineItem) {
  * @returns {Promise<{cartItems: ApiteSW6Cart.Item[]}>}
  */
 module.exports = async (context, input) => {
-  const imgList = await getImageList(context)
   const coupons = input.swCart.lineItems
     .filter(({ type }) => type === SW_TYPE_COUPON)
     .map((lineItem) => {
@@ -51,7 +49,7 @@ module.exports = async (context, input) => {
       product: {
         id: lineItem.referencedId,
         name: lineItem.label,
-        featuredImageUrl: _get(imgList, 'lineItem.id') || lineItem.cover.url,
+        featuredImageUrl: lineItem.cover.url,
         price: {
           unit: lineItem.price.unitPrice,
           default: lineItem.price.totalPrice,
