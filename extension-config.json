@@ -1,5 +1,5 @@
 {
-  "version": "2.0.1",
+  "version": "2.1.0",
   "id": "@apite/shopware6-cart",
   "configuration": {
     "endpoint": {
@@ -80,6 +80,19 @@
       "params": {
         "type": "json",
         "label": "Miscellaneous settings"
+      }
+    },
+    "displayGuestShipping": {
+      "type": "admin",
+      "destination": "backend",
+      "default": true,
+      "params": {
+        "type": "checkbox",
+        "label": "DisplayGuest Shipping",
+        "description": "Show shipping costs for guests",
+        "options": {
+          "label": "Show shipping charges"
+        }
       }
     }
   },
