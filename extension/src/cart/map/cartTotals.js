@@ -35,7 +35,11 @@ module.exports = async (context, input) => {
         )
     )
   }
-  if (input.swCart.deliveries.length) {
+  // print for guest only when display shipping is enabled
+  const isCustomer = context.meta.userId
+  const displayShipping = isCustomer || context.config.displayGuestShipping
+
+  if (displayShipping && input.swCart.deliveries.length) {
     const shipping = input.swCart.deliveries[0].shippingCosts.totalPrice
     totals.addTotal(
       (new Total('shipping', shipping, 'ApiteSW6Utility.cart.summaryShipping'))
