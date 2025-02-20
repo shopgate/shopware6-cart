@@ -11,16 +11,19 @@ module.exports = async (context, input) => {
   const totals = new TotalsHandler()
   // print for guest only when display shipping is enabled
   const displayShipping = context.meta.userId || context.config.displayGuestShipping
+  const shipTax = input.swCart.deliveries.length ? input.swCart.deliveries[0].shippingCosts.calculatedTaxes.reduce((total, { tax }) => tax + total, 0.0) : 0.0
   if (totalPrice > 0) {
     const grandTotal = displayShipping ? totalPrice : input.swCart.price.positionPrice
+    const subTotal = displayShipping ? input.swCart.price.netPrice : (input.swCart.price.netPrice - shipTax)
     const total = new Total('grandTotal', grandTotal)
-    if (displayShipping) {
-      total.addSubtotal('subTotal', input.swCart.price.netPrice, 'NET')
-    }
+    total.addSubtotal('subTotal', subTotal, 'NET')
     totals.addTotal(total)
   }
+
+  const allTaxes = calculatedTaxes.reduce((total, { tax }) => tax + total, 0.0)
+  const taxSummed = displayShipping ? allTaxes : (allTaxes - shipTax)
   totals.addTotal(
-    (new Total('tax', calculatedTaxes.reduce((total, { tax }) => tax + total, 0.0), 'ApiteSW6Utility.cart.summaryTax'))
+    (new Total('tax', taxSummed, 'ApiteSW6Utility.cart.summaryTax'))
       .setSubtotals(
         calculatedTaxes.map(
           ({ taxRate, tax }) => ({ type: 'tax', label: taxRate + '%', amount: tax })
@@ -39,6 +42,7 @@ module.exports = async (context, input) => {
         )
     )
   }
+
   if (displayShipping && input.swCart.deliveries.length) {
     const shipping = input.swCart.deliveries[0].shippingCosts.totalPrice
     totals.addTotal(
