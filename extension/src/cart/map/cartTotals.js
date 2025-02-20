@@ -9,11 +9,15 @@ const { Total, TotalsHandler } = require('../../services/totalsHandler')
 module.exports = async (context, input) => {
   const { totalPrice, calculatedTaxes } = input.swCart.price
   const totals = new TotalsHandler()
+  // print for guest only when display shipping is enabled
+  const displayShipping = context.meta.userId || context.config.displayGuestShipping
   if (totalPrice > 0) {
-    totals.addTotal(
-      (new Total('grandTotal', totalPrice))
-        .addSubtotal('subTotal', input.swCart.price.netPrice, 'NET')
-    )
+    const grandTotal = displayShipping ? totalPrice : input.swCart.price.positionPrice
+    const total = new Total('grandTotal', grandTotal)
+    if (displayShipping) {
+      total.addSubtotal('subTotal', input.swCart.price.netPrice, 'NET')
+    }
+    totals.addTotal(total)
   }
   totals.addTotal(
     (new Total('tax', calculatedTaxes.reduce((total, { tax }) => tax + total, 0.0), 'ApiteSW6Utility.cart.summaryTax'))
@@ -35,10 +39,6 @@ module.exports = async (context, input) => {
         )
     )
   }
-  // print for guest only when display shipping is enabled
-  const isCustomer = context.meta.userId
-  const displayShipping = isCustomer || context.config.displayGuestShipping
-
   if (displayShipping && input.swCart.deliveries.length) {
     const shipping = input.swCart.deliveries[0].shippingCosts.totalPrice
     totals.addTotal(
