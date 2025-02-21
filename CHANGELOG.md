@@ -5,12 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres
 to [Semantic Versioning](http://semver.org/).
 
+## 2.1.1
+
+- fixed total still has shipping value when config is enabled
+
 ## 2.1.0
 
 - added config to prevent guest shipping from displaying: `displayGuestShipping`
-
-## 2.0.1
-
 - removed dangling thumbnail code
 
 ## 2.0.0
