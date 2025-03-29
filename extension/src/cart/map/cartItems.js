@@ -49,7 +49,7 @@ module.exports = async (context, input) => {
       product: {
         id: lineItem.referencedId,
         name: lineItem.label,
-        featuredImageUrl: lineItem.cover.url,
+        featuredImageUrl: _get(lineItem, 'cover.url') || null,
         price: {
           unit: lineItem.price.unitPrice,
           default: lineItem.price.totalPrice,

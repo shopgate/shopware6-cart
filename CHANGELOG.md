@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres
 to [Semantic Versioning](http://semver.org/).
 
+## 2.1.2
+
+- fixed cart error when product does not have a cover image
+
 ## 2.1.1
 
 - fixed total still has shipping value when config is enabled
