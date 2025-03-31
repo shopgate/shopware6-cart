@@ -61,7 +61,7 @@ test:
     - cd $PWA_DIR
     - nvm install 12.22.10 --default
     - npm set unsafe-perm true --silent
-    - npm install --silent -g @shopgate/platform-sdk
+    - npm install --silent -g @shopgate/platform-sdk@1.11.2
     - sgconnect login --username "${SG_USER}" --password "${SG_PASS}"
     - sgconnect init --appId "${APP_ID}" --force
     - cd ${PWA_DIR}/extensions
