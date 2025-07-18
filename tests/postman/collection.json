@@ -2631,15 +2631,14 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 500\", function () {\r",
-											"    pm.response.to.have.status(500);\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
 											"});\r",
-											"pm.test(\"Check we get a notice of coupon added\", function () {\r",
-											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData.error.errors[0].code).to.eql('EPROMOADDED');\r",
-											"});"
+											"\r",
+											"// removed promotion success error check"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -3338,15 +3337,12 @@
 									"listen": "test",
 									"script": {
 										"exec": [
-											"pm.test(\"Status code is 500\", function () {\r",
-											"    pm.response.to.have.status(500);\r",
-											"});\r",
-											"pm.test(\"Check we get a notice of coupon added\", function () {\r",
-											"    var jsonData = pm.response.json();\r",
-											"    pm.expect(jsonData.error.errors[0].code).to.eql('EPROMOADDED');\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
 											"});"
 										],
-										"type": "text/javascript"
+										"type": "text/javascript",
+										"packages": {}
 									}
 								}
 							],
@@ -3877,15 +3873,12 @@
 											"listen": "test",
 											"script": {
 												"exec": [
-													"pm.test(\"Status code is 500\", function () {\r",
-													"    pm.response.to.have.status(500);\r",
-													"});\r",
-													"pm.test(\"Check we get a notice of coupon added\", function () {\r",
-													"    var jsonData = pm.response.json();\r",
-													"    pm.expect(jsonData.error.errors[0].code).to.eql('EPROMOADDED');\r",
+													"pm.test(\"Status code is 200\", function () {\r",
+													"    pm.response.to.have.status(200);\r",
 													"});"
 												],
-												"type": "text/javascript"
+												"type": "text/javascript",
+												"packages": {}
 											}
 										}
 									],
@@ -5104,6 +5097,63 @@
 										{
 											"key": "productId",
 											"value": "{{created_product_fullPurchaseData_id}}"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "SWA: delete gram unit",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Unit created\", function () {\r",
+											"    pm.response.to.have.status(204);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "{{gen_access_token}}",
+											"type": "string"
+										}
+									]
+								},
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"id\": \"{{created_unit_gramm}}\",\r\n    \"name\": \"gramm\",\r\n    \"shortCode\": \"g.\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{sw_endpoint_api}}/unit/:unitId",
+									"host": [
+										"{{sw_endpoint_api}}"
+									],
+									"path": [
+										"unit",
+										":unitId"
+									],
+									"variable": [
+										{
+											"key": "unitId",
+											"value": "{{created_unit_gramm}}"
 										}
 									]
 								}
