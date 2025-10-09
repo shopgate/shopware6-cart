@@ -31,6 +31,8 @@ class Total {
   }
 
   /**
+   * NB! Seems like this structure does not work at all
+   *
    * @param {string} type - e.g. subTotal, shipping, tax, payment, discount, grandTotal
    * @param {number} amount - e.g. 7.6
    * @param {string} label - label that appears on frontend (if theme allows)

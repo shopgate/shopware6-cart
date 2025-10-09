@@ -11,20 +11,20 @@ module.exports = async (context, input) => {
   const { totalPrice, calculatedTaxes, positionPrice, netPrice } = input.swCart.price
   const totals = new TotalsHandler()
   // print for guest only when display shipping is enabled
-  const displayShipping = context.meta.userId || context.config.displayGuestShipping
+  const displayShipping = !!context.meta.userId || context.config.displayGuestShipping
   const shipTax = input.swCart.deliveries.length ? input.swCart.deliveries[0].shippingCosts.calculatedTaxes.reduce((total, { tax }) => tax + total, 0.0) : 0.0
   if (totalPrice > 0) {
     const grandTotal = displayShipping ? totalPrice : positionPrice
+    totals.addTotal(new Total('grandTotal', grandTotal))
     const subTotal = displayShipping ? netPrice : (netPrice - shipTax)
-    const total = new Total('grandTotal', grandTotal)
-    total.addSubtotal('subTotal', subTotal, 'NET')
-    totals.addTotal(total)
+    totals.addTotal(new Total('subTotal', subTotal, 'NET'))
   }
 
   const allTaxes = calculatedTaxes.reduce((total, { tax }) => tax + total, 0.0)
   const taxSummed = displayShipping ? allTaxes : (allTaxes - shipTax)
   totals.addTotal(
     (new Total('tax', taxSummed, 'ApiteSW6Utility.cart.summaryTax'))
+      // these structures do not actually work despite documentation. Leaving for possible future of breakdown
       .setSubtotals(
         calculatedTaxes.map(
           ({ taxRate, tax }) => ({ type: 'tax', label: taxRate + '%', amount: tax })
@@ -36,6 +36,7 @@ module.exports = async (context, input) => {
   if (promos.length) {
     totals.addTotal(
       (new Total('discount', promos.reduce((total, { price: { totalPrice } }) => -totalPrice + total, 0.0)))
+        // these structures do not actually work despite documentation. Leaving for possible future of breakdown
         .setSubtotals(
           promos.map(
             promo => ({ type: 'discount', label: promo.label, amount: -promo.price.totalPrice })
