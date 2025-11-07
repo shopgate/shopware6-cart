@@ -1,5 +1,5 @@
 {
-  "version": "2.1.4",
+  "version": "2.1.5",
   "id": "@apite/shopware6-cart",
   "configuration": {
     "endpoint": {

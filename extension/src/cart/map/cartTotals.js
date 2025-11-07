@@ -14,10 +14,10 @@ module.exports = async (context, input) => {
   const displayShipping = !!context.meta.userId || context.config.displayGuestShipping
   const shipTax = input.swCart.deliveries.length ? input.swCart.deliveries[0].shippingCosts.calculatedTaxes.reduce((total, { tax }) => tax + total, 0.0) : 0.0
   if (totalPrice > 0) {
+    const subTotal = displayShipping ? positionPrice : (netPrice - shipTax)
+    totals.addTotal(new Total('subTotal', subTotal))
     const grandTotal = displayShipping ? totalPrice : positionPrice
     totals.addTotal(new Total('grandTotal', grandTotal))
-    const subTotal = displayShipping ? netPrice : (netPrice - shipTax)
-    totals.addTotal(new Total('subTotal', subTotal, 'NET'))
   }
 
   const allTaxes = calculatedTaxes.reduce((total, { tax }) => tax + total, 0.0)
