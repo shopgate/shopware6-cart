@@ -9,6 +9,12 @@
  */
 
 /**
+ * @typedef {Object} ApiteSW6Cart.CouponToItemMapInput
+ * @property {Cart} swCart
+ * @property {string[]} couponCodes
+ */
+
+/**
  * @typedef {Object} ApiteSW6Cart.SGAddProductInput
  * @property {Array<ApiteSW6Cart.SGAadProduct>} products
  * @typedef {Object} ApiteSW6Cart.SGAadProduct
