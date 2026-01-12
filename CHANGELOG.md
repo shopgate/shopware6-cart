@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres
 to [Semantic Versioning](http://semver.org/).
 
+## 2.1.6
+
+- changed coupon removal to no longer check lineItem.type
+
 ## 2.1.5
 
 - changed subTotal to display `positionPrice` instead of `netPrice`

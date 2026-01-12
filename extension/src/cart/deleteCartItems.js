@@ -6,6 +6,10 @@ const {
   errorManager: { throwOnApiError, throwOnCartInfoErrors }
 } = require('@apite/shopware6-utility')
 
+/**
+ * Mocks error to pass down to utility to handle & present to customer
+ * @returns {{errors: [{messageKey: string, level: number}]}}
+ */
 const NotFoundError = () => ({ errors: [{ level: 1, messageKey: 'product-not-found' }] })
 
 /**
