@@ -8,9 +8,9 @@
   },
   "scripts": {
     "init": "npm i && cd ../frontend && npm i && cd ..",
+    "init:ci": "npm i --ignore-scripts && cd ../frontend && npm i --ignore-scripts && cd ..",
     "utility:develop": "npm install --save ../../shopware6-utility",
-    "lint": "./node_modules/.bin/eslint --ext .js --ext .jsx .",
-    "postinstall": "./post-install.sh"
+    "lint": "./node_modules/.bin/eslint --ext .js --ext .jsx ."
   },
   "dependencies": {
     "@apite/shopware6-utility": "^2.0.1",
