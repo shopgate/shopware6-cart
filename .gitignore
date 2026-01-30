@@ -64,4 +64,3 @@ frontend/config.json
 
 pnpm-lock.yaml
 postman-report.html
-extension/src/locale/*.json

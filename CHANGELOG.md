@@ -1,9 +1,8 @@
 # Changelog
 
-All notable changes to this project will be documented in this file.
+## 2.1.7
 
-The format is based on [Keep a Changelog](http://keepachangelog.com/) and this project adheres
-to [Semantic Versioning](http://semver.org/).
+- moved translation files from utility to extension
 
 ## 2.1.6
 
