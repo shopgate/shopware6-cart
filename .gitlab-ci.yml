@@ -59,9 +59,9 @@ test:
       fi
     - mkdir -p $PWA_DIR
     - cd $PWA_DIR
-    - nvm install 12.22.10 --default
+    - nvm install 18.20.8 --default
     - npm set unsafe-perm true --silent
-    - npm install --silent -g @shopgate/platform-sdk@1.11.2
+    - npm install --silent -g @shopgate/platform-sdk
     - sgconnect login --username "${SG_USER}" --password "${SG_PASS}"
     - sgconnect init --appId "${APP_ID}" --force
     - cd ${PWA_DIR}/extensions
@@ -69,7 +69,7 @@ test:
     - mkdir -p ${PWA_DIR}/extensions/$CI_PROJECT_NAME
     - cp -r $CI_PROJECT_DIR/* ${PWA_DIR}/extensions/$CI_PROJECT_NAME
     - npm run init --silent --prefix ${PWA_DIR}/extensions/ext-shopware6-user/extension
-    - npm run init --silent --prefix ${PWA_DIR}/extensions/$CI_PROJECT_NAME/extension
+    - npm run init:ci --silent --prefix ${PWA_DIR}/extensions/$CI_PROJECT_NAME/extension
     - sgconnect extension attach ext-shopware6-user $CI_PROJECT_NAME
     - touch $CI_PROJECT_DIR/backend_output.log
     - sgconnect backend start >> $CI_PROJECT_DIR/backend_output.log 2>&1 &
@@ -152,8 +152,6 @@ publish to shopgate:
     - mkdir temp
     - tar -xvf ${ARTIFACT} -C ./temp/
     - cd temp/extension
-    - chmod u+x post-install.sh
     - rm -rf ../tests
-    # run npm so that post-install hook runs
-    - npm run init
+    - npm run init:ci
     - sgconnect extension upload temp --force
