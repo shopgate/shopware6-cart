@@ -47,8 +47,19 @@ jobs:
       APP_ID: ${{ secrets.APP_ID }}
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - name: Checkout (manual git clone)
+        shell: bash
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$CI_PROJECT_DIR"
+          cd "$CI_PROJECT_DIR"
+
+          git init
+          git remote add origin "https://github.com/${GITHUB_REPOSITORY}.git"
+          git -c http.extraheader="AUTHORIZATION: bearer ${GITHUB_TOKEN}" fetch --no-tags --depth=1 origin "${GITHUB_REF}"
+          git checkout --detach FETCH_HEAD
 
       - name: Restore cache (pull-only behavior)
         uses: actions/cache/restore@v4
