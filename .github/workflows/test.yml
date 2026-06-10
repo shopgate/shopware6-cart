@@ -61,15 +61,40 @@ jobs:
         shell: bash
         run: |
           set -euo pipefail
+
+          retry_cmd() {
+            local max_attempts="$1"
+            local delay_seconds="$2"
+            shift 2
+            local attempt=1
+
+            until "$@"; do
+              if [ "$attempt" -ge "$max_attempts" ]; then
+                echo "Command failed after ${max_attempts} attempts: $*"
+                return 1
+              fi
+              echo "Command failed (attempt ${attempt}/${max_attempts}), retrying in ${delay_seconds}s: $*"
+              attempt=$((attempt + 1))
+              sleep "$delay_seconds"
+            done
+          }
+
           export LANG="en_US.UTF-8"
           export APP_URL="http://$HOSTNAME"
           export SW_ENDPOINT="$APP_URL"
 
           cd "$PROJECT_ROOT"
           [ -d "$CI_PROJECT_DIR/.cache" ] && mv "$CI_PROJECT_DIR/.cache" "$PROJECT_ROOT/"
+
+          # GitHub container jobs can skip image entrypoint startup. Try to start DB service explicitly.
+          if command -v service >/dev/null 2>&1; then
+            service mysql start >/dev/null 2>&1 || true
+            service mariadb start >/dev/null 2>&1 || true
+          fi
+
           make -C "$PROJECT_ROOT/../" xdebug-off
           composer require --prefer-source "$PLUGIN_COMPOSER"
-          bin/console plugin:refresh --quiet
+          retry_cmd 20 3 bin/console plugin:refresh --quiet
           bin/console plugin:install --activate "$PLUGIN_NAME" --quiet
           bin/console sales-channel:update:domain "$HOSTNAME"
           bin/console secrets:set APP_SECRET --random --quiet
