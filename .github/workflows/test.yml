@@ -14,9 +14,9 @@ jobs:
     # Reflects GitLab rules:
     # - push only on default branch
     # - all merge request events
-    if: >-
-      github.event_name == 'pull_request' ||
-      (github.event_name == 'push' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch))
+#    if: >-
+#      github.event_name == 'pull_request' ||
+#      (github.event_name == 'push' && github.ref == format('refs/heads/{0}', github.event.repository.default_branch))
     runs-on: ubuntu-latest
     container:
       image: dockware/dev:6.6.8.2
