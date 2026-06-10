@@ -20,6 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     container:
       image: dockware/dev:6.6.8.2
+      options: --user 0
 
     env:
       PROJECT_ROOT: /var/www/html
@@ -40,32 +41,20 @@ jobs:
       PLATFORM_BRANCH: '6.6.8.2'
       PLUGIN_NAME: SgateWebcheckoutSW6
       PLUGIN_COMPOSER: shopgate/webcheckout-shopware6
-      CI_PROJECT_DIR: /tmp/${{ github.event.repository.name }}
+      CI_PROJECT_DIR: ${{ github.workspace }}
       CI_PROJECT_NAME: ${{ github.event.repository.name }}
       SG_USER: ${{ secrets.SG_USER }}
       SG_PASS: ${{ secrets.SG_PASS }}
       APP_ID: ${{ secrets.APP_ID }}
 
     steps:
-      - name: Checkout (manual git clone)
-        shell: bash
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-        run: |
-          set -euo pipefail
-          rm -rf "$CI_PROJECT_DIR"
-          mkdir -p "$CI_PROJECT_DIR"
-          cd "$CI_PROJECT_DIR"
-
-          git init
-          git remote add origin "https://x-access-token:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git"
-          git fetch --no-tags --depth=1 origin "${GITHUB_REF}"
-          git checkout --detach FETCH_HEAD
+      - name: Checkout
+        uses: actions/checkout@v4
 
       - name: Restore cache (pull-only behavior)
         uses: actions/cache/restore@v4
         with:
-          path: ${{ env.CI_PROJECT_DIR }}/.cache
+          path: .cache
           key: ${{ env.PLUGIN_NAME }}-${{ env.PLATFORM_BRANCH }}
 
       - name: Before script
@@ -144,9 +133,9 @@ jobs:
         with:
           name: test-failure-artifacts
           path: |
-            ${{ env.CI_PROJECT_DIR }}/postman-report.html
-            ${{ env.CI_PROJECT_DIR }}/backend_output.log
-            ${{ env.CI_PROJECT_DIR }}/var_folder.tar.gz
-            ${{ env.CI_PROJECT_DIR }}/newman.junit.xml
+            postman-report.html
+            backend_output.log
+            var_folder.tar.gz
+            newman.junit.xml
           if-no-files-found: warn
           retention-days: 3
