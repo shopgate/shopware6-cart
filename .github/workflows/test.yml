@@ -40,7 +40,7 @@ jobs:
       PLATFORM_BRANCH: '6.6.8.2'
       PLUGIN_NAME: SgateWebcheckoutSW6
       PLUGIN_COMPOSER: shopgate/webcheckout-shopware6
-      CI_PROJECT_DIR: ${{ github.workspace }}
+      CI_PROJECT_DIR: /tmp/${{ github.event.repository.name }}
       CI_PROJECT_NAME: ${{ github.event.repository.name }}
       SG_USER: ${{ secrets.SG_USER }}
       SG_PASS: ${{ secrets.SG_PASS }}
@@ -53,6 +53,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           set -euo pipefail
+          rm -rf "$CI_PROJECT_DIR"
           mkdir -p "$CI_PROJECT_DIR"
           cd "$CI_PROJECT_DIR"
 
@@ -64,7 +65,7 @@ jobs:
       - name: Restore cache (pull-only behavior)
         uses: actions/cache/restore@v4
         with:
-          path: .cache
+          path: ${{ env.CI_PROJECT_DIR }}/.cache
           key: ${{ env.PLUGIN_NAME }}-${{ env.PLATFORM_BRANCH }}
 
       - name: Before script
@@ -143,9 +144,9 @@ jobs:
         with:
           name: test-failure-artifacts
           path: |
-            postman-report.html
-            backend_output.log
-            var_folder.tar.gz
-            newman.junit.xml
+            ${{ env.CI_PROJECT_DIR }}/postman-report.html
+            ${{ env.CI_PROJECT_DIR }}/backend_output.log
+            ${{ env.CI_PROJECT_DIR }}/var_folder.tar.gz
+            ${{ env.CI_PROJECT_DIR }}/newman.junit.xml
           if-no-files-found: warn
           retention-days: 3
