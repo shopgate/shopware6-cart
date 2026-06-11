@@ -4,7 +4,7 @@ const {
   apiManager: { changeCartItemQuantity },
   clientManger: { createApiConfig },
   errorManager: { throwOnApiError, throwOnCartInfoErrors }
-} = require('@apite/shopware6-utility')
+} = require('@shopgate/shopware6-utility')
 const _get = require('lodash.get')
 
 const NotFoundError = () => ({ errors: [{ level: 1, messageKey: 'product-not-found' }] })

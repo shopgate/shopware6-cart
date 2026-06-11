@@ -4,7 +4,7 @@ const {
   apiManager: { removeCartItems },
   clientManger: { createApiConfig },
   errorManager: { throwOnApiError, throwOnCartInfoErrors }
-} = require('@apite/shopware6-utility')
+} = require('@shopgate/shopware6-utility')
 
 /**
  * Mocks error to pass down to utility to handle & present to customer

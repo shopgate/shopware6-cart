@@ -4,7 +4,7 @@ const {
   apiManager: { addCartItems },
   clientManger: { createApiConfig },
   contextManager: { getCouponCode, removeCouponCode }
-} = require('@apite/shopware6-utility')
+} = require('@shopgate/shopware6-utility')
 
 /**
  * We avoid throwing errors in this call as it's

@@ -6,7 +6,7 @@ These translation files contain the `ApiteSW6Utility` namespace translations tha
 
 ## Important Notes
 
-- **Shared Across Extensions**: These translations are referenced by error handling code in the `@apite/shopware6-utility` package, which is used by:
+- **Shared Across Extensions**: These translations are referenced by error handling code in the `@shopgate/shopware6-utility` package, which is used by:
   - `ext-shopware6-cart` (this extension)
   - `ext-shopware6-user` (for login errors)
   - `ext-shopware6-favorites`

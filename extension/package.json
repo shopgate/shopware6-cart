@@ -1,10 +1,10 @@
 {
-  "name": "@apite/shopware6-cart",
-  "description": "Shopgate Connect Shopware 6 Cart extension created by Apite",
+  "name": "@shopgate/shopware6-cart",
+  "description": "Shopgate Connect Shopware 6 Cart extension created by Apite, maintained by Shopgate",
   "license": "Apache-2.0",
   "type": "commonjs",
   "repository": {
-    "url": "https://gitlab.com/apite/shopgate/connect-engage/ext-shopware6-cart"
+    "url": "https://github.com/shopgate/shopware6-cart"
   },
   "scripts": {
     "init": "npm i && cd ../frontend && npm i && cd ..",

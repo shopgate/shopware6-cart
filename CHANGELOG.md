@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.0.0
+- moved the package to the @shopgate organization at NPM and renamed to @shopgate/shopware6-cart
+
 ## 2.1.7
 
 - moved translation files from utility to extension

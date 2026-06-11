@@ -4,7 +4,7 @@ const {
   apiManager: { addCartItems },
   clientManger: { createApiConfig },
   errorManager: { throwOnCartErrors, throwOnApiError }
-} = require('@apite/shopware6-utility')
+} = require('@shopgate/shopware6-utility')
 
 /**
  * @param {ApiteSW6Utility.PipelineContext} context

@@ -6,7 +6,7 @@ const {
   contextManager: { saveCouponCode, removeCouponCode },
   errorManager: { throwOnCartInfoErrors, throwOnApiError },
   errorList: { PromoNotFoundError, PromoNotEligibleError }
-} = require('@apite/shopware6-utility')
+} = require('@shopgate/shopware6-utility')
 
 /**
  * @param {ApiteSW6Utility.PipelineContext} context

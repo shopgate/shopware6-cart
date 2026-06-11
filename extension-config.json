@@ -1,6 +1,6 @@
 {
-  "version": "2.1.7",
-  "id": "@apite/shopware6-cart",
+  "version": "3.0.0",
+  "id": "@shopgate/shopware6-cart",
   "configuration": {
     "endpoint": {
       "type": "admin",

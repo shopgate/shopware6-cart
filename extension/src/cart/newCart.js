@@ -5,7 +5,7 @@ const {
   clientManger: { createApiConfig },
   contextManager: { removeContextToken },
   errorManager: { throwOnApiError }
-} = require('@apite/shopware6-utility')
+} = require('@shopgate/shopware6-utility')
 const { decorateError } = require('../services/logDecorator')
 
 /**
