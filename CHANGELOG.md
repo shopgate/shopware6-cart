@@ -1,5 +1,8 @@
 # Changelog
 
+## 3.0.1
+- fixed outdated references to @apite/shopware6-utility, now @shopgate/shopware6-utility
+
 ## 3.0.0
 - moved the package to the @shopgate organization at NPM and renamed to @shopgate/shopware6-cart
 
