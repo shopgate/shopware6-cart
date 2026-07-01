@@ -99,27 +99,27 @@
   "components": [
     {
       "id": "de-DE",
-      "path": "frontend/src/locale/de-DE.json",
+      "path": "frontend/locale/de-DE.json",
       "type": "translations"
     },
     {
       "id": "en-US",
-      "path": "frontend/src/locale/en-US.json",
+      "path": "frontend/locale/en-US.json",
       "type": "translations"
     },
     {
       "id": "es-ES",
-      "path": "frontend/src/locale/es-ES.json",
+      "path": "frontend/locale/es-ES.json",
       "type": "translations"
     },
     {
       "id": "fr-FR",
-      "path": "frontend/src/locale/fr-FR.json",
+      "path": "frontend/locale/fr-FR.json",
       "type": "translations"
     },
     {
       "id": "it-IT",
-      "path": "frontend/src/locale/it-IT.json",
+      "path": "frontend/locale/it-IT.json",
       "type": "translations"
     },
     {
