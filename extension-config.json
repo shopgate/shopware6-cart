@@ -99,27 +99,27 @@
   "components": [
     {
       "id": "de-DE",
-      "path": "extension/src/locale/de-DE.json",
+      "path": "frontend/src/locale/de-DE.json",
       "type": "translations"
     },
     {
       "id": "en-US",
-      "path": "extension/src/locale/en-US.json",
+      "path": "frontend/src/locale/en-US.json",
       "type": "translations"
     },
     {
       "id": "es-ES",
-      "path": "extension/src/locale/es-ES.json",
+      "path": "frontend/src/locale/es-ES.json",
       "type": "translations"
     },
     {
       "id": "fr-FR",
-      "path": "extension/src/locale/fr-FR.json",
+      "path": "frontend/src/locale/fr-FR.json",
       "type": "translations"
     },
     {
       "id": "it-IT",
-      "path": "extension/src/locale/it-IT.json",
+      "path": "frontend/src/locale/it-IT.json",
       "type": "translations"
     },
     {
@@ -135,7 +135,7 @@
   ],
   "steps": [
     {
-      "path": "extension/src/hooks/addContextCouponToCart.js",
+      "path": "frontend/src/hooks/addContextCouponToCart.js",
       "description": "Attempts to add saved coupon after cart manipulation",
       "hooks": [
         "shopgate.cart.addProducts.v1:after",
@@ -146,7 +146,7 @@
       "output": []
     },
     {
-      "path": "extension/src/hooks/validateUserContext.js",
+      "path": "frontend/src/hooks/validateUserContext.js",
       "description": "Checks if the App customer context token is in sync with Shopware",
       "hooks": [
         "shopgate.checkout.getUrl.v1:before"
