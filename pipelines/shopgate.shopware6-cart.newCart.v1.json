@@ -1,7 +1,7 @@
 {
   "version": "1",
   "pipeline": {
-    "id": "apite.cart.newCart.v1",
+    "id": "shopgate.shopware6-cart.newCart.v1",
     "public": true,
     "input": [],
     "output": [
