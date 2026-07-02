@@ -9,8 +9,8 @@
     ],
     "steps": [
       {
-        "id": "@apite/shopware6-cart",
-        "path": "@apite/shopware6-cart/src/context/getTokenFromStorage.js",
+        "id": "@shopgate/shopware6-cart",
+        "path": "@shopgate/shopware6-cart/src/context/getTokenFromStorage.js",
         "type": "extension",
         "input": [],
         "output": [

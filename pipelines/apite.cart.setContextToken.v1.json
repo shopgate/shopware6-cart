@@ -9,8 +9,8 @@
     "output": [],
     "steps": [
       {
-        "id": "@apite/shopware6-cart",
-        "path": "@apite/shopware6-cart/src/context/setContextToken.js",
+        "id": "@shopgate/shopware6-cart",
+        "path": "@shopgate/shopware6-cart/src/context/setContextToken.js",
         "type": "extension",
         "input": [
           {"key": "contextToken", "id": "1000"}

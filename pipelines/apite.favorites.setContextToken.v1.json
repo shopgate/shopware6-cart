@@ -12,8 +12,8 @@
     "output": [],
     "steps": [
       {
-        "id": "@apite/shopware6-cart",
-        "path": "@apite/shopware6-cart/src/context/setContextTokenFavorites.js",
+        "id": "@shopgate/shopware6-cart",
+        "path": "@shopgate/shopware6-cart/src/context/setContextTokenFavorites.js",
         "type": "extension",
         "input": [
           {
