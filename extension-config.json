@@ -1,5 +1,5 @@
 {
-  "version": "3.0.2-beta.4",
+  "version": "3.0.2-beta.5",
   "id": "@shopgate/shopware6-cart",
   "configuration": {
     "endpoint": {
