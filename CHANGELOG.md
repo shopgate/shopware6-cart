@@ -1,8 +1,10 @@
 # Changelog
 
-## 3.0.2
+## 3.1.0
 
 - moved translation files to frontend folder to fix faulty error display in frontend
+- align pipeline names & references
+- requires `@shopgate/shopware6-user` v3.1.0 or higher
 
 ## 3.0.1
 
