@@ -11,8 +11,8 @@
     "steps": [
       {
         "type": "extension",
-        "id": "@apite/shopware6-cart",
-        "path": "@apite/shopware6-cart/src/context/getLoginToken.js",
+        "id": "@shopgate/shopware6-cart",
+        "path": "@shopgate/shopware6-cart/src/context/getLoginToken.js",
         "input": [
         ],
         "output": [
@@ -22,8 +22,8 @@
       },
       {
         "type": "extension",
-        "id": "@apite/shopware6-cart",
-        "path": "@apite/shopware6-cart/src/checkout/getUrl.js",
+        "id": "@shopgate/shopware6-cart",
+        "path": "@shopgate/shopware6-cart/src/checkout/getUrl.js",
         "input": [
           {"key": "token", "id": "1010"},
           {"key": "expiration", "id": "1020"}

@@ -13,8 +13,8 @@
     "steps": [
       {
         "type": "extension",
-        "id": "@apite/shopware6-cart",
-        "path": "@apite/shopware6-cart/src/cart/addCouponsToCart.js",
+        "id": "@shopgate/shopware6-cart",
+        "path": "@shopgate/shopware6-cart/src/cart/addCouponsToCart.js",
         "input": [
           {
             "id": "1020",

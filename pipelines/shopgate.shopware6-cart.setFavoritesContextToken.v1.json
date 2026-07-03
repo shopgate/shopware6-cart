@@ -1,7 +1,7 @@
 {
   "version": "1",
   "pipeline": {
-    "id": "apite.favorites.setContextToken.v1",
+    "id": "shopgate.shopware6-cart.setFavoritesContextToken.v1",
     "public": true,
     "input": [
       {
@@ -12,8 +12,8 @@
     "output": [],
     "steps": [
       {
-        "id": "@apite/shopware6-cart",
-        "path": "@apite/shopware6-cart/src/context/setContextTokenFavorites.js",
+        "id": "@shopgate/shopware6-cart",
+        "path": "@shopgate/shopware6-cart/src/context/setContextTokenFavorites.js",
         "type": "extension",
         "input": [
           {
